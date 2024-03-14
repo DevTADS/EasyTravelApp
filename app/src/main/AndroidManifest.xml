@@ -35,6 +35,8 @@
 
         <activity android:name=".ActivityEmpresa" />
 
+        <activity android:name=".NuevaActividad"
+            tools:ignore="Instantiatable" />
 
 
     </application>
