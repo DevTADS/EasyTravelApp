@@ -25,9 +25,9 @@
         android:layout_below="@id/iniciarsesion"
         android:layout_margin="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/done_icon"
+        android:drawableRight="@drawable/done_icon"
         android:drawablePadding="20dp"
-        android:hint="Usuario"
+        android:hint="Correo"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -39,7 +39,8 @@
         android:layout_below="@id/username"
         android:layout_margin="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/password_icon"
+
+        android:drawableRight="@drawable/password_icon"
         android:drawablePadding="20dp"
         android:hint="Contraseña"
         android:inputType="textPassword"

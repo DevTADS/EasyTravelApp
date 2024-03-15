@@ -1,6 +1,8 @@
 package com.example.easytravel;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +18,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.UUID;
-
 public class ActivityRegistro extends AppCompatActivity {
 
     private EditText usernameEditText;
@@ -26,6 +26,7 @@ public class ActivityRegistro extends AppCompatActivity {
     private Button registrarseButton;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private boolean passwordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ActivityRegistro extends AppCompatActivity {
         correoEditText = findViewById(R.id.correo);
         registrarseButton = findViewById(R.id.btn_registrarse);
 
-        // Configurar OnClickListener para el botón de registro
+        // Configurando OnClickListener para el botón de registro
         registrarseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +99,36 @@ public class ActivityRegistro extends AppCompatActivity {
                 }
             }
         });
+
+        // Configurando OnClickListener para el ícono de la contraseña
+        passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.password_icon, 0);
+        passwordEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passwordEditText.getRight() - passwordEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        togglePasswordVisibility();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    private void togglePasswordVisibility() {
+        if (passwordVisible) {
+            // Cambiar a contraseña oculta
+            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordVisible = false;
+        } else {
+            // Cambiar a texto visible
+            passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            passwordVisible = true;
+        }
+        // Mover el cursor al final del texto
+        passwordEditText.setSelection(passwordEditText.getText().length());
     }
 
     private void limpiarCampos() {
