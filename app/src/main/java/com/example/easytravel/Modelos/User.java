@@ -1,6 +1,6 @@
-package com.example.easytravel.model;
+package com.example.easytravel.Modelos;
 
-public class Usuario {
+public class User {
 
     private String uid;
     private String Nombre;
@@ -8,7 +8,7 @@ public class Usuario {
     private String password;
 
 
-    public Usuario() {
+    public User() {
     }
 
     public String getPassword() {

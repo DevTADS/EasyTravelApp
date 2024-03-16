@@ -1,10 +1,12 @@
-package com.example.easytravel;
+package com.example.easytravel.Actividades;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ActivityEmpresa  extends AppCompatActivity {
+import com.example.easytravel.R;
+
+public class ActivityLoginEmpresa extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

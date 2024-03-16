@@ -1,4 +1,4 @@
-package com.example.easytravel;
+package com.example.easytravel.Actividades;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easytravel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ActivityUser extends AppCompatActivity {
+public class ActivityLoginUsuario extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -55,10 +56,10 @@ public class ActivityUser extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Inicio de sesión exitoso, abrir la nueva actividad
-                                    startActivity(new Intent(ActivityUser.this, NuevaActividad.class));
+                                    startActivity(new Intent(ActivityLoginUsuario.this, ActivityHomeUsuario.class));
                                 } else {
                                     // Error al iniciar sesión, mostrar un mensaje de error
-                                    Toast.makeText(ActivityUser.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ActivityLoginUsuario.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -70,7 +71,7 @@ public class ActivityUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Abrir la actividad de registro al hacer clic en el botón de registro
-                startActivity(new Intent(ActivityUser.this, ActivityRegistro.class));
+                startActivity(new Intent(ActivityLoginUsuario.this, ActivityRegistro.class));
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.easytravel;
+package com.example.easytravel.Actividades;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easytravel.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Inicia la actividad ActivityUser
-                Intent intent = new Intent(MainActivity.this, ActivityUser.class);
+                Intent intent = new Intent(MainActivity.this, ActivityLoginUsuario.class);
                 startActivity(intent);
             }
         });
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Inicia la actividad ActivityUser
-                Intent intent = new Intent(MainActivity.this, ActivityEmpresa.class);
+                Intent intent = new Intent(MainActivity.this, ActivityLoginEmpresa.class);
                 startActivity(intent);
             }
         });
