@@ -11,6 +11,6 @@ public class ActivityHomeUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nueva);
+        setContentView(R.layout.activity_home_usuario);
     }
 }
