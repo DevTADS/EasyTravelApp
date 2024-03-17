@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         btn_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Inicia la actividad ActivityUser
                 Intent intent = new Intent(MainActivity.this, ActivityLoginUsuario.class);
                 startActivity(intent);
             }
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         btn_empresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Inicia la actividad ActivityUser
                 Intent intent = new Intent(MainActivity.this, ActivityLoginEmpresa.class);
                 startActivity(intent);
             }
