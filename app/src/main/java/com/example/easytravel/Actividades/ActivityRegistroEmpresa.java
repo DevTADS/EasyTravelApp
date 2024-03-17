@@ -1,9 +1,12 @@
 package com.example.easytravel.Actividades;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,15 +30,20 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
     private EditText campoUsuario;
     private EditText campoContraseña;
     private EditText campoCorreo;
+    private AutoCompleteTextView campoPais;
+    private EditText campoCiudad;
+    private EditText campoTelefono;
+    private EditText campoDireccion;
     private Button botonRegistrarse;
     private FirebaseAuthHelper authHelper;
     private FirestoreHelper firestoreHelper;
     private boolean contraseñaVisible = false;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_usuario);
+        setContentView(R.layout.activity_registro_empresa);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
         authHelper = new FirebaseAuthHelper();
@@ -45,7 +53,14 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoUsuario = findViewById(R.id.username);
         campoContraseña = findViewById(R.id.password);
         campoCorreo = findViewById(R.id.correo);
+        campoPais = findViewById(R.id.autoCompleteTextViewCountry);
+        campoTelefono = findViewById(R.id.telefono);
+        campoDireccion = findViewById(R.id.direccion);
         botonRegistrarse = findViewById(R.id.btn_registrarse);
+
+        // Configurar ArrayAdapter para el AutoCompleteTextView de país
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.countries));
+        campoPais.setAdapter(adapter);
 
         // Configurar OnClickListener para el botón de registro
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +69,12 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                 final String usuario = campoUsuario.getText().toString();
                 final String correo = campoCorreo.getText().toString();
                 final String contraseña = campoContraseña.getText().toString();
+                final String pais = campoPais.getText().toString();
+                final String ciudad = campoCiudad.getText().toString();
+                final String telefono = campoTelefono.getText().toString();
+                final String direccion = campoDireccion.getText().toString();
 
-                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
+                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty() || pais.isEmpty() || ciudad.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
                     validacion();
                 } else {
                     // Crear usuario en Firebase Authentication
@@ -68,6 +87,10 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                                 Map<String, Object> datosUsuario = new HashMap<>();
                                 datosUsuario.put("nombre", usuario);
                                 datosUsuario.put("correo", correo);
+                                datosUsuario.put("pais", pais);
+                                datosUsuario.put("ciudad", ciudad);
+                                datosUsuario.put("telefono", telefono);
+                                datosUsuario.put("direccion", direccion);
                                 guardarUsuarioEnFirestore(datosUsuario);
                             } else {
                                 // Error al crear usuario
@@ -133,6 +156,10 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoUsuario.setText("");
         campoCorreo.setText("");
         campoContraseña.setText("");
+        campoPais.setText("");
+        campoCiudad.setText("");
+        campoTelefono.setText("");
+        campoDireccion.setText("");
     }
 
     // Método para validar campos de texto
@@ -146,6 +173,17 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         if (campoContraseña.getText().toString().isEmpty()) {
             campoContraseña.setError("Requerido");
         }
+        if (campoPais.getText().toString().isEmpty()) {
+            campoPais.setError("Requerido");
+        }
+        if (campoCiudad.getText().toString().isEmpty()) {
+            campoCiudad.setError("Requerido");
+        }
+        if (campoTelefono.getText().toString().isEmpty()) {
+            campoTelefono.setError("Requerido");
+        }
+        if (campoDireccion.getText().toString().isEmpty()) {
+            campoDireccion.setError("Requerido");
+        }
     }
 }
-
