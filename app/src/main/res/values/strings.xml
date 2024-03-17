@@ -1,3 +1,18 @@
 <resources>
+    <string-array name="tipos_empresa">
+        <item>Hoteles</item>
+        <item>Restaurantes</item>
+        <item>Otros</item>
+    </string-array>
+
+    <string-array name="paises">
+        <item>Uruguay</item>
+        <item>Brasil</item>
+    </string-array>
+
+    <string-array name="ciudades_uruguay">
+        <item>Rivera</item>
+        <item>Livramento</item>
+    </string-array>
     <string name="app_name">EasyTravel</string>
 </resources>

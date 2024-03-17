@@ -1,50 +1,65 @@
 package com.example.easytravel.Actividades;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Spinner;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
 public class ActivityHomeEmpresa extends AppCompatActivity {
 
-    private EditText tipo_Empresa;
-    private EditText pais_Empresa;
-    private EditText ciudad_Empresa;
-    private Button registro;
-
+    // Declaración de variables para los componentes de la interfaz de usuario
+    private Spinner spinnerTipoEmpresaa, spinnerPaiss, spinnerCiudadd;
+    private EditText latitudEditText, longitudEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_empresa);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_home_empresa);
 
-        tipo_Empresa = findViewById(R.id.Tipo_empresa);
-        pais_Empresa = findViewById(R.id.Pais);
-        ciudad_Empresa = findViewById(R.id.Ciudad);
-        registro = findViewById(R.id.btn_registrarse);
+        // Vinculación de las variables con los elementos del layout
+        spinnerTipoEmpresaa = findViewById(R.id.spinnerTipoEmpresa);
+        spinnerPaiss = findViewById(R.id.spinnerPais);
+        spinnerCiudadd = findViewById(R.id.spinnerCiudad);
+        latitudEditText = findViewById(R.id.Latirud);
+        longitudEditText = findViewById(R.id.Longitud);
+        Button registroButton = findViewById(R.id.btn_registrarse);
 
+        // Configuración del Spinner Tipo de Empresa
+        String[] tiposEmpresa = getResources().getStringArray(R.array.tipos_empresa); // Obtener el array de strings desde los recursos
+        ArrayAdapter<String> tipoEmpresaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposEmpresa);
+        tipoEmpresaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipoEmpresaa.setAdapter(tipoEmpresaAdapter);
 
-        // Obtener los valores del formulario
-        String tipoEmpresa = tipo_Empresa.getText().toString();
-        String pais = pais_Empresa.getText().toString();
-        String ciudad = ciudad_Empresa.getText().toString();
-/*
-        // Configurando OnClickListener para el botón de registro
-        registro.setOnClickListener(new View.OnClickListener() {
+        // Configuración del Spinner País
+        String[] paises = getResources().getStringArray(R.array.paises); // Obtener el array de strings desde los recursos
+        ArrayAdapter<String> paisAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paises);
+        paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPaiss.setAdapter(paisAdapter);
+
+        // Configuración del Spinner Ciudad
+
+        // Configuración del botón de registro
+        registroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Abrir la actividad de registro al hacer clic en el botón de registro
-                startActivity(new Intent(ActivityLoginUsuario.this, ActivityRegistro.class));
+                // Obtener datos ingresados por el usuario
+                String tipoEmpresa = spinnerTipoEmpresaa.getSelectedItem().toString();
+                String pais = spinnerPaiss.getSelectedItem().toString();
+                String ciudad = spinnerCiudadd.getSelectedItem().toString();
+                String latitud = latitudEditText.getText().toString();
+                String longitud = longitudEditText.getText().toString();
+
+                // Mostrar los datos en un Toast (puedes hacer aquí el manejo de los datos según tu lógica)
+                String mensaje = "Tipo de Empresa: " + tipoEmpresa + "\nPaís: " + pais + "\nCiudad: " + ciudad + "\nLatitud: " + latitud + "\nLongitud: " + longitud;
+                Toast.makeText(ActivityHomeEmpresa.this, mensaje, Toast.LENGTH_LONG).show();
             }
         });
-
-     */
-
     }
 }
-
