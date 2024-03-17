@@ -31,7 +31,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
     private EditText campoContraseña;
     private EditText campoCorreo;
     private AutoCompleteTextView campoPais;
-    private EditText campoCiudad;
     private EditText campoTelefono;
     private EditText campoDireccion;
     private Button botonRegistrarse;
@@ -39,7 +38,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
     private FirestoreHelper firestoreHelper;
     private boolean contraseñaVisible = false;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +64,14 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String usuario = campoUsuario.getText().toString();
-                final String correo = campoCorreo.getText().toString();
-                final String contraseña = campoContraseña.getText().toString();
+                final String nombreEmpresa = campoUsuario.getText().toString();
                 final String pais = campoPais.getText().toString();
                 final String telefono = campoTelefono.getText().toString();
                 final String direccion = campoDireccion.getText().toString();
+                final String correo = campoCorreo.getText().toString();
+                final String contraseña = campoContraseña.getText().toString();
 
-                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty() || pais.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+                if (nombreEmpresa.isEmpty() || pais.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
                     validacion();
                 } else {
                     // Crear empresa en Firebase Authentication
@@ -83,13 +81,13 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Empresa creada exitosamente
                                 // Guardar empresa en Firestore
-                                Map<String, Object> datosUsuario = new HashMap<>();
-                                datosUsuario.put("nombre", usuario);
-                                datosUsuario.put("correo", correo);
-                                datosUsuario.put("pais", pais);
-                                datosUsuario.put("telefono", telefono);
-                                datosUsuario.put("direccion", direccion);
-                                guardarEmpresaEnFirestore(datosUsuario);
+                                Map<String, Object> datosEmpresa = new HashMap<>();
+                                datosEmpresa.put("nombre", nombreEmpresa);
+                                datosEmpresa.put("pais", pais);
+                                datosEmpresa.put("telefono", telefono);
+                                datosEmpresa.put("direccion", direccion);
+                                datosEmpresa.put("correo", correo);
+                                guardarEmpresaEnFirestore(datosEmpresa);
                             } else {
                                 // Error al crear usuario
                                 Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();

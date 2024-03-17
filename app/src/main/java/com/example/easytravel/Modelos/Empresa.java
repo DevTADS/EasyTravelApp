@@ -9,12 +9,12 @@ public class Empresa {
     private String password;
 
     // Constructor de la clase Empresa
-    public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password) {
+    public Empresa(String nombre, String pais, String telefono, String direccion, String correo, String password) {
         this.nombre = nombre;
-        this.correo = correo;
         this.pais = pais;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.correo = correo;
         this.password = password;
     }
 
