@@ -26,10 +26,10 @@
 
     <Button
         android:id="@+id/btn_identificacion"
-        android:layout_width="288dp"
+        android:layout_width="280dp"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:fontFamily="sans-serif"
+        android:fontFamily="monospace"
         android:text="Iniciar Sesión"
         android:textSize="16sp"
         android:textStyle="bold"
