@@ -26,19 +26,26 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".Actividades.ActivityLoginUsuario" />
-
         <activity android:name=".Actividades.ActivityInicioSesion" />
 
-        <activity android:name=".Actividades.ActivityRegistro" />
-        <activity android:name=".Actividades.ActivityAdmin" />
-
-
+        <activity android:name=".Actividades.ActivityLoginUsuario" />
         <activity android:name=".Actividades.ActivityLoginEmpresa" />
+
+        <activity android:name=".Actividades.ActivityRegistroUsuario" />
+        <activity android:name=".Actividades.ActivityRegistroEmpresa" />
 
         <activity android:name=".Actividades.ActivityHomeUsuario"
             tools:ignore="Instantiatable" />
+        <activity android:name=".Actividades.ActivityHomeEmpresa"
+            tools:ignore="Instantiatable" />
+
+        <activity android:name=".Actividades.ActivityAdmin" />
+
+
+
+
+
+
 
 
     </application>

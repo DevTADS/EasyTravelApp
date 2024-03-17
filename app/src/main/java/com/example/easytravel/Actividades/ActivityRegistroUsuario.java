@@ -22,7 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActivityRegistro extends AppCompatActivity {
+public class ActivityRegistroUsuario extends AppCompatActivity {
 
     private EditText campoUsuario;
     private EditText campoContraseña;
@@ -35,7 +35,7 @@ public class ActivityRegistro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_registro_usuario);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
         authHelper = new FirebaseAuthHelper();
@@ -71,7 +71,7 @@ public class ActivityRegistro extends AppCompatActivity {
                                 guardarUsuarioEnFirestore(datosUsuario);
                             } else {
                                 // Error al crear usuario
-                                Toast.makeText(ActivityRegistro.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityRegistroUsuario.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -118,11 +118,11 @@ public class ActivityRegistro extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
                     // Usuario guardado en Firestore correctamente
-                    Toast.makeText(ActivityRegistro.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityRegistroUsuario.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
                     limpiarCampos();
                 } else {
                     // Error al guardar usuario en Firestore
-                    Toast.makeText(ActivityRegistro.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityRegistroUsuario.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
                 }
             }
         });

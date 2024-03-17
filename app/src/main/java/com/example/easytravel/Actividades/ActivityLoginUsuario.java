@@ -79,7 +79,7 @@ public class ActivityLoginUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Abrir la actividad de registro al hacer clic en el botón de registro
-                startActivity(new Intent(ActivityLoginUsuario.this, ActivityRegistro.class));
+                startActivity(new Intent(ActivityLoginUsuario.this, ActivityRegistroUsuario.class));
             }
         });
 
