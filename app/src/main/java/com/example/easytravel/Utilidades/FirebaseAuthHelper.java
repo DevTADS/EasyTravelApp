@@ -14,6 +14,13 @@ public class FirebaseAuthHelper {
         mAuth = FirebaseAuth.getInstance(); // Inicialización de la instancia de FirebaseAuth
     }
 
+    // Método para crear una empresa con correo electrónico y contraseña
+
+    public void crearEmpresaConCorreoYContraseña(String email, String contraseña, final OnCompleteListener<AuthResult> listener) {
+        mAuth.createUserWithEmailAndPassword(email, contraseña)
+                .addOnCompleteListener(listener); // Añadir un listener para ser notificado cuando se complete la operación
+    }
+
     // Método para crear un usuario con correo electrónico y contraseña
     public void crearUsuarioConCorreoYContraseña(String email, String contraseña, final OnCompleteListener<AuthResult> listener) {
         mAuth.createUserWithEmailAndPassword(email, contraseña)

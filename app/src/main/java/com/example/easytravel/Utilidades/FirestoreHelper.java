@@ -15,10 +15,17 @@ public class FirestoreHelper {
         db = FirebaseFirestore.getInstance(); // Inicialización de la instancia de FirebaseFirestore
     }
 
+    // Método para agregar una empresa a Firestore
+    public void addEmpresa(String nombreColeccion, Map<String, Object> datos, final OnCompleteListener<DocumentReference> listener) {
+        db.collection(nombreColeccion)
+                .add(datos)
+                .addOnCompleteListener(listener);
+    }
+
     // Método para agregar un usuario a Firestore
-    public void addUser(String collectionPath, Map<String, Object> data, final OnCompleteListener<DocumentReference> listener) {
-        db.collection(collectionPath)
-                .add(data) // Agregar los datos proporcionados al documento en la colección especificada
-                .addOnCompleteListener(listener); // Añadir un listener para ser notificado cuando se complete la operación
+    public void addUser(String nombreColeccion, Map<String, Object> datos, final OnCompleteListener<DocumentReference> listener) {
+        db.collection(nombreColeccion)
+                .add(datos)
+                .addOnCompleteListener(listener);
     }
 }
