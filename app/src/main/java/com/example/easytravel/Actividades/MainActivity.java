@@ -17,19 +17,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn_usuario = findViewById(R.id.btn_usuario);
-        btn_usuario.setOnClickListener(new View.OnClickListener() {
+        Button btn_identificacion = findViewById(R.id.btn_identificacion);
+        btn_identificacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityLoginUsuario.class);
-                startActivity(intent);
-            }
-        });
-        Button btn_empresa = findViewById(R.id.btn_empresa);
-        btn_empresa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityLoginEmpresa.class);
+                Intent intent = new Intent(MainActivity.this, ActivityInicioSesion.class);
                 startActivity(intent);
             }
         });

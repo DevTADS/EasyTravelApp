@@ -29,6 +29,7 @@
 
         <activity android:name=".Actividades.ActivityLoginUsuario" />
 
+        <activity android:name=".Actividades.ActivityInicioSesion" />
 
         <activity android:name=".Actividades.ActivityRegistro" />
 
