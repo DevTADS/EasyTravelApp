@@ -44,6 +44,10 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
         spinnerPaiss.setAdapter(paisAdapter);
 
         // Configuración del Spinner Ciudad
+        String[] ciudades = getResources().getStringArray(R.array.ciudades_uruguay); // Obtener el array de strings desde los recursos
+        ArrayAdapter<String> ciudadAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ciudades);
+        ciudadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCiudadd.setAdapter(ciudadAdapter);
 
         // Configuración del botón de registro
         registroButton.setOnClickListener(new View.OnClickListener() {
