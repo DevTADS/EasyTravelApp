@@ -55,8 +55,16 @@ public class ActivityLoginUsuario extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Inicio de sesión exitoso, abrir la nueva actividad
-                                    startActivity(new Intent(ActivityLoginUsuario.this, ActivityHomeUsuario.class));
+                                    String email = emailEditText.getText().toString();
+                                    String password = passwordEditText.getText().toString();
+                                    // Verificar si el usuario es administrador
+                                    if (email.equals("easytraveltads@gmail.com") && password.equals("tads2024")) {
+                                        // Iniciar la actividad de administrador
+                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityAdmin.class));
+                                    } else {
+                                        // Inicio de sesión exitoso, abrir la nueva actividad de usuario
+                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityHomeUsuario.class));
+                                    }
                                 } else {
                                     // Error al iniciar sesión, mostrar un mensaje de error
                                     Toast.makeText(ActivityLoginUsuario.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();

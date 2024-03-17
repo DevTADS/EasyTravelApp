@@ -32,6 +32,7 @@
         <activity android:name=".Actividades.ActivityInicioSesion" />
 
         <activity android:name=".Actividades.ActivityRegistro" />
+        <activity android:name=".Actividades.ActivityAdmin" />
 
 
         <activity android:name=".Actividades.ActivityLoginEmpresa" />
