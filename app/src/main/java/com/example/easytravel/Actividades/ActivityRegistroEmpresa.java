@@ -75,11 +75,11 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                     validacion();
                 } else {
                     // Crear empresa en Firebase Authentication
-                    authHelper.crearUsuarioConCorreoYContraseña(correo, contraseña, new OnCompleteListener<AuthResult>() {
+                    authHelper.crearEmpresaConCorreoYContraseña(correo, contraseña, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Empresa creada exitosamente
+                                // Empresa creada exitosamente en Firebase Authentication
                                 // Guardar empresa en Firestore
                                 Map<String, Object> datosEmpresa = new HashMap<>();
                                 datosEmpresa.put("nombre", nombreEmpresa);
@@ -87,13 +87,27 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                                 datosEmpresa.put("telefono", telefono);
                                 datosEmpresa.put("direccion", direccion);
                                 datosEmpresa.put("correo", correo);
-                                guardarEmpresaEnFirestore(datosEmpresa);
+                                firestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                        if (task.isSuccessful()) {
+                                            // Empresa guardada en Firestore correctamente
+                                            Toast.makeText(ActivityRegistroEmpresa.this, "Los datos de la empresa se han registrado correctamente", Toast.LENGTH_SHORT).show();
+                                            limpiarCampos();
+                                            Toast.makeText(ActivityRegistroEmpresa.this, "Aguarde la validación de parte de los Administradores", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Error al guardar empresa en Firestore
+                                            Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             } else {
-                                // Error al crear usuario
+                                // Error al crear la empresa en Firebase Authentication
                                 Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 }
             }
         });
