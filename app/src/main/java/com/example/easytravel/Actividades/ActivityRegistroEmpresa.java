@@ -50,7 +50,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         firestoreHelper = new FirestoreHelper();
 
         // Inicializar vistas
-        campoUsuario = findViewById(R.id.username);
+        campoUsuario = findViewById(R.id.nombre_empresa);
         campoContraseña = findViewById(R.id.password);
         campoCorreo = findViewById(R.id.correo);
         campoPais = findViewById(R.id.autoCompleteTextViewCountry);
@@ -70,31 +70,29 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                 final String correo = campoCorreo.getText().toString();
                 final String contraseña = campoContraseña.getText().toString();
                 final String pais = campoPais.getText().toString();
-                final String ciudad = campoCiudad.getText().toString();
                 final String telefono = campoTelefono.getText().toString();
                 final String direccion = campoDireccion.getText().toString();
 
-                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty() || pais.isEmpty() || ciudad.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty() || pais.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
                     validacion();
                 } else {
-                    // Crear usuario en Firebase Authentication
+                    // Crear empresa en Firebase Authentication
                     authHelper.crearUsuarioConCorreoYContraseña(correo, contraseña, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Usuario creado exitosamente
-                                // Guardar usuario en Firestore
+                                // Empresa creada exitosamente
+                                // Guardar empresa en Firestore
                                 Map<String, Object> datosUsuario = new HashMap<>();
                                 datosUsuario.put("nombre", usuario);
                                 datosUsuario.put("correo", correo);
                                 datosUsuario.put("pais", pais);
-                                datosUsuario.put("ciudad", ciudad);
                                 datosUsuario.put("telefono", telefono);
                                 datosUsuario.put("direccion", direccion);
-                                guardarUsuarioEnFirestore(datosUsuario);
+                                guardarEmpresaEnFirestore(datosUsuario);
                             } else {
                                 // Error al crear usuario
-                                Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -134,18 +132,19 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoContraseña.setSelection(campoContraseña.getText().length());
     }
 
-    // Método para guardar usuario en Firestore
-    private void guardarUsuarioEnFirestore(Map<String, Object> datosUsuario) {
-        firestoreHelper.addUser("usuarios", datosUsuario, new OnCompleteListener<DocumentReference>() {
+    // Método para guardar empresa en Firestore
+    private void guardarEmpresaEnFirestore(Map<String, Object> datosEmpresa) {
+        firestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
-                    // Usuario guardado en Firestore correctamente
-                    Toast.makeText(ActivityRegistroEmpresa.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                    // Empresa guardada en Firestore correctamente
+                    Toast.makeText(ActivityRegistroEmpresa.this, "Los datos de la empresa se han registrado correctamente", Toast.LENGTH_SHORT).show();
                     limpiarCampos();
+                    Toast.makeText(ActivityRegistroEmpresa.this, "Aguarde la validación de parte de los Administradores", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Error al guardar usuario en Firestore
-                    Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                    // Error al guardar empresa en Firestore
+                    Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -157,7 +156,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoCorreo.setText("");
         campoContraseña.setText("");
         campoPais.setText("");
-        campoCiudad.setText("");
         campoTelefono.setText("");
         campoDireccion.setText("");
     }
@@ -175,9 +173,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         }
         if (campoPais.getText().toString().isEmpty()) {
             campoPais.setError("Requerido");
-        }
-        if (campoCiudad.getText().toString().isEmpty()) {
-            campoCiudad.setError("Requerido");
         }
         if (campoTelefono.getText().toString().isEmpty()) {
             campoTelefono.setError("Requerido");
