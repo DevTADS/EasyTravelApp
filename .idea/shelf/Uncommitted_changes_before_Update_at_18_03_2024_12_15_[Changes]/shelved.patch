@@ -1,0 +1,84 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.easytravel\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.EasyTravel\"\r\n        tools:targetApi=\"31\">\r\n\r\n        <!-- MainActivity -->\r\n        <activity\r\n            android:name=\".Actividades.Principal.MainActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n\r\n        <activity android:name=\".Actividades.Principal.ActivityInicioSesion\" />\r\n\r\n        <activity android:name=\".Actividades.Usuario.ActivityLoginUsuario\" />\r\n        <activity android:name=\".Actividades.Empresa.ActivityLoginEmpresa\" />\r\n\r\n        <activity android:name=\".Actividades.Usuario.ActivityRegistroUsuario\" />\r\n        <activity android:name=\".Actividades.Empresa.ActivityRegistroEmpresa\" />\r\n\r\n        <activity android:name=\".Actividades.Usuario.ActivityHomeUsuario\"\r\n            tools:ignore=\"Instantiatable\" />\r\n        <activity android:name=\".Actividades.Empresa.ActivityHomeEmpresa\"\r\n            tools:ignore=\"Instantiatable\" />\r\n\r\n        <activity android:name=\".Actividades.Administrador.ActivityAdmin\" />\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    </application>\r\n\r\n</manifest>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision ba25b8b9592d08d1a91ac1f07b8d948b59f05fcb)
++++ b/app/src/main/AndroidManifest.xml	(date 1710774857177)
+@@ -41,12 +41,17 @@
+ 
+         <activity android:name=".Actividades.Administrador.ActivityAdmin" />
+ 
+-
++        <service
++            android:name=".java.MyFirebaseMessagingService"
++            android:exported="false">
++            <intent-filter>
++                <action android:name="com.google.firebase.MESSAGING_EVENT" />
++            </intent-filter>
++        </service>
+ 
+-
+-
+-
+-
++        <meta-data
++            android:name="com.google.firebase.messaging.default_notification_color"
++            android:resource="#1677C5" />
+ 
+     </application>
+ 
+Index: app/src/main/java/com/example/easytravel/Actividades/Usuario/ActivityHomeUsuario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.easytravel.Actividades.Usuario;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.cardview.widget.CardView;\r\n\r\nimport com.example.easytravel.Actividades.Hotel.ActivityListaHoteles;\r\nimport com.example.easytravel.R;\r\n\r\npublic class ActivityHomeUsuario extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_usuario_home);\r\n\r\n        // Obtener referencia al CardView\r\n        CardView cardViewHotel = findViewById(R.id.cardViewHotel);\r\n\r\n        // Agregar OnClickListener al CardView\r\n        cardViewHotel.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                // Abrir la actividad de lista de hoteles\r\n                Intent intent = new Intent(ActivityHomeUsuario.this, ActivityListaHoteles.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/easytravel/Actividades/Usuario/ActivityHomeUsuario.java b/app/src/main/java/com/example/easytravel/Actividades/Usuario/ActivityHomeUsuario.java
+--- a/app/src/main/java/com/example/easytravel/Actividades/Usuario/ActivityHomeUsuario.java	(revision ba25b8b9592d08d1a91ac1f07b8d948b59f05fcb)
++++ b/app/src/main/java/com/example/easytravel/Actividades/Usuario/ActivityHomeUsuario.java	(date 1710771596985)
+@@ -18,7 +18,7 @@
+         setContentView(R.layout.activity_usuario_home);
+ 
+         // Obtener referencia al CardView
+-        CardView cardViewHotel = findViewById(R.id.cardViewHotel);
++        CardView cardViewHotel = findViewById(R.id.cardView2);
+ 
+         // Agregar OnClickListener al CardView
+         cardViewHotel.setOnClickListener(new View.OnClickListener() {
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <value>\r\n      <entry key=\"app\">\r\n        <State />\r\n      </entry>\r\n    </value>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision ba25b8b9592d08d1a91ac1f07b8d948b59f05fcb)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1710770538364)
+@@ -3,7 +3,20 @@
+   <component name="deploymentTargetDropDown">
+     <value>
+       <entry key="app">
+-        <State />
++        <State>
++          <targetSelectedWithDropDown>
++            <Target>
++              <type value="QUICK_BOOT_TARGET" />
++              <deviceKey>
++                <Key>
++                  <type value="VIRTUAL_DEVICE_PATH" />
++                  <value value="C:\Users\luizapinheiro\.android\avd\Pixel_8_API_34.avd" />
++                </Key>
++              </deviceKey>
++            </Target>
++          </targetSelectedWithDropDown>
++          <timeTargetWasSelectedWithDropDown value="2024-03-18T12:50:16.366643700Z" />
++        </State>
+       </entry>
+     </value>
+   </component>

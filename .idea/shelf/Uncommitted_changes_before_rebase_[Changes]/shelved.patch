@@ -1,0 +1,32 @@
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <value>\r\n      <entry key=\"app\">\r\n        <State />\r\n      </entry>\r\n    </value>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision d702c08109d37580a0a1fed29cea492dfa5b508a)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1710766238681)
+@@ -3,7 +3,20 @@
+   <component name="deploymentTargetDropDown">
+     <value>
+       <entry key="app">
+-        <State />
++        <State>
++          <targetSelectedWithDropDown>
++            <Target>
++              <type value="QUICK_BOOT_TARGET" />
++              <deviceKey>
++                <Key>
++                  <type value="VIRTUAL_DEVICE_PATH" />
++                  <value value="C:\Users\luizapinheiro\.android\avd\Pixel_8_API_34.avd" />
++                </Key>
++              </deviceKey>
++            </Target>
++          </targetSelectedWithDropDown>
++          <timeTargetWasSelectedWithDropDown value="2024-03-18T12:50:16.366643700Z" />
++        </State>
+       </entry>
+     </value>
+   </component>
