@@ -1,4 +1,4 @@
-package com.example.easytravel.Modeloss;
+package com.example.easytravel.Modelos;
 
 public class Hotel {
     private String nombre;

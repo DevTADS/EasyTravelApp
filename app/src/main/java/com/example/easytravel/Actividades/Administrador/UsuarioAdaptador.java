@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modeloss.Usuario;
+import com.example.easytravel.Modelos.Usuario;
 import com.example.easytravel.R;
 
 import java.util.List;

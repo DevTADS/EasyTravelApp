@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modeloss.Hotel;
+import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 
 import java.util.List;

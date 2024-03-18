@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modeloss.Usuario;
+import com.example.easytravel.Modelos.Usuario;
 import com.example.easytravel.R;
 
 import com.google.firebase.database.DataSnapshot;
