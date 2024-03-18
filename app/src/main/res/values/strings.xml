@@ -1,7 +1,7 @@
 <resources>
     <string-array name="tipos_empresa">
-        <item>Hoteles</item>
-        <item>Restaurantes</item>
+        <item>Hotel</item>
+        <item>Restaurante</item>
         <item>Otros</item>
     </string-array>
 

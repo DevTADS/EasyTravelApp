@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Ingreso de empresa"
+        android:text="Bienvenido"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerTipoEmpresa"
+        android:id="@+id/spinnerTipoServicio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerTipoEmpresa" />
+        app:layout_constraintTop_toBottomOf="@id/spinnerTipoServicio" />
 
     <Spinner
         android:id="@+id/spinnerCiudad"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerPais" />
 
     <EditText
-        android:id="@+id/Latirud"
+        android:id="@+id/etNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,7 +64,7 @@
         android:background="#30ffffff"
         android:drawableRight="@drawable/icono_visto"
         android:drawablePadding="20dp"
-        android:hint="Latitud"
+        android:hint="Nombre"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerCiudad" />
 
     <EditText
-        android:id="@+id/Longitud"
+        android:id="@+id/etTelefono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -82,25 +82,44 @@
         android:background="#30ffffff"
         android:drawableRight="@drawable/icono_visto"
         android:drawablePadding="20dp"
-        android:hint="Longitud"
+        android:hint="Teléfono"
+        android:inputType="phone"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Latirud" />
+        app:layout_constraintTop_toBottomOf="@id/etNombre" />
+
+    <EditText
+        android:id="@+id/etDireccion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="#30ffffff"
+        android:drawableRight="@drawable/icono_visto"
+        android:drawablePadding="20dp"
+        android:hint="Dirección"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTelefono" />
 
     <Button
         android:id="@+id/btn_registrarse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="Registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Longitud" />
+        app:layout_constraintTop_toBottomOf="@id/etDireccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

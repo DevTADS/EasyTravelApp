@@ -19,18 +19,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleTextView"
-        android:layout_marginTop="20dp"
-        android:text="Usuarios"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="95dp"
+        android:text="Usuarios" />
 
     <Button
         android:id="@+id/companiesButton"
-        android:layout_width="wrap_content"
+        android:layout_width="121dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/usersButton"
-        android:layout_marginTop="20dp"
-        android:text="Empresas"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="-70dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toEndOf="@+id/usersButton"
+        android:text="Empresas" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"
@@ -44,6 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/usersButton"
-        android:visibility="gone" /> <!-- Ocultar el RecyclerView de empresas inicialmente -->
+        android:visibility="gone" />
+
+    <!-- Ocultar el RecyclerView de empresas inicialmente -->
 
 </RelativeLayout>
