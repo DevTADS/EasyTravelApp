@@ -5,10 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modelos.Usuario;
+import com.example.easytravel.Modeloss.Usuario;
 import com.example.easytravel.R;
 
 import java.util.List;

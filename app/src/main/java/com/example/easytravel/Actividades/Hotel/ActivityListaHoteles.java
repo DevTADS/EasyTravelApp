@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Actividades.Administrador.UsuarioAdaptador;
-import com.example.easytravel.Modelos.Hotel;
+import com.example.easytravel.Modeloss.Hotel;
 import com.example.easytravel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 import com.example.easytravel.Utilidades.FirestoreHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
