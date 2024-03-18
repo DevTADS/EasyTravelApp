@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="Términos de Servicio y Política de Privacidad"
-        android:textColor="#B58D5C"
+        android:textColor="#324BC5"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/btn_identificacion"
