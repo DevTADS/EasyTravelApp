@@ -118,8 +118,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/account" />
+                android:layout_height="wrap_content" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -278,8 +277,7 @@
                         android:id="@+id/imageView5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/amritsar_golden_temple" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -330,8 +328,7 @@
                         android:id="@+id/imageView7"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/agra_taj_mahal" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -382,8 +379,7 @@
                         android:id="@+id/imageView8"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/udaipur_lake_pichola" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -440,8 +436,7 @@
                         android:id="@+id/imageView9"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/new_delhi_india_gate" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -492,8 +487,7 @@
                         android:id="@+id/imageView10"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/varanasi_ghat" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -544,8 +538,7 @@
                         android:id="@+id/imageView11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/kolkata_victoria_memorial_hall" />
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -574,12 +567,7 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="48dp">
 
-                        <ImageView
-                            android:id="@+id/adapterflipper_fav"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/icono_favorito" />
+
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
