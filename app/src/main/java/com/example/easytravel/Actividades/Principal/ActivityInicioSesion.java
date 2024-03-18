@@ -1,4 +1,4 @@
-package com.example.easytravel.Actividades;
+package com.example.easytravel.Actividades.Principal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easytravel.Actividades.Empresa.ActivityLoginEmpresa;
+import com.example.easytravel.Actividades.Usuario.ActivityLoginUsuario;
 import com.example.easytravel.R;
 
 

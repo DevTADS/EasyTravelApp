@@ -1,6 +1,5 @@
-package com.example.easytravel.Actividades;
+package com.example.easytravel.Actividades.Empresa;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -41,7 +40,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_empresa);
+        setContentView(R.layout.activity_empresa_registro);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
         authHelper = new FirebaseAuthHelper();
@@ -113,7 +112,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         });
 
         // Configurar OnClickListener para el ícono de la contraseña
-        campoContraseña.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.password_icon, 0);
+        campoContraseña.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_password, 0);
         campoContraseña.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

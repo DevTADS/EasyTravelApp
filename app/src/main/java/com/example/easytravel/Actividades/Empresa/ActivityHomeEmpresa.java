@@ -1,4 +1,4 @@
-package com.example.easytravel.Actividades;
+package com.example.easytravel.Actividades.Empresa;
 
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +20,7 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity__home_empresa);
+    setContentView(R.layout.activity_empresa_home);
 
         // Vinculación de las variables con los elementos del layout
         spinnerTipoEmpresaa = findViewById(R.id.spinnerTipoEmpresa);

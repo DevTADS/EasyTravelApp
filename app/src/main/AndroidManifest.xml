@@ -18,7 +18,7 @@
 
         <!-- MainActivity -->
         <activity
-            android:name=".Actividades.MainActivity"
+            android:name=".Actividades.Principal.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,20 +26,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Actividades.ActivityInicioSesion" />
+        <activity android:name=".Actividades.Principal.ActivityInicioSesion" />
 
-        <activity android:name=".Actividades.ActivityLoginUsuario" />
-        <activity android:name=".Actividades.ActivityLoginEmpresa" />
+        <activity android:name=".Actividades.Usuario.ActivityLoginUsuario" />
+        <activity android:name=".Actividades.Empresa.ActivityLoginEmpresa" />
 
-        <activity android:name=".Actividades.ActivityRegistroUsuario" />
-        <activity android:name=".Actividades.ActivityRegistroEmpresa" />
+        <activity android:name=".Actividades.Usuario.ActivityRegistroUsuario" />
+        <activity android:name=".Actividades.Empresa.ActivityRegistroEmpresa" />
 
-        <activity android:name=".Actividades.ActivityHomeUsuario"
+        <activity android:name=".Actividades.Usuario.ActivityHomeUsuario"
             tools:ignore="Instantiatable" />
-        <activity android:name=".Actividades.ActivityHomeEmpresa"
+        <activity android:name=".Actividades.Empresa.ActivityHomeEmpresa"
             tools:ignore="Instantiatable" />
 
-        <activity android:name=".Actividades.ActivityAdmin" />
+        <activity android:name=".Actividades.Administrador.ActivityAdmin" />
 
 
 

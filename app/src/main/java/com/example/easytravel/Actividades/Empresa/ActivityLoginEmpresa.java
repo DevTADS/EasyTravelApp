@@ -1,5 +1,6 @@
-package com.example.easytravel.Actividades;
+package com.example.easytravel.Actividades.Empresa;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,13 +13,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
 import com.example.easytravel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ActivityLoginUsuario extends AppCompatActivity {
+public class ActivityLoginEmpresa extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -27,10 +29,12 @@ public class ActivityLoginUsuario extends AppCompatActivity {
     private Button registerButton;
     private boolean passwordVisible = false;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_usuario);
+        setContentView(R.layout.activity_empresa_login);
+
 
         // Inicializar FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -60,14 +64,14 @@ public class ActivityLoginUsuario extends AppCompatActivity {
                                     // Verificar si el usuario es administrador
                                     if (email.equals("easytraveltads@gmail.com") && password.equals("tads2024")) {
                                         // Iniciar la actividad de administrador
-                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityAdmin.class));
+                                        startActivity(new Intent(ActivityLoginEmpresa.this, ActivityAdmin.class));
                                     } else {
                                         // Inicio de sesión exitoso, abrir la nueva actividad de usuario
-                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityHomeUsuario.class));
+                                        startActivity(new Intent(ActivityLoginEmpresa.this, ActivityHomeEmpresa.class));
                                     }
                                 } else {
                                     // Error al iniciar sesión, mostrar un mensaje de error
-                                    Toast.makeText(ActivityLoginUsuario.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ActivityLoginEmpresa.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -79,18 +83,18 @@ public class ActivityLoginUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Abrir la actividad de registro al hacer clic en el botón de registro
-                startActivity(new Intent(ActivityLoginUsuario.this, ActivityRegistroUsuario.class));
+                startActivity(new Intent(ActivityLoginEmpresa.this, ActivityRegistroEmpresa.class));
             }
         });
 
         // Configurando OnClickListener para el ícono de la contraseña
-        passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.password_icon, 0);
+        passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_password, 0);
         passwordEditText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (passwordEditText.getRight() - passwordEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (passwordEditText.getRight() - passwordEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         togglePasswordVisibility();
                         return true;
                     }

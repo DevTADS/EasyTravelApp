@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1"
-    tools:context=".Actividades.MainActivity">
+    android:background="@drawable/background"
+    tools:context=".Actividades.Principal.MainActivity">
 
     <TextView
         android:id="@+id/iniciarsesion"
@@ -15,7 +15,7 @@
         android:layout_margin="50dp"
         android:layout_marginTop="200dp"
         android:gravity="center"
-        android:text="Iniciar Sesión"
+        android:text="INICIO DE SESIÓN"
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold" />
@@ -29,7 +29,7 @@
         android:layout_marginTop="293dp"
         android:layout_marginBottom="100dp"
         android:background="#30120F0F"
-        android:drawableRight="@drawable/done_icon"
+        android:drawableRight="@drawable/icono_visto"
         android:drawablePadding="20dp"
         android:hint="Correo"
         android:padding="20dp"
@@ -44,7 +44,7 @@
         android:layout_margin="10dp"
         android:background="#30120F0F"
 
-        android:drawableRight="@drawable/password_icon"
+        android:drawableRight="@drawable/icono_password"
         android:drawablePadding="20dp"
         android:hint="Contraseña"
         android:inputType="textPassword"
@@ -99,46 +99,8 @@
         android:textColor="@color/black" />
 
 
-    <TextView
-        android:id="@+id/others"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/socialicons"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="137dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="23dp"
-        android:text="o inicia sesión con" />
-
-    <LinearLayout
-        android:id="@+id/socialicons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp"
-        android:gravity="center">
 
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/google" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/fb" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/twitter" />
-
-    </LinearLayout>
 
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.easytravel.Actividades;
+package com.example.easytravel.Actividades.Usuario;
 
 import android.os.Bundle;
 import android.text.InputType;
@@ -35,7 +35,7 @@ public class ActivityRegistroUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_usuario);
+        setContentView(R.layout.activity_usuario_registro);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
         authHelper = new FirebaseAuthHelper();
@@ -80,7 +80,7 @@ public class ActivityRegistroUsuario extends AppCompatActivity {
         });
 
         // Configurar OnClickListener para el ícono de la contraseña
-        campoContraseña.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.password_icon, 0);
+        campoContraseña.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_password, 0);
         campoContraseña.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
