@@ -5,6 +5,7 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -13,6 +14,36 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Aquí puedes agregar cualquier contenido adicional para la interfaz de administrador -->
+    <Button
+        android:id="@+id/usersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="20dp"
+        android:text="Usuarios"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/companiesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usersButton"
+        android:layout_marginTop="20dp"
+        android:text="Empresas"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecyclerView"
+        android:layout_width="395dp"
+        android:layout_height="489dp"
+        android:layout_below="@id/usersButton"
+        android:layout_marginTop="90dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/companyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/usersButton"
+        android:visibility="gone" /> <!-- Ocultar el RecyclerView de empresas inicialmente -->
 
 </RelativeLayout>
