@@ -89,6 +89,7 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
                     public void onComplete(Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
                             mostrarToast("Hotel registrado correctamente");
+                            limpiarCampos();
                         } else {
                             mostrarToast("Error al registrar el hotel: " + task.getException().getMessage());
                         }
@@ -101,5 +102,14 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
     // Método para mostrar un Toast
     private void mostrarToast(String mensaje) {
         Toast.makeText(ActivityHomeEmpresa.this, mensaje, Toast.LENGTH_LONG).show();
+    }// Método para limpiar los campos de entrada después de registrar un hotel
+    private void limpiarCampos() {
+        nombreEditText.setText("");
+        telefonoEditText.setText("");
+        direccionEditText.setText("");
+        spinnerTipoServicio.setSelection(0);
+        spinnerPais.setSelection(0);
+        spinnerCiudad.setSelection(0);
     }
+
 }
