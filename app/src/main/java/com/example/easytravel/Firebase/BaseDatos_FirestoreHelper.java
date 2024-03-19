@@ -1,19 +1,16 @@
 package com.example.easytravel.Firebase;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Map;
 
 public class BaseDatos_FirestoreHelper {
 
-    private FirebaseFirestore db; // Instancia de FirebaseFirestore para interactuar con Firestore
+    private final FirebaseFirestore db; // Instancia de FirebaseFirestore para interactuar con Firestore
 
     // Constructor de la clase FirestoreHelper
     public BaseDatos_FirestoreHelper() {
@@ -35,23 +32,18 @@ public class BaseDatos_FirestoreHelper {
     }
 
     // Método para obtener todos los usuarios de Firestore
-    public void getAllUsers(String nombreColeccion, final OnCompleteListener<QuerySnapshot> listener) {
-        db.collection(nombreColeccion)
+    public void getAllUsers(String usuarios, final OnCompleteListener<QuerySnapshot> listener) {
+        db.collection(usuarios)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<String> usuarios = new ArrayList<>();
-                            for (DocumentSnapshot document : task.getResult()) {
-                                usuarios.add(document.getString("correo")); // Cambia "correo" por el nombre del campo que contiene el correo electrónico del usuario
-                            }
-                            listener.onComplete(task); // Pasar el task completo como éxito
-                        } else {
-                            listener.onComplete(task); // Pasar el task completo como error
-                        }
-                    }
-                });
+                .addOnCompleteListener(listener);
     }
+
+    // Método para obtener todos los datos de las empresas en Firestore
+    public void getAllEmpresas(String empresas, final OnCompleteListener<QuerySnapshot> listener) {
+        db.collection(empresas)
+                .get()
+                .addOnCompleteListener(listener);
+    }
+
 
 }

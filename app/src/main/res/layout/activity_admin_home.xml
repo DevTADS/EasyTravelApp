@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:text="Interfaz de Administrador"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/usersButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleTextView"
-        android:layout_marginTop="95dp"
-        android:text="Usuarios" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/companiesButton"
-        android:layout_width="121dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/usersButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="-54dp"
-        android:layout_marginEnd="79dp"
-        android:layout_toEndOf="@+id/usersButton"
-        android:text="Empresas" />
+        <Button
+            android:id="@+id/usuariosBoton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuarios" />
+
+        <Button
+            android:id="@+id/empresasBoton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empresas" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"
-        android:layout_width="395dp"
-        android:layout_height="489dp"
-        android:layout_below="@id/usersButton"
-        android:layout_marginTop="90dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/companyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/usersButton"
         android:visibility="gone" />
 
-    <!-- Ocultar el RecyclerView de empresas inicialmente -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/empresaRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-</RelativeLayout>
+</LinearLayout>
