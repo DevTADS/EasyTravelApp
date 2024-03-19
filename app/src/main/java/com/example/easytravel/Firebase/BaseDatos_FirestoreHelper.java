@@ -1,4 +1,4 @@
-package com.example.easytravel.Utilidades;
+package com.example.easytravel.Firebase;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FirestoreHelper {
+public class BaseDatos_FirestoreHelper {
 
     private FirebaseFirestore db; // Instancia de FirebaseFirestore para interactuar con Firestore
 
     // Constructor de la clase FirestoreHelper
-    public FirestoreHelper() {
+    public BaseDatos_FirestoreHelper() {
         db = FirebaseFirestore.getInstance(); // Inicialización de la instancia de FirebaseFirestore
     }
 

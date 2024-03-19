@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
-import com.example.easytravel.Utilidades.FirebaseAuthHelper;
-import com.example.easytravel.Utilidades.FirestoreHelper;
+import com.example.easytravel.Firebase.Autenticacion_FirebaseAuthHelper;
+import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,8 +33,8 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
     private EditText campoTelefono;
     private EditText campoDireccion;
     private Button botonRegistrarse;
-    private FirebaseAuthHelper authHelper;
-    private FirestoreHelper firestoreHelper;
+    private Autenticacion_FirebaseAuthHelper authHelper;
+    private BaseDatos_FirestoreHelper basededatosFirestoreHelper;
     private boolean contraseñaVisible = false;
 
     @Override
@@ -43,8 +43,8 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         setContentView(R.layout.activity_empresa_registro);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
-        authHelper = new FirebaseAuthHelper();
-        firestoreHelper = new FirestoreHelper();
+        authHelper = new Autenticacion_FirebaseAuthHelper();
+        basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
 
         // Inicializar vistas
         campoUsuario = findViewById(R.id.nombre_empresa);
@@ -86,7 +86,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                                 datosEmpresa.put("telefono", telefono);
                                 datosEmpresa.put("direccion", direccion);
                                 datosEmpresa.put("correo", correo);
-                                firestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
+                                basededatosFirestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                         if (task.isSuccessful()) {
@@ -145,7 +145,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
 
     // Método para guardar empresa en Firestore
     private void guardarEmpresaEnFirestore(Map<String, Object> datosEmpresa) {
-        firestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
+        basededatosFirestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {

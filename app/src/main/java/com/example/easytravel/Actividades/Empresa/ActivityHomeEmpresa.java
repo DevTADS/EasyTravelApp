@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
-import com.example.easytravel.Utilidades.FirestoreHelper;
+import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -80,10 +80,10 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
                 datosHotel.put("direccion", direccion);
 
                 // Instanciar el helper de Firestore
-                FirestoreHelper firestoreHelper = new FirestoreHelper();
+                BaseDatos_FirestoreHelper basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
 
                 // Llamar al método para agregar una empresa en Firestore
-                firestoreHelper.addEmpresa("hoteles", datosHotel, new OnCompleteListener<DocumentReference>() {
+                basededatosFirestoreHelper.addEmpresa("hoteles", datosHotel, new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(Task<DocumentReference> task) {
                         if (task.isSuccessful()) {

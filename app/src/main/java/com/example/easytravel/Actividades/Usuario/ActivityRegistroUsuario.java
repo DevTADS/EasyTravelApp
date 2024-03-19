@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
-import com.example.easytravel.Utilidades.FirebaseAuthHelper;
-import com.example.easytravel.Utilidades.FirestoreHelper;
+import com.example.easytravel.Firebase.Autenticacion_FirebaseAuthHelper;
+import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,8 +28,8 @@ public class ActivityRegistroUsuario extends AppCompatActivity {
     private EditText campoContraseña;
     private EditText campoCorreo;
     private Button botonRegistrarse;
-    private FirebaseAuthHelper authHelper;
-    private FirestoreHelper firestoreHelper;
+    private Autenticacion_FirebaseAuthHelper authHelper;
+    private BaseDatos_FirestoreHelper basededatosFirestoreHelper;
     private boolean contraseñaVisible = false;
 
     @Override
@@ -38,8 +38,8 @@ public class ActivityRegistroUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_usuario_registro);
 
         // Inicializar FirebaseAuthHelper y FirestoreHelper
-        authHelper = new FirebaseAuthHelper();
-        firestoreHelper = new FirestoreHelper();
+        authHelper = new Autenticacion_FirebaseAuthHelper();
+        basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
 
         // Inicializar vistas
         campoUsuario = findViewById(R.id.username);
@@ -113,7 +113,7 @@ public class ActivityRegistroUsuario extends AppCompatActivity {
 
     // Método para guardar usuario en Firestore
     private void guardarUsuarioEnFirestore(Map<String, Object> datosUsuario) {
-        firestoreHelper.addUser("usuarios", datosUsuario, new OnCompleteListener<DocumentReference>() {
+        basededatosFirestoreHelper.addUser("usuarios", datosUsuario, new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {

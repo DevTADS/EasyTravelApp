@@ -1,16 +1,16 @@
-package com.example.easytravel.Utilidades;
+package com.example.easytravel.Firebase;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class FirebaseAuthHelper {
+public class Autenticacion_FirebaseAuthHelper {
 
     private FirebaseAuth mAuth; // Instancia de FirebaseAuth para interactuar con la autenticación de Firebase
 
     // Constructor de la clase FirebaseAuthHelper
-    public FirebaseAuthHelper() {
+    public Autenticacion_FirebaseAuthHelper() {
         mAuth = FirebaseAuth.getInstance(); // Inicialización de la instancia de FirebaseAuth
     }
 

@@ -1,10 +1,8 @@
 package com.example.easytravel.Actividades.Administrador;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.example.easytravel.Utilidades.FirestoreHelper;
+import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.example.easytravel.adapters.UserAdapter;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class ActivityAdmin extends AppCompatActivity {
 
     private Button usersButton;
     private RecyclerView userRecyclerView;
-    private FirestoreHelper firestoreHelper;
+    private BaseDatos_FirestoreHelper basededatosFirestoreHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class ActivityAdmin extends AppCompatActivity {
         usersButton = findViewById(R.id.usersButton);
         userRecyclerView = findViewById(R.id.userRecyclerView);
 
-        firestoreHelper = new FirestoreHelper();
+        basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
 
         usersButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +46,7 @@ public class ActivityAdmin extends AppCompatActivity {
     }
 
     private void obtenerUsuarios() {
-        firestoreHelper.getAllUsers("usuarios", new OnCompleteListener<QuerySnapshot>() {
+        basededatosFirestoreHelper.getAllUsers("usuarios", new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
