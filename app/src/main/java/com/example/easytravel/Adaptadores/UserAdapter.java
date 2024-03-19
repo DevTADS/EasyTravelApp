@@ -1,4 +1,4 @@
-package com.example.easytravel.adapters;
+package com.example.easytravel.Adaptadores;
 
 
 

@@ -9,6 +9,19 @@
         <item>Uruguay</item>
         <item>Brasil</item>
     </string-array>
+    <string name="block_icon_description">Descripción del icono de bloqueo</string>
+    <string name="delete_icon_description">Descripción del icono de eliminar</string>
+
+
+        <string-array name="options_array">
+            <item>Bloquear empresa</item>
+            <item>Eliminar empresa</item>
+        </string-array>
+
+
+
+
+
 
     <string-array name="ciudades_uruguay">
         <item>Rivera</item>

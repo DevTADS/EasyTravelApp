@@ -1,6 +1,5 @@
 package com.example.easytravel.Actividades.Administrador;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.example.easytravel.R;
-import com.example.easytravel.adapters.EmpresasAdapter;
-import com.example.easytravel.adapters.UserAdapter;
+import com.example.easytravel.Adaptadores.EmpresasAdapter;
+import com.example.easytravel.Adaptadores.UserAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
