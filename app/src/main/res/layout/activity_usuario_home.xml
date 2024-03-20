@@ -59,8 +59,9 @@
                         android:layout_marginBottom="8dp"
                         android:padding="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:srcCompat="@drawable/profile"
-                        tools:layout_editor_absoluteX="0dp" />
+                        app:srcCompat="@drawable/caco"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -81,7 +82,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="81dp"
-                    android:text="Descubre el mejor lugar para viajar"
+                    android:text="Descubre el mejor lugar      para viajar"
                     android:textColor="#FFFFFF"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -95,13 +96,13 @@
                         android:id="@+id/editTextText"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:drawableStart="@drawable/search_icon"
-                        android:padding="10dp"
-                        android:hint="Buscar"
                         android:layout_weight="1"
+                        android:background="@drawable/buscar_fondo"
+                        android:drawableStart="@drawable/search_icon"
                         android:ems="10"
+                        android:hint="Buscar"
                         android:inputType="text"
-                       android:background="@drawable/buscar_fondo" />
+                        android:padding="10dp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="1px"
