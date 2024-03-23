@@ -1,6 +1,9 @@
 package com.example.easytravel.Firebase;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -16,13 +19,6 @@ public class BaseDatos_FirestoreHelper {
         db = FirebaseFirestore.getInstance(); // Inicialización de la instancia de FirebaseFirestore
     }
 
-    // Método para agregar una empresa a Firestore
-    public void addEmpresa(String nombreColeccion, Map<String, Object> datos, final OnCompleteListener<DocumentReference> listener) {
-        db.collection(nombreColeccion)
-                .add(datos)
-                .addOnCompleteListener(listener);
-    }
-
     // Método para agregar un usuario a Firestore
     public void addUser(String nombreColeccion, Map<String, Object> datos, final OnCompleteListener<DocumentReference> listener) {
         db.collection(nombreColeccion)
@@ -30,41 +26,37 @@ public class BaseDatos_FirestoreHelper {
                 .addOnCompleteListener(listener);
     }
 
-    // Método para obtener todas las empresas de Firestore
-    public void getAllEmpresas(String empresas, final OnCompleteListener<QuerySnapshot> listener) {
-        db.collection(empresas)
-                .get()
-                .addOnCompleteListener(listener);
-    }
-
-    // Método para obtener todos los usuarios de Firestore
-    public void getAllUsers(String usuarios, final OnCompleteListener<QuerySnapshot> listener) {
-        db.collection(usuarios)
-                .get()
-                .addOnCompleteListener(listener);
-    }
-
-    // Modificar el método addHotel en la clase BaseDatos_FirestoreHelper para agregar un hotel a la subcolección de una empresa
-    public void addHotel(String idEmpresa, Map<String, Object> datosHotel, final OnCompleteListener<DocumentReference> listener) {
-        db.collection("empresas").document(idEmpresa).collection("hoteles")
-                .add(datosHotel)
-                .addOnCompleteListener(listener);
-    }
-
-    // Modificar el método obtenerHotelesPorEmpresa para recuperar los hoteles de la subcolección de una empresa
-    public void obtenerHotelesPorEmpresa(String idEmpresa, OnCompleteListener<QuerySnapshot> listener) {
-        db.collection("empresas").document(idEmpresa).collection("hoteles")
-                .get()
-                .addOnCompleteListener(listener);
-    }
-
-
-
-    // Método para obtener el ID de la empresa por su nombre
-    public void obtenerIdEmpresaPorNombre(String nombreColeccion, String nombreEmpresa, OnCompleteListener<QuerySnapshot> listener) {
+    public void addEmpresa(String nombreColeccion, Map<String, Object> datos, final OnCompleteListener<DocumentReference> listener) {
+        // Agregar empresa en la colección especificada
         db.collection(nombreColeccion)
-                .whereEqualTo("nombre", nombreEmpresa)
-                .get()
-                .addOnCompleteListener(listener);
+                .add(datos)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            // Obtener el ID generado automáticamente
+                            String idEmpresa = task.getResult().getId();
+                            // Guardar la empresa también en la colección "001" con ID manual
+                            db.collection("001")
+                                    .document(idEmpresa)
+                                    .set(datos)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                listener.onComplete(task); // Completa la tarea con éxito
+                                            } else {
+                                                listener.onComplete(task); // Completa la tarea con error
+                                            }
+                                        }
+                                    });
+                        } else {
+                            // Si ocurre un error al agregar la empresa en la colección especificada
+                            listener.onComplete(task);
+                        }
+                    }
+                });
+
+
     }
 }

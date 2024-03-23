@@ -10,11 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Adaptadores.HotelesAdapter;
+import com.example.easytravel.Adaptadores.ServiciosAdapter;
 import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.example.easytravel.R;
-import com.example.easytravel.Adaptadores.EmpresasAdapter;
-import com.example.easytravel.Adaptadores.UserAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -59,33 +57,11 @@ public class ActivityAdmin extends AppCompatActivity {
     }
 
     private void obtenerUsuarios() {
-        basededatosFirestoreHelper.getAllUsers("usuarios", new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<String> usuarios = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String usuario = document.getString("correo");
-                        usuarios.add(usuario);
-                    }
-                    mostrarUsuarios(usuarios);
-                } else {
-                    Toast.makeText(ActivityAdmin.this, "Error al obtener usuarios", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void mostrarUsuarios(List<String> usuarios) {
-        userRecyclerView.setVisibility(View.VISIBLE);
-        empresaRecyclerView.setVisibility(View.GONE);
-        userRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
-        UserAdapter adapter = new UserAdapter(usuarios);
-        userRecyclerView.setAdapter(adapter);
+        // Lógica para obtener usuarios
     }
 
     private void mostrarEmpresas() {
-        basededatosFirestoreHelper.getAllEmpresas("empresas", new OnCompleteListener<QuerySnapshot>() {
+        basededatosFirestoreHelper.getAllEmpresas(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -104,8 +80,8 @@ public class ActivityAdmin extends AppCompatActivity {
                     adapter.setOnItemClickListener(new EmpresasAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                            String nombreEmpresaSeleccionada = empresas.get(position);
-                            obtenerIdEmpresa(nombreEmpresaSeleccionada);
+                            String idEmpresaSeleccionada = empresasList.get(position).getId();
+                            obtenerServiciosDeEmpresa(idEmpresaSeleccionada);
                         }
                     });
                 } else {
@@ -115,50 +91,26 @@ public class ActivityAdmin extends AppCompatActivity {
         });
     }
 
-    private void obtenerIdEmpresa(String nombreEmpresa) {
-        basededatosFirestoreHelper.obtenerIdEmpresaPorNombre("empresas", nombreEmpresa, new OnCompleteListener<QuerySnapshot>() {
+    private void obtenerServiciosDeEmpresa(String idEmpresa) {
+        basededatosFirestoreHelper.obtenerServiciosPorEmpresa(idEmpresa, new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot empresaSnapshot = task.getResult().getDocuments().get(0);
-                    String idEmpresa = empresaSnapshot.getId();
-                    mostrarHoteles(idEmpresa);
-                } else {
-                    Toast.makeText(ActivityAdmin.this, "Error al obtener ID de la empresa", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-
-    private void mostrarHoteles(String idEmpresa) {
-        basededatosFirestoreHelper.obtenerHotelesPorEmpresa(idEmpresa, new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<String> hoteles = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String nombreHotel = document.getString("nombre");
-                        hoteles.add(nombreHotel);
+                    List<DocumentSnapshot> serviciosList = task.getResult().getDocuments();
+                    List<String> servicios = new ArrayList<>();
+                    for (DocumentSnapshot document : serviciosList) {
+                        String nombreServicio = document.getString("nombre");
+                        servicios.add(nombreServicio);
                     }
-                    mostrarHotelesEnRecyclerView(hoteles);
-                    Toast.makeText(ActivityAdmin.this, "Hoteles de la empresa mostrados correctamente", Toast.LENGTH_SHORT).show();
+                    mostrarServicios(servicios);
                 } else {
-                    Toast.makeText(ActivityAdmin.this, "Error al obtener hoteles de la empresa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAdmin.this, "Error al obtener servicios", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void mostrarHotelesEnRecyclerView(List<String> hoteles) {
-        if (!hoteles.isEmpty()) {
-            RecyclerView recyclerView = findViewById(R.id.hotelesRecyclerView);
-            recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
-            HotelesAdapter adapter = new HotelesAdapter(hoteles);
-            recyclerView.setAdapter(adapter);
-        } else {
-            Toast.makeText(ActivityAdmin.this, "No se encontraron hoteles para mostrar", Toast.LENGTH_SHORT).show();
-        }
+    private void mostrarServicios(List<String> servicios) {
+        // Muestra los servicios en la interfaz de usuario (RecyclerView, ListView, etc.)
     }
 }

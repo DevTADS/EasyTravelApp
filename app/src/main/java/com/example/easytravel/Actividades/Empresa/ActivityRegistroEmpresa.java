@@ -79,6 +79,9 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Empresa creada exitosamente en Firebase Authentication
+                                // Obtener el ID de usuario (UID)
+                                String idEmpresa = task.getResult().getUser().getUid();
+
                                 // Guardar empresa en Firestore
                                 Map<String, Object> datosEmpresa = new HashMap<>();
                                 datosEmpresa.put("nombre", nombreEmpresa);
@@ -86,20 +89,25 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                                 datosEmpresa.put("telefono", telefono);
                                 datosEmpresa.put("direccion", direccion);
                                 datosEmpresa.put("correo", correo);
+
                                 basededatosFirestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                         if (task.isSuccessful()) {
-                                            // Empresa guardada en Firestore correctamente
+                                            // Empresa agregada exitosamente en la colección "empresas"
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Los datos de la empresa se han registrado correctamente", Toast.LENGTH_SHORT).show();
                                             limpiarCampos();
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Aguarde la validación de parte de los Administradores", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            // Error al guardar empresa en Firestore
+                                            // Error al agregar la empresa en la colección "empresas"
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
+
+
+
+
                             } else {
                                 // Error al crear la empresa en Firebase Authentication
                                 Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
@@ -143,24 +151,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoContraseña.setSelection(campoContraseña.getText().length());
     }
 
-    // Método para guardar empresa en Firestore
-    private void guardarEmpresaEnFirestore(Map<String, Object> datosEmpresa) {
-        basededatosFirestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-                    // Empresa guardada en Firestore correctamente
-                    Toast.makeText(ActivityRegistroEmpresa.this, "Los datos de la empresa se han registrado correctamente", Toast.LENGTH_SHORT).show();
-                    limpiarCampos();
-                    Toast.makeText(ActivityRegistroEmpresa.this, "Aguarde la validación de parte de los Administradores", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Error al guardar empresa en Firestore
-                    Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
     // Método para limpiar campos de texto
     private void limpiarCampos() {
         campoUsuario.setText("");
@@ -170,7 +160,6 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoTelefono.setText("");
         campoDireccion.setText("");
     }
-
     // Método para validar campos de texto
     private void validacion() {
         if (campoUsuario.getText().toString().isEmpty()) {
