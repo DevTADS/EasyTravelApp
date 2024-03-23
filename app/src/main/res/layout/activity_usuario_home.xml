@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="20dp"
-    tools:context=".Actividades.Principal.MainActivity">
+    tools:context=".Actividades.Main.MainActivity">
 
 
     <ScrollView
@@ -32,9 +32,11 @@
                         android:id="@+id/imageView3"
                         android:layout_width="29dp"
                         android:layout_height="36dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/imageView2"
+                        app:layout_constraintVertical_bias="0.607"
                         app:srcCompat="@drawable/bell" />
 
                     <TextView
@@ -56,8 +58,8 @@
                         android:id="@+id/imageView2"
                         android:layout_width="85dp"
                         android:layout_height="91dp"
-                        android:layout_marginBottom="8dp"
-                        android:padding="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:padding="2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:srcCompat="@drawable/caco"
                         tools:layout_editor_absoluteX="0dp"
@@ -94,8 +96,8 @@
 
                     <EditText
                         android:id="@+id/editTextText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_width="269dp"
+                        android:layout_height="45dp"
                         android:layout_weight="1"
                         android:background="@drawable/buscar_fondo"
                         android:drawableStart="@drawable/search_icon"
@@ -113,8 +115,8 @@
 
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="38dp"
+                            android:layout_height="35dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

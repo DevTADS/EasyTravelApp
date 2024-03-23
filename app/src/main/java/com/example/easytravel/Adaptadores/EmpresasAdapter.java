@@ -19,8 +19,18 @@ import java.util.List;
 public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.EmpresaViewHolder> {
     public static final int BLOCK_ICON_ID = 1;
 
-
     private List<String> empresas;
+    private OnItemClickListener mListener;
+
+    // Definición de la interfaz OnItemClickListener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Método para establecer el listener del clic del elemento
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public EmpresasAdapter(List<String> empresas) {
         this.empresas = empresas;
@@ -44,20 +54,16 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.Empres
         return empresas.size();
     }
 
-    public static class EmpresaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class EmpresaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView textView;
         private ImageView editarIcono;
-
 
         public EmpresaViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.empresaTextView);
             editarIcono = itemView.findViewById(R.id.editarIcono);
-
-
             // Configurar el listener de clic para los iconos
             editarIcono.setOnClickListener(this);
-
         }
 
         public void bind(String empresa) {
@@ -66,25 +72,9 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.Empres
 
         @Override
         public void onClick(View v) {
-            showOptionsDialog();
-        }
-
-        private void showOptionsDialog() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-            builder.setTitle("Selecciona una acción")
-                    .setItems(R.array.options_array, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // which representa la posición del elemento seleccionado
-                            if (which == 0) {
-                                // Acción de bloquear la empresa
-                                Toast.makeText(itemView.getContext(), "Bloquear empresa: " + textView.getText(), Toast.LENGTH_SHORT).show();
-                            } else if (which == 1) {
-                                // Acción de eliminar la empresa
-                                Toast.makeText(itemView.getContext(), "Eliminar empresa: " + textView.getText(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-            builder.create().show();
+            if (mListener != null) {
+                mListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 }

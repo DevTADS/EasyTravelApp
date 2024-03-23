@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_easy_travel4"
-    tools:context=".Actividades.Principal.MainActivity">
+    tools:context=".Actividades.Main.MainActivity">
 
     <TextView
         android:id="@+id/iniciarsesion"

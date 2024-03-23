@@ -1,4 +1,4 @@
-package com.example.easytravel.Actividades.Principal;
+package com.example.easytravel.Actividades.Main;
 
 import android.content.Intent;
 import android.os.Bundle;

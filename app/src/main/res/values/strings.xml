@@ -12,8 +12,10 @@
     <string name="block_icon_description">Descripción del icono de bloqueo</string>
     <string name="delete_icon_description">Descripción del icono de eliminar</string>
 
+    <string name="terminos_privacidad">Términos de Servicio y Política de Privacidad</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
 
-        <string-array name="options_array">
+    <string-array name="options_array">
             <item>Bloquear empresa</item>
             <item>Eliminar empresa</item>
         </string-array>

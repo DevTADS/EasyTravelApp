@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easytravel.Adaptadores.HotelesAdapter;
 import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
 import com.example.easytravel.R;
 import com.example.easytravel.Adaptadores.EmpresasAdapter;
@@ -38,7 +39,7 @@ public class ActivityAdmin extends AppCompatActivity {
         usuariosBoton = findViewById(R.id.usuariosBoton);
         empresasBoton = findViewById(R.id.empresasBoton);
         userRecyclerView = findViewById(R.id.userRecyclerView);
-        empresaRecyclerView = findViewById(R.id.empresaRecyclerView); // Inicializado el RecyclerView para empresas
+        empresaRecyclerView = findViewById(R.id.empresaRecyclerView);
 
         basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
 
@@ -52,7 +53,7 @@ public class ActivityAdmin extends AppCompatActivity {
         empresasBoton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                obtenerEmpresas();
+                mostrarEmpresas();
             }
         });
     }
@@ -76,24 +77,37 @@ public class ActivityAdmin extends AppCompatActivity {
     }
 
     private void mostrarUsuarios(List<String> usuarios) {
-        userRecyclerView.setVisibility(View.VISIBLE); // Mostrar el RecyclerView de usuarios
-        empresaRecyclerView.setVisibility(View.GONE); // Ocultar el RecyclerView de empresas
+        userRecyclerView.setVisibility(View.VISIBLE);
+        empresaRecyclerView.setVisibility(View.GONE);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
         UserAdapter adapter = new UserAdapter(usuarios);
         userRecyclerView.setAdapter(adapter);
     }
 
-    private void obtenerEmpresas() {
+    private void mostrarEmpresas() {
         basededatosFirestoreHelper.getAllEmpresas("empresas", new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    List<DocumentSnapshot> empresasList = task.getResult().getDocuments();
                     List<String> empresas = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
+                    for (DocumentSnapshot document : empresasList) {
                         String nombreEmpresa = document.getString("nombre");
                         empresas.add(nombreEmpresa);
                     }
-                    mostrarEmpresas(empresas);
+                    empresaRecyclerView.setVisibility(View.VISIBLE);
+                    userRecyclerView.setVisibility(View.GONE);
+                    empresaRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
+                    EmpresasAdapter adapter = new EmpresasAdapter(empresas);
+                    empresaRecyclerView.setAdapter(adapter);
+
+                    adapter.setOnItemClickListener(new EmpresasAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            String nombreEmpresaSeleccionada = empresas.get(position);
+                            obtenerIdEmpresa(nombreEmpresaSeleccionada);
+                        }
+                    });
                 } else {
                     Toast.makeText(ActivityAdmin.this, "Error al obtener empresas", Toast.LENGTH_SHORT).show();
                 }
@@ -101,11 +115,50 @@ public class ActivityAdmin extends AppCompatActivity {
         });
     }
 
-    private void mostrarEmpresas(List<String> empresas) {
-        empresaRecyclerView.setVisibility(View.VISIBLE); // Mostrar el RecyclerView de empresas
-        userRecyclerView.setVisibility(View.GONE); // Ocultar el RecyclerView de usuarios
-        empresaRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
-        EmpresasAdapter adapter = new EmpresasAdapter(empresas); // Crea un adaptador para las empresas
-        empresaRecyclerView.setAdapter(adapter);
+    private void obtenerIdEmpresa(String nombreEmpresa) {
+        basededatosFirestoreHelper.obtenerIdEmpresaPorNombre("empresas", nombreEmpresa, new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot empresaSnapshot = task.getResult().getDocuments().get(0);
+                    String idEmpresa = empresaSnapshot.getId();
+                    mostrarHoteles(idEmpresa);
+                } else {
+                    Toast.makeText(ActivityAdmin.this, "Error al obtener ID de la empresa", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    private void mostrarHoteles(String idEmpresa) {
+        basededatosFirestoreHelper.obtenerHotelesPorEmpresa(idEmpresa, new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<String> hoteles = new ArrayList<>();
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String nombreHotel = document.getString("nombre");
+                        hoteles.add(nombreHotel);
+                    }
+                    mostrarHotelesEnRecyclerView(hoteles);
+                    Toast.makeText(ActivityAdmin.this, "Hoteles de la empresa mostrados correctamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ActivityAdmin.this, "Error al obtener hoteles de la empresa", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void mostrarHotelesEnRecyclerView(List<String> hoteles) {
+        if (!hoteles.isEmpty()) {
+            RecyclerView recyclerView = findViewById(R.id.hotelesRecyclerView);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
+            HotelesAdapter adapter = new HotelesAdapter(hoteles);
+            recyclerView.setAdapter(adapter);
+        } else {
+            Toast.makeText(ActivityAdmin.this, "No se encontraron hoteles para mostrar", Toast.LENGTH_SHORT).show();
+        }
     }
 }

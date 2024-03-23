@@ -18,7 +18,7 @@
 
         <!-- MainActivity -->
         <activity
-            android:name=".Actividades.Principal.MainActivity"
+            android:name=".Actividades.Main.MainActivity"
             android:exported="true">
 
 
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Actividades.Principal.ActivityInicioSesion" />
+        <activity android:name=".Actividades.Main.ActivityInicioSesion" />
 
         <activity android:name=".Actividades.Usuario.ActivityLoginUsuario" />
         <activity android:name=".Actividades.Empresa.ActivityLoginEmpresa" />
