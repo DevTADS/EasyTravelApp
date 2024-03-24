@@ -8,14 +8,22 @@ public class Empresa {
     private String direccion;
     private String password;
 
-    // Constructor de la clase Empresa
-    public Empresa(String nombre, String pais, String telefono, String direccion, String correo, String password) {
+    private String id;
+
+    // Constructor sin argumentos
+    public Empresa() {
+        // Este constructor vacío es necesario para que Firestore pueda deserializar los documentos correctamente.
+    }
+
+    // Constructor con argumentos
+    public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password, String id) {
         this.nombre = nombre;
+        this.correo = correo;
         this.pais = pais;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.correo = correo;
         this.password = password;
+        this.id = id;
     }
 
     // Métodos getters y setters para acceder y modificar los campos de la empresa
@@ -26,6 +34,14 @@ public class Empresa {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCorreo() {

@@ -73,47 +73,43 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
                 if (nombreEmpresa.isEmpty() || pais.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
                     validacion();
                 } else {
-                    // Crear empresa en Firebase Authentication
+
                     authHelper.crearEmpresaConCorreoYContraseña(correo, contraseña, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Empresa creada exitosamente en Firebase Authentication
-                                // Obtener el ID de usuario (UID)
                                 String idEmpresa = task.getResult().getUser().getUid();
 
-                                // Guardar empresa en Firestore
+                                // Agregar el UID de la empresa como un campo en los datos
                                 Map<String, Object> datosEmpresa = new HashMap<>();
+                                datosEmpresa.put("idEmpresa", idEmpresa); // Agrega el UID como un campo en los datos
                                 datosEmpresa.put("nombre", nombreEmpresa);
                                 datosEmpresa.put("pais", pais);
                                 datosEmpresa.put("telefono", telefono);
                                 datosEmpresa.put("direccion", direccion);
                                 datosEmpresa.put("correo", correo);
 
-                                basededatosFirestoreHelper.addEmpresa("empresas", datosEmpresa, new OnCompleteListener<DocumentReference>() {
+                                basededatosFirestoreHelper.addEmpresa("empresa", datosEmpresa, new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                         if (task.isSuccessful()) {
-                                            // Empresa agregada exitosamente en la colección "empresas"
+                                            // Éxito al agregar la empresa en la colección "empresa"
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Los datos de la empresa se han registrado correctamente", Toast.LENGTH_SHORT).show();
                                             limpiarCampos();
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Aguarde la validación de parte de los Administradores", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            // Error al agregar la empresa en la colección "empresas"
+                                            // Error al agregar la empresa en la colección "empresa"
                                             Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
-
-
-
-
                             } else {
                                 // Error al crear la empresa en Firebase Authentication
                                 Toast.makeText(ActivityRegistroEmpresa.this, "Error al registrar empresa", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
 
                 }
             }
@@ -160,6 +156,7 @@ public class ActivityRegistroEmpresa extends AppCompatActivity {
         campoTelefono.setText("");
         campoDireccion.setText("");
     }
+
     // Método para validar campos de texto
     private void validacion() {
         if (campoUsuario.getText().toString().isEmpty()) {

@@ -4,113 +4,94 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Adaptadores.ServiciosAdapter;
+import com.example.easytravel.Adaptadores.EmpresaAdapter;
+import com.example.easytravel.Adaptadores.HotelesAdapter;
 import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
+import com.example.easytravel.Modelos.Empresa;
+import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityAdmin extends AppCompatActivity {
-
-    private Button usuariosBoton;
+    private HotelesAdapter hotelesAdapter;
     private Button empresasBoton;
-    private RecyclerView userRecyclerView;
     private RecyclerView empresaRecyclerView;
     private BaseDatos_FirestoreHelper basededatosFirestoreHelper;
+    private EmpresaAdapter empresaAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
 
-        usuariosBoton = findViewById(R.id.usuariosBoton);
         empresasBoton = findViewById(R.id.empresasBoton);
-        userRecyclerView = findViewById(R.id.userRecyclerView);
         empresaRecyclerView = findViewById(R.id.empresaRecyclerView);
-
+        empresaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
+        empresaAdapter = new EmpresaAdapter();
 
-        usuariosBoton.setOnClickListener(new View.OnClickListener() {
+        // Crear adaptador de hoteles sin argumentos
+        hotelesAdapter = new HotelesAdapter();
+
+        empresaAdapter.setOnItemClickListener(new EmpresaAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                obtenerUsuarios();
+            public void onItemClick(Empresa empresa) {
+                obtenerHotelesPorEmpresa(empresa.getId()); // Obtener hoteles por ID de empresa seleccionada
             }
         });
 
         empresasBoton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarEmpresas();
+                obtenerEmpresas();
             }
         });
     }
 
-    private void obtenerUsuarios() {
-        // Lógica para obtener usuarios
-    }
-
-    private void mostrarEmpresas() {
-        basededatosFirestoreHelper.getAllEmpresas(new OnCompleteListener<QuerySnapshot>() {
+    private void obtenerEmpresas() {
+        basededatosFirestoreHelper.obtenerEmpresas(new BaseDatos_FirestoreHelper.OnEmpresaFetchComplete() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> empresasList = task.getResult().getDocuments();
-                    List<String> empresas = new ArrayList<>();
-                    for (DocumentSnapshot document : empresasList) {
-                        String nombreEmpresa = document.getString("nombre");
-                        empresas.add(nombreEmpresa);
-                    }
-                    empresaRecyclerView.setVisibility(View.VISIBLE);
-                    userRecyclerView.setVisibility(View.GONE);
-                    empresaRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityAdmin.this));
-                    EmpresasAdapter adapter = new EmpresasAdapter(empresas);
-                    empresaRecyclerView.setAdapter(adapter);
-
-                    adapter.setOnItemClickListener(new EmpresasAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(int position) {
-                            String idEmpresaSeleccionada = empresasList.get(position).getId();
-                            obtenerServiciosDeEmpresa(idEmpresaSeleccionada);
-                        }
-                    });
+            public void onFetchComplete(List<Empresa> empresas) {
+                if (empresas != null && !empresas.isEmpty()) {
+                    empresaAdapter.setEmpresas(empresas);
+                    empresaRecyclerView.setAdapter(empresaAdapter);
                 } else {
-                    Toast.makeText(ActivityAdmin.this, "Error al obtener empresas", Toast.LENGTH_SHORT).show();
+                    mostrarToast("No se encontraron empresas registradas");
                 }
             }
-        });
-    }
 
-    private void obtenerServiciosDeEmpresa(String idEmpresa) {
-        basededatosFirestoreHelper.obtenerServiciosPorEmpresa(idEmpresa, new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> serviciosList = task.getResult().getDocuments();
-                    List<String> servicios = new ArrayList<>();
-                    for (DocumentSnapshot document : serviciosList) {
-                        String nombreServicio = document.getString("nombre");
-                        servicios.add(nombreServicio);
-                    }
-                    mostrarServicios(servicios);
-                } else {
-                    Toast.makeText(ActivityAdmin.this, "Error al obtener servicios", Toast.LENGTH_SHORT).show();
-                }
+            public void onError(String errorMessage) {
+                mostrarToast("Error al obtener empresas: " + errorMessage);
             }
         });
     }
 
-    private void mostrarServicios(List<String> servicios) {
-        // Muestra los servicios en la interfaz de usuario (RecyclerView, ListView, etc.)
+    private void obtenerHotelesPorEmpresa(String empresaId) {
+        basededatosFirestoreHelper.obtenerHotelesPorEmpresa(empresaId, new BaseDatos_FirestoreHelper.OnHotelFetchComplete() {
+            @Override
+            public void onFetchComplete(List<Hotel> hoteles) {
+                if (hoteles != null && !hoteles.isEmpty()) {
+                    // Mostrar los hoteles en el RecyclerView correspondiente
+                    hotelesAdapter.setHoteles(hoteles);
+                    empresaRecyclerView.setAdapter(hotelesAdapter);
+                } else {
+                    mostrarToast("No se encontraron hoteles registrados para esta empresa");
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                mostrarToast("Error al obtener hoteles: " + errorMessage);
+            }
+        });
+    }
+
+    private void mostrarToast(String mensaje) {
+        Toast.makeText(ActivityAdmin.this, mensaje, Toast.LENGTH_LONG).show();
     }
 }

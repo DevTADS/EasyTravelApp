@@ -6,11 +6,27 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/empresaTextView"
+        android:id="@+id/nombreTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/paisTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <TextView
+        android:id="@+id/telefonoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
 
     <ImageView
         android:id="@+id/editarIcono"
@@ -22,8 +38,5 @@
         android:focusable="true"
         android:paddingStart="8dp"
         android:paddingEnd="8dp" />
-
-
-
 
 </LinearLayout>

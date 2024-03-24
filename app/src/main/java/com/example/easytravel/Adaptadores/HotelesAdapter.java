@@ -8,17 +8,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelViewHolder> {
 
-    private List<String> hoteles;
 
-    public HotelesAdapter(List<String> hoteles) {
-        this.hoteles = hoteles;
+    private List<Hotel> hoteles;
+
+    public HotelesAdapter() {
+        hoteles = new ArrayList<>(); // Inicializar la lista en el constructor
     }
+
+    public void setHoteles(List<Hotel> hoteles) {
+        this.hoteles = hoteles;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -29,9 +38,11 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
 
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
-        String hotel = hoteles.get(position);
+        Hotel hotel = hoteles.get(position); // Cambiado de String a Hotel
         holder.bind(hotel);
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -46,8 +57,9 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
             nombreHotelTextView = itemView.findViewById(R.id.nombreHotelTextView);
         }
 
-        public void bind(String hotel) {
-            nombreHotelTextView.setText(hotel);
+        public void bind(Hotel hotel) {
+            nombreHotelTextView.setText(hotel.getNombre()); // Por ejemplo, supongamos que el nombre del hotel se obtiene a través de un método getNombre()
         }
     }
+
 }

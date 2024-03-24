@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class ActivityHomeEmpresa extends AppCompatActivity {
 
-    // Declaración de variables para los componentes de la interfaz de usuario
+    private BaseDatos_FirestoreHelper baseDatosFirestoreHelper;
     private Spinner spinnerTipoServicio, spinnerPais, spinnerCiudad;
     private EditText nombreEditText, telefonoEditText, direccionEditText;
 
@@ -38,7 +38,7 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa_home);
 
-        // Vinculación de las variables con los elementos del layout
+        baseDatosFirestoreHelper = new BaseDatos_FirestoreHelper();
         spinnerTipoServicio = findViewById(R.id.spinnerTipoServicio);
         spinnerPais = findViewById(R.id.spinnerPais);
         spinnerCiudad = findViewById(R.id.spinnerCiudad);
@@ -70,55 +70,52 @@ public class ActivityHomeEmpresa extends AppCompatActivity {
         registroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                obtenerIdEmpresaYRegistrarHotel(); // Obtener el idEmpresa antes de registrar el servicio
-                registrarNuevoServicio(); // Registrar el nuevo servicio
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    idEmpresa = currentUser.getUid();
+
+                    String tipoServicio = spinnerTipoServicio.getSelectedItem().toString();
+                    String pais = spinnerPais.getSelectedItem().toString();
+                    String ciudad = spinnerCiudad.getSelectedItem().toString();
+                    String nombre = nombreEditText.getText().toString();
+                    String telefono = telefonoEditText.getText().toString();
+                    String direccion = direccionEditText.getText().toString();
+
+                    if (nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+                        mostrarToast("Todos los campos son obligatorios");
+                    } else {
+                        // Crear datos del hotel
+                        Map<String, Object> datosHotel = new HashMap<>();
+                        datosHotel.put("idEmpresa", idEmpresa); // Agregar el ID de la empresa como un campo
+                        datosHotel.put("tipoServicio", tipoServicio);
+                        datosHotel.put("pais", pais);
+                        datosHotel.put("ciudad", ciudad);
+                        datosHotel.put("nombre", nombre);
+                        datosHotel.put("telefono", telefono);
+                        datosHotel.put("direccion", direccion);
+
+                        // Agregar el hotel en Firestore
+                        baseDatosFirestoreHelper.addHotel("hotel", datosHotel, new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                if (task.isSuccessful()) {
+                                    // Éxito al agregar el hotel en Firestore
+                                    mostrarToast("Hotel registrado correctamente");
+                                    limpiarCampos();
+                                } else {
+                                    // Error al agregar el hotel en Firestore
+                                    mostrarToast("Error al registrar hotel");
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    mostrarToast("No se pudo obtener el ID de la empresa");
+                }
             }
         });
 
-
     }
-
-    private void obtenerIdEmpresaYRegistrarHotel() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            // El usuario está autenticado, obtén el ID de la empresa del perfil del usuario
-            idEmpresa = currentUser.getUid();
-
-            // Ahora puedes utilizar idEmpresa para registrar el hotel asociado a esa empresa
-        } else {
-            // El usuario no está autenticado, maneja el caso en consecuencia
-            Toast.makeText(ActivityHomeEmpresa.this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    private void registrarNuevoServicio() {
-        // Obtener datos ingresados por el usuario
-        String tipoServicio = spinnerTipoServicio.getSelectedItem().toString();
-        String nombre = nombreEditText.getText().toString();
-        String pais = spinnerPais.getSelectedItem().toString();
-        String ciudad = spinnerCiudad.getSelectedItem().toString();
-        String telefono = telefonoEditText.getText().toString();
-        String direccion = direccionEditText.getText().toString();
-
-        // Verificar que el ID de la empresa no sea nulo
-        if (idEmpresa != null) {
-            // Crear un nuevo mapa con los datos del servicio
-            Map<String, Object> datosServicio = new HashMap<>();
-            datosServicio.put("nombre", nombre);
-            datosServicio.put("pais", pais);
-            datosServicio.put("ciudad", ciudad);
-            datosServicio.put("telefono", telefono);
-            datosServicio.put("direccion", direccion);
-
-            // Instanciar el helper de Firestore
-            BaseDatos_FirestoreHelper basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
-
-        }
-    }
-
 
     // Método para mostrar un Toast
     private void mostrarToast(String mensaje) {
