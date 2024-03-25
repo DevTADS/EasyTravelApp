@@ -1,150 +1,105 @@
 package com.example.easytravel.Actividades.Usuario;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easytravel.R;
-import com.example.easytravel.Firebase.Autenticacion_FirebaseAuthHelper;
-import com.example.easytravel.Firebase.BaseDatos_FirestoreHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.firestore.DocumentReference;
+import com.example.easytravel.BaseDeDatos.ConexionMySQL;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.easytravel.R;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class ActivityRegistroUsuario extends AppCompatActivity {
+    private Context context;
+    private EditText campoNombre, campoCedula, campoTelefono, campoPais, campoCiudad,
+            campoDireccion, campoCorreo, campoContraseña;
 
-    private EditText campoUsuario;
-    private EditText campoContraseña;
-    private EditText campoCorreo;
-    private Button botonRegistrarse;
-    private Autenticacion_FirebaseAuthHelper authHelper;
-    private BaseDatos_FirestoreHelper basededatosFirestoreHelper;
-    private boolean contraseñaVisible = false;
+    private Button btnRegistrarse, btnVerificarConexion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_registro);
 
-        // Inicializar FirebaseAuthHelper y FirestoreHelper
-        authHelper = new Autenticacion_FirebaseAuthHelper();
-        basededatosFirestoreHelper = new BaseDatos_FirestoreHelper();
+        campoNombre = findViewById(R.id.etNombre);
+        campoCedula = findViewById(R.id.etCedula);
+        campoTelefono = findViewById(R.id.etTelefono);
+        campoPais = findViewById(R.id.etPais);
+        campoCiudad = findViewById(R.id.etCiudad);
+        campoDireccion = findViewById(R.id.etDireccion);
+        campoCorreo = findViewById(R.id.etCorreo);
+        campoContraseña = findViewById(R.id.etPassword);
+        btnRegistrarse = findViewById(R.id.btn_registrarse);
+        btnVerificarConexion = findViewById(R.id.btn_verificar_conexion);
 
-        // Inicializar vistas
-        campoUsuario = findViewById(R.id.username);
-        campoContraseña = findViewById(R.id.password);
-        campoCorreo = findViewById(R.id.correo);
-        botonRegistrarse = findViewById(R.id.btn_registrarse);
-
-        // Configurar OnClickListener para el botón de registro
-        botonRegistrarse.setOnClickListener(new View.OnClickListener() {
+        btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String usuario = campoUsuario.getText().toString();
-                final String correo = campoCorreo.getText().toString();
-                final String contraseña = campoContraseña.getText().toString();
+                // Obtener los datos ingresados por el usuario
+                String nombre = campoNombre.getText().toString();
+                String cedula = campoCedula.getText().toString();
+                String telefono = campoTelefono.getText().toString();
+                String pais = campoPais.getText().toString();
+                String ciudad = campoCiudad.getText().toString();
+                String direccion = campoDireccion.getText().toString();
+                String correo = campoCorreo.getText().toString();
+                String contraseña = campoContraseña.getText().toString();
 
-                if (usuario.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
-                    validacion();
-                } else {
-                    // Crear usuario en Firebase Authentication
-                    authHelper.crearUsuarioConCorreoYContraseña(correo, contraseña, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Usuario creado exitosamente
-                                // Guardar usuario en Firestore
-                                Map<String, Object> datosUsuario = new HashMap<>();
-                                datosUsuario.put("nombre", usuario);
-                                datosUsuario.put("correo", correo);
-                                guardarUsuarioEnFirestore(datosUsuario);
-                            } else {
-                                // Error al crear usuario
-                                Toast.makeText(ActivityRegistroUsuario.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
-                            }
+                Connection connection = null;
+                PreparedStatement preparedStatement = null;
+
+                try {
+                    connection = ConexionMySQL.obtenerConexion();
+
+                    if (connection != null) {
+                        String sql = "INSERT INTO usuarios (nombre, cedula_identidad, telefono, pais, ciudad, direccion, correo, contrasena) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, nombre);
+                        preparedStatement.setString(2, cedula);
+                        preparedStatement.setString(3, telefono);
+                        preparedStatement.setString(4, pais);
+                        preparedStatement.setString(5, ciudad);
+                        preparedStatement.setString(6, direccion);
+                        preparedStatement.setString(7, correo);
+                        preparedStatement.setString(8, contraseña);
+
+                        int filasAfectadas = preparedStatement.executeUpdate();
+
+                        if (filasAfectadas > 0) {
+                            Toast.makeText(context, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(context, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
-            }
-        });
-
-        // Configurar OnClickListener para el ícono de la contraseña
-        campoContraseña.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_password, 0);
-        campoContraseña.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (campoContraseña.getRight() - campoContraseña.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        cambiarVisibilidadContraseña();
-                        return true;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (preparedStatement != null) {
+                            preparedStatement.close();
+                        }
+                        if (connection != null) {
+                            connection.close();
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                 }
-                return false;
             }
         });
+
+
     }
 
-    // Método para cambiar la visibilidad de la contraseña
-    private void cambiarVisibilidadContraseña() {
-        if (contraseñaVisible) {
-            // Cambiar a contraseña oculta
-            campoContraseña.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            contraseñaVisible = false;
-        } else {
-            // Cambiar a texto visible
-            campoContraseña.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            contraseñaVisible = true;
-        }
-        // Mover el cursor al final del texto
-        campoContraseña.setSelection(campoContraseña.getText().length());
-    }
 
-    // Método para guardar usuario en Firestore
-    private void guardarUsuarioEnFirestore(Map<String, Object> datosUsuario) {
-        basededatosFirestoreHelper.addUser("usuarios", datosUsuario, new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-                    // Usuario guardado en Firestore correctamente
-                    Toast.makeText(ActivityRegistroUsuario.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                    limpiarCampos();
-                } else {
-                    // Error al guardar usuario en Firestore
-                    Toast.makeText(ActivityRegistroUsuario.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    // Método para limpiar campos de texto
-    private void limpiarCampos() {
-        campoUsuario.setText("");
-        campoCorreo.setText("");
-        campoContraseña.setText("");
-    }
-
-    // Método para validar campos de texto
-    private void validacion() {
-        if (campoUsuario.getText().toString().isEmpty()) {
-            campoUsuario.setError("Requerido");
-        }
-        if (campoCorreo.getText().toString().isEmpty()) {
-            campoCorreo.setError("Requerido");
-        }
-        if (campoContraseña.getText().toString().isEmpty()) {
-            campoContraseña.setError("Requerido");
-        }
-    }
 }

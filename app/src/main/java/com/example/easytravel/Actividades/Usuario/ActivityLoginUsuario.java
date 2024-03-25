@@ -14,17 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
 import com.example.easytravel.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 public class ActivityLoginUsuario extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private FirebaseAuth mAuth;
+
     private Button registerButton;
     private boolean passwordVisible = false;
 
@@ -33,8 +30,7 @@ public class ActivityLoginUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_login);
 
-        // Inicializar FirebaseAuth
-        mAuth = FirebaseAuth.getInstance();
+
 
         // Inicializar vistas
         emailEditText = findViewById(R.id.username);
@@ -42,38 +38,7 @@ public class ActivityLoginUsuario extends AppCompatActivity {
         loginButton = findViewById(R.id.btn_login);
         registerButton = findViewById(R.id.btn_registro);
 
-        // Configurando OnClickListener para el botón de login
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener los valores del formulario
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
 
-                // Iniciar sesión con el correo electrónico y la contraseña
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    String email = emailEditText.getText().toString();
-                                    String password = passwordEditText.getText().toString();
-                                    // Verificar si el usuario es administrador
-                                    if (email.equals("easytraveltads@gmail.com") && password.equals("tads2024")) {
-                                        // Iniciar la actividad de administrador
-                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityAdmin.class));
-                                    } else {
-                                        // Inicio de sesión exitoso, abrir la nueva actividad de usuario
-                                        startActivity(new Intent(ActivityLoginUsuario.this, ActivityHomeUsuario.class));
-                                    }
-                                } else {
-                                    // Error al iniciar sesión, mostrar un mensaje de error
-                                    Toast.makeText(ActivityLoginUsuario.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
 
         // Configurando OnClickListener para el botón de registro
         registerButton.setOnClickListener(new View.OnClickListener() {

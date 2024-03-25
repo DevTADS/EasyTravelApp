@@ -2,23 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.easytravel">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
 
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_logo"
+
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_logo_round"
+
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTravel"
         tools:targetApi="31">
 
         <!-- MainActivity -->
         <activity
-            android:name=".Actividades.Main.MainActivity"
+            android:name=".Main.MainActivity"
             android:exported="true">
 
 
@@ -28,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Actividades.Main.ActivityInicioSesion" />
+        <activity android:name=".Main.ActivityInicioSesion" />
 
         <activity android:name=".Actividades.Usuario.ActivityLoginUsuario" />
         <activity android:name=".Actividades.Empresa.ActivityLoginEmpresa" />

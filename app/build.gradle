@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.easytravel' // Espacio de nombres
+    namespace 'com.example.easytravel'
     compileSdk 34
 
     defaultConfig {
@@ -43,20 +43,11 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
-    // Firebase BoM (Bill of Materials)
-    implementation platform('com.google.firebase:firebase-bom:28.4.2')
 
-    // Firebase Authentication
-    implementation 'com.google.firebase:firebase-auth'
 
-    // Firebase Realtime Database
-    implementation 'com.google.firebase:firebase-database'
+        implementation libs.mysql.connector.java
 
-    // Firebase Firestore
-    implementation 'com.google.firebase:firebase-firestore'
 
-    // Firebase Messaging
-    implementation 'com.google.firebase:firebase-messaging:23.0.0'
 
 
 
