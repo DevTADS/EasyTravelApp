@@ -1,28 +1,68 @@
-package com.example.easytravel.Modelos;
+package com.example.easytravel.Model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Usuario {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
 
+    @SerializedName("nombre")
+    @Expose
     private String nombre;
+
+    @SerializedName("cedula")
+    @Expose
     private String cedula;
+
+    @SerializedName("telefono")
+    @Expose
     private String telefono;
+
+    @SerializedName("pais")
+    @Expose
     private String pais;
+
+    @SerializedName("ciudad")
+    @Expose
     private String ciudad;
+
+    @SerializedName("direccion")
+    @Expose
     private String direccion;
+
+    @SerializedName("correo")
+    @Expose
     private String correo;
+
+    @SerializedName("password")
+    @Expose
     private String password;
 
     public Usuario() {
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
+    public Usuario(int id, String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.telefono = telefono;
+        this.pais = pais;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        this.correo = correo;
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -80,18 +120,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
+    public String getPassword() {
+        return password;
+    }
 
-                ", nombre='" + nombre + '\'' +
-                ", cedula='" + cedula + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", pais='" + pais + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", correo='" + correo + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

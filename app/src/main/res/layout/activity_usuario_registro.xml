@@ -8,189 +8,38 @@
     tools:context=".Main.MainActivity">
 
     <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
+        android:id="@+id/nombre"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="200dp"
-        android:text="Registro de Usuario"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etNombre"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="NOMBRES"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
     <EditText
-        android:id="@+id/etNombre"
+        android:id="@+id/txtNombres"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawableRight="@drawable/icono_visto"
-        android:drawablePadding="20dp"
-        android:hint="Nombre y Apellido"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese su nombre"
+        app:layout_constraintTop_toBottomOf="@+id/nombre"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
-
-    <EditText
-        android:id="@+id/etCedula"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawablePadding="20dp"
-        android:hint="C.I. (Cédula de Identidad)"
-        android:inputType="number"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
-    <EditText
-        android:id="@+id/etTelefono"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawablePadding="20dp"
-        android:hint="Teléfono"
-        android:inputType="phone"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCedula" />
-
-    <EditText
-        android:id="@+id/etPais"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawablePadding="20dp"
-        android:hint="País"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTelefono" />
-
-    <EditText
-        android:id="@+id/etCiudad"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawablePadding="20dp"
-        android:hint="Ciudad"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPais" />
-
-    <EditText
-        android:id="@+id/etDireccion"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawablePadding="20dp"
-        android:hint="Dirección"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCiudad" />
-
-    <EditText
-        android:id="@+id/etCorreo"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:drawableRight="@drawable/icono_correo"
-        android:drawablePadding="20dp"
-        android:hint="Correo"
-        android:padding="20dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDireccion" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:padding="20dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCorreo"
-        app:layout_constraintVertical_bias="0.0" />
     <Button
         android:id="@+id/btn_registrarse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Registrarse"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombres"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_verificar_conexion"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <Button
-        android:id="@+id/btn_verificar_conexion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Verificar Conexión"
-        app:layout_constraintStart_toEndOf="@+id/btn_registrarse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintHorizontal_bias="0.5" />
-
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

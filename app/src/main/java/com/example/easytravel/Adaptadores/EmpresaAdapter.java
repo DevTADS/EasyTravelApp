@@ -8,10 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modelos.Empresa;
+import com.example.easytravel.Model.Empresa;
 import com.example.easytravel.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmpresaAdapter extends RecyclerView.Adapter<EmpresaAdapter.EmpresaViewHolder> {
