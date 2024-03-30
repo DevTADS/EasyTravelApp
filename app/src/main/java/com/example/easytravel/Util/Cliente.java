@@ -1,4 +1,4 @@
-package com.example.easytravel.Utils;
+package com.example.easytravel.Util;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
