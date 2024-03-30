@@ -7,17 +7,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
-import com.example.easytravel.PersonaActivity;
 import com.example.easytravel.R;
 
 
-public class ActivityLoginUsuario extends AppCompatActivity {
+public class LoginUsuario extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -46,7 +42,7 @@ public class ActivityLoginUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Abrir la actividad de registro al hacer clic en el botón de registro
-                startActivity(new Intent(ActivityLoginUsuario.this, PersonaActivity.class));
+                startActivity(new Intent(LoginUsuario.this, RegistroUsuario.class));
             }
         });
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="departamentos">
+        <item>Artigas</item>
+        <item>Canelones</item>
+        <item>Cerro Largo</item>
+        <item>Colonia</item>
+        <item>Durazno</item>
+        <item>Flores</item>
+        <item>Florida</item>
+        <item>Lavalleja</item>
+        <item>Maldonado</item>
+        <item>Montevideo</item>
+        <item>Paysandú</item>
+        <item>Río Negro</item>
+        <item>Rivera</item>
+        <item>Rocha</item>
+        <item>Salto</item>
+        <item>San José</item>
+        <item>Soriano</item>
+        <item>Tacuarembó</item>
+        <item>Treinta y Tres</item>
+    </string-array>
+</resources>

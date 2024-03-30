@@ -1,4 +1,4 @@
-package com.example.easytravel.Model;
+package com.example.easytravel.Modelo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -37,15 +37,15 @@ public class Usuario {
     @Expose
     private String correo;
 
-    @SerializedName("password")
+    @SerializedName("contrasena")
     @Expose
-    private String password;
+    private String contrasena;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String password) {
-        this.id = id;
+    public Usuario( String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String contrasena) {
+
         this.nombre = nombre;
         this.cedula = cedula;
         this.telefono = telefono;
@@ -53,8 +53,10 @@ public class Usuario {
         this.ciudad = ciudad;
         this.direccion = direccion;
         this.correo = correo;
-        this.password = password;
+        this.contrasena = contrasena;
     }
+
+
 
     public int getId() {
         return id;
@@ -120,11 +122,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Empresa.ActivityLoginEmpresa;
-import com.example.easytravel.Actividades.Usuario.ActivityLoginUsuario;
+import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.R;
 
 
@@ -25,7 +25,7 @@ public class ActivityInicioSesion extends AppCompatActivity {
         btn_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityInicioSesion.this, ActivityLoginUsuario.class);
+                Intent intent = new Intent(ActivityInicioSesion.this, LoginUsuario.class);
                 startActivity(intent);
             }
         });

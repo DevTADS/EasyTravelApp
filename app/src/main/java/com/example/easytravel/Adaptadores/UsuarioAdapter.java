@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 
-import com.example.easytravel.Model.Usuario;
+import com.example.easytravel.Modelo.Usuario;
 
 import java.util.List;
 

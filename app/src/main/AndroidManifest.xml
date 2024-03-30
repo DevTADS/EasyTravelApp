@@ -33,14 +33,14 @@
 
         <activity android:name=".Main.ActivityInicioSesion" />
 
-        <activity android:name=".Actividades.Usuario.ActivityLoginUsuario" />
+        <activity android:name=".Actividades.Usuario.LoginUsuario" />
         <activity android:name=".Actividades.Empresa.ActivityLoginEmpresa" />
 
 
         <activity android:name=".Actividades.Empresa.ActivityRegistroEmpresa" />
 
         <activity
-            android:name=".Actividades.Usuario.ActivityHomeUsuario"
+            android:name=".Actividades.Usuario.HomeUsuario"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".Actividades.Empresa.ActivityHomeEmpresa"
@@ -49,7 +49,7 @@
         <activity android:name=".Actividades.Administrador.ActivityAdmin" />
 
 
-        <activity android:name=".PersonaActivity"  />
+        <activity android:name=".Actividades.Usuario.RegistroUsuario"  />
 
 
     </application>

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
-public class ActivityHomeUsuario extends AppCompatActivity {
+public class HomeUsuario extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,42 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    tools:context=".Main.MainActivity">
+    android:background="#7385ED"
+    tools:context=".Actividades.Usuario.RegistroUsuario">
 
     <TextView
-        android:id="@+id/nombre"
-        android:layout_width="0dp"
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NOMBRES"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Registro de usuario"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtNombres"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Ingrese su nombre"
-        app:layout_constraintTop_toBottomOf="@+id/nombre"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="#00BCD4"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_bias="0.145">
+
+        <TextView
+            android:id="@+id/nombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NOMBRE COMPLETO"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/txtNombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
+
+
+        <TextView
+            android:id="@+id/cedula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CÉDULA DE IDENTIDAD"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/txtCedula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="#FFFFFF" />
+
+
+        <TextView
+            android:id="@+id/telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NÚMERO DE TELÉFONO"
+            android:textColor="#FFFFFF" />/>
+
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:textColor="#FFFFFF" />
+
+
+        <TextView
+            android:id="@+id/paisTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PAÍS"
+            android:textColor="#FFFFFF" />/>
+
+        <Spinner
+            android:id="@+id/spinnerPais"
+            android:layout_width="244dp"
+            android:layout_height="56dp"
+            android:background="#00BCD4"
+            android:hint="Seleccione el país"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/ciudadTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CIDUAD"
+            android:textColor="#FFFFFF" />/>
+
+        <Spinner
+            android:id="@+id/spinnerCiudad"
+            android:layout_width="252dp"
+            android:layout_height="54dp"
+            android:hint="Seleccione la ciudad"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/direccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DIRECCIÓN"
+            android:textColor="#FFFFFF" />/>
+
+        <EditText
+            android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
+
+
+        <TextView
+            android:id="@+id/correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CORREO"
+            android:textColor="#FFFFFF" />/>
+
+        <EditText
+            android:id="@+id/txtCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF" />
+
+
+        <TextView
+            android:id="@+id/contrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTRASEÑA"
+            android:textColor="#FFFFFF" />/>
+
+        <EditText
+            android:id="@+id/txtContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btn_registrarse"
+        android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Registrarse"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombres"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:background="#000000"
+        android:text="GUARDAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
