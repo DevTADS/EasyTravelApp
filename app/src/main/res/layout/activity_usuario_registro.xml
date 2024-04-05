@@ -61,7 +61,7 @@
             android:id="@+id/txtCedula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+
             android:textColor="#FFFFFF" />
 
 
@@ -76,7 +76,7 @@
             android:id="@+id/txtTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
+
             android:textColor="#FFFFFF" />
 
 
@@ -120,7 +120,7 @@
             android:id="@+id/txtDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+
             android:textColor="#FFFFFF" />
 
 
@@ -135,7 +135,7 @@
             android:id="@+id/txtCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+
             android:textColor="#FFFFFF" />
 
 
@@ -150,7 +150,7 @@
             android:id="@+id/txtContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            
             android:textColor="#FFFFFF" />
 
     </LinearLayout>

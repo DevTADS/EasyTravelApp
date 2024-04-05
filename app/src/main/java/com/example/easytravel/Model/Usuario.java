@@ -1,4 +1,4 @@
-package com.example.easytravel.Modelo;
+package com.example.easytravel.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -44,8 +44,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario( String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String contrasena) {
-
+    public Usuario(int id, String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String contrasena) {
+        this.id = id;
         this.nombre = nombre;
         this.cedula = cedula;
         this.telefono = telefono;
@@ -55,7 +55,6 @@ public class Usuario {
         this.correo = correo;
         this.contrasena = contrasena;
     }
-
 
 
     public int getId() {

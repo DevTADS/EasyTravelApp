@@ -1,6 +1,6 @@
-package com.example.easytravel.Util;
+package com.example.easytravel.Utils;
 
-import com.example.easytravel.Modelo.Usuario;
+import com.example.easytravel.Model.Usuario;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ public interface UsuarioService {
     Call<List<Usuario>> getUsuarios();
 
     @POST("agregar")
-    Call<Usuario>agregarUsuario(@Body Usuario usuario);
+    Call<Usuario> addUsuario(@Body Usuario u);
 
     @POST("actualizar/{id}")
-    Call<Usuario>actualizarUsuario(@Body Usuario usuario,@Path("id") int id);
+    Call<Usuario>actualizarUsuario(@Body Usuario u,@Path("id") int id);
 
     @POST("eliminar/{id}")
     Call<Usuario>eliminarUsuario(@Path("id")int id);

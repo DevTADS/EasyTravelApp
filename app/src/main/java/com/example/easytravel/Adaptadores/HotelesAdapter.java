@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easytravel.Modelo.Hotel;
+import com.example.easytravel.Model.Hotel;
 import com.example.easytravel.R;
 
 import java.util.ArrayList;

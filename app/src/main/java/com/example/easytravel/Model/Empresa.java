@@ -1,4 +1,4 @@
-package com.example.easytravel.Modelo;
+package com.example.easytravel.Model;
 
 public class Empresa {
     private String nombre;

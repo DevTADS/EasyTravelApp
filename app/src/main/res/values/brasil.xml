@@ -1,0 +1,38 @@
+<resources>
+    <string-array name="rio_grande_do_sul">
+        <item>Antônio Prado</item>
+        <item>Bagé</item>
+        <item>Bento Gonçalves</item>
+        <item>Bom Jesus</item>
+        <item>Canela</item>
+        <item>Canoas</item>
+        <item>Caxias do Sul</item>
+        <item>Farroupilha</item>
+        <item>Flores da Cunha</item>
+        <item>Garibaldi</item>
+        <item>Gramado</item>
+        <item>Gravataí</item>
+        <item>Ijuí</item>
+        <item>Nova Petrópolis</item>
+        <item>Nova Prata</item>
+        <item>Nova Roma do Sul</item>
+        <item>Passo Fundo</item>
+        <item>Pelotas</item>
+        <item>Porto Alegre</item>
+        <item>Rio Grande</item>
+        <item>Rio Pardo</item>
+        <item>Santa Cruz do Sul</item>
+        <item>Santa Maria</item>
+        <item>Santa Rosa</item>
+        <item>Santana do Livramento</item>
+        <item>São Francisco de Paula</item>
+        <item>São José dos Ausentes</item>
+        <item>São Leopoldo</item>
+        <item>São Miguel das Missões</item>
+        <item>Torres</item>
+        <item>Três Coroas</item>
+        <item>Uruguaiana</item>
+        <item>Viamão</item>
+    </string-array>
+</resources>
+
