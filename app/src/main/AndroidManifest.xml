@@ -36,7 +36,16 @@
         <activity android:name=".Actividades.Usuario.LoginUsuario" />
         <activity android:name=".Actividades.Empresa.ActivityLoginEmpresa" />
 
+        <activity android:name=".Model.Usuario"
+            tools:ignore="Instantiatable" />
 
+        <activity android:name=".extras.Ayuda" />
+        <activity android:name=".extras.PoliticaPrivacidad" />
+        <activity android:name=".extras.TerminosCondiciones" />
+        <activity android:name=".servicios.Noticias" />
+        <activity android:name=".servicios.Reportes" />
+        <activity android:name=".servicios.Tiempo" />
+        <activity android:name=".servicios.Configuracion" />
         <activity android:name=".Actividades.Empresa.ActivityRegistroEmpresa" />
 
         <activity
