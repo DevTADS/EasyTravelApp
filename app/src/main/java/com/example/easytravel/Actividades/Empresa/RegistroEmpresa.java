@@ -2,7 +2,6 @@ package com.example.easytravel.Actividades.Empresa;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
@@ -11,7 +10,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.easytravel.R;
-
 
 
 import androidx.activity.EdgeToEdge;
@@ -34,8 +32,6 @@ public class RegistroEmpresa extends AppCompatActivity {
     EditText txtEmail;
     EditText pass;
     Spinner spinnerPais;
-    Spinner spinnerCiudad;
-    EditText txtCedula;
     EditText txtTelefono;
     EditText txtDireccion;
 
@@ -49,8 +45,6 @@ public class RegistroEmpresa extends AppCompatActivity {
         txtEmail = findViewById(R.id.etemail);
         pass = findViewById(R.id.etcontraseña);
         spinnerPais = findViewById(R.id.spinnerPais);
-
-        txtCedula = findViewById(R.id.txtCedula);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtDireccion = findViewById(R.id.txtDireccion);
 
@@ -58,7 +52,6 @@ public class RegistroEmpresa extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);
         adapterPaises.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPais.setAdapter(adapterPaises);
-
 
 
         Button btn_insert = findViewById(R.id.btn_register);
@@ -76,8 +69,6 @@ public class RegistroEmpresa extends AppCompatActivity {
         final String email = txtEmail.getText().toString().trim();
         final String password = pass.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
-
-        final String cedula = txtCedula.getText().toString().trim();
         final String telefono = txtTelefono.getText().toString().trim();
         final String direccion = txtDireccion.getText().toString().trim();
 
@@ -87,7 +78,7 @@ public class RegistroEmpresa extends AppCompatActivity {
         }
 
         // Realizar solicitud HTTP para registrar el usuario
-        String url = "https://tejuqiaq.lucusvirtual.es/insertar.php";
+        String url = "https://tejuqiaq.lucusvirtual.es/insertarempresa.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -96,7 +87,7 @@ public class RegistroEmpresa extends AppCompatActivity {
                         Toast.makeText(RegistroEmpresa.this, response, Toast.LENGTH_SHORT).show();
 
                         if (response.equalsIgnoreCase("Datos insertados")) {
-                            Toast.makeText(RegistroEmpresa.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistroEmpresa.this, "Empresa registrada correctamente", Toast.LENGTH_SHORT).show();
                             // Puedes agregar aquí la lógica para navegar a la actividad de inicio de sesión
                         }
                     }
@@ -104,7 +95,7 @@ public class RegistroEmpresa extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegistroEmpresa.this, "Error al registrar el usuario: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroEmpresa.this, "Error al registrar empresa: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
@@ -114,8 +105,6 @@ public class RegistroEmpresa extends AppCompatActivity {
                 params.put("email", email);
                 params.put("password", password);
                 params.put("pais", pais);
-
-                params.put("cedula", cedula);
                 params.put("telefono", telefono);
                 params.put("direccion", direccion);
                 return params;
