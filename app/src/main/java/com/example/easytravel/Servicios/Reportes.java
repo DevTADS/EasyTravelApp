@@ -1,4 +1,4 @@
-package com.example.easytravel.extras;
+package com.example.easytravel.Servicios;
 
 import android.os.Bundle;
 
@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
-public class Ayuda extends AppCompatActivity {
+public class Reportes extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.extra_ayuda);
+        setContentView(R.layout.servicio_reportes);
+
 
     }
 }

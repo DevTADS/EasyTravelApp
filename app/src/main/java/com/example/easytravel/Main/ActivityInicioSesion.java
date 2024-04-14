@@ -18,7 +18,7 @@ public class ActivityInicioSesion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciosesion);
+        setContentView(R.layout.activity_main_acceso);
 
 
         Button btn_usuario = findViewById(R.id.btn_usuario);

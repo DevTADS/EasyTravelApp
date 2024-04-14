@@ -1,4 +1,4 @@
-package com.example.easytravel.fragmentos;
+package com.example.easytravel.Fragmentos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

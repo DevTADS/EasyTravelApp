@@ -1,4 +1,4 @@
-package com.example.easytravel.Model;
+package com.example.easytravel.Modelos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

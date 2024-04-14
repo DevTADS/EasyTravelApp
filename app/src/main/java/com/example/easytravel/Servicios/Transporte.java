@@ -1,4 +1,4 @@
-package com.example.easytravel.servicios;
+package com.example.easytravel.Servicios;
 
 import androidx.appcompat.app.AppCompatActivity;
 

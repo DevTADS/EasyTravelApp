@@ -40,7 +40,7 @@ public class RegistroUsuario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_usuario_registro);
+        setContentView(R.layout.usuario_activity_registro);
 
         txtName = findViewById(R.id.ednombre);
         txtEmail = findViewById(R.id.etemail);

@@ -19,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.easytravel.Model.Usuario;
 import com.example.easytravel.R;
 
 import java.util.HashMap;
@@ -36,7 +35,7 @@ public class LoginUsuario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_usuario_login);
+        setContentView(R.layout.usuario_activity_login);
 
         email = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);

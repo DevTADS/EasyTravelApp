@@ -1,4 +1,4 @@
-package com.example.easytravel.fragmentos;
+package com.example.easytravel.Fragmentos;
 
 import androidx.fragment.app.Fragment;
 

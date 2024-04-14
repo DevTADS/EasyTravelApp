@@ -1,4 +1,4 @@
-package com.example.easytravel.servicios;
+package com.example.easytravel.Servicios;
 
 import android.os.Bundle;
 
@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
-public class Reportes extends AppCompatActivity {
+public class Tiempo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.servicio_reportes);
+        setContentView(R.layout.servicio_tiempo);
 
 
     }

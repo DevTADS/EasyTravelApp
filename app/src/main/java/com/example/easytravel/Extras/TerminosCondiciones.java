@@ -1,4 +1,4 @@
-package com.example.easytravel.servicios;
+package com.example.easytravel.Extras;
 
 import android.os.Bundle;
 
@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
-public class Noticias extends AppCompatActivity {
+public class TerminosCondiciones extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.servicio_noticias);
-
-
+        setContentView(R.layout.extra_terminos_condiciones);
     }
 }

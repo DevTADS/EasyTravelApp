@@ -23,7 +23,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
     @Override
     public BannerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.banner_a, parent, false);
+                .inflate(R.layout.usuario_banner, parent, false);
         return new BannerViewHolder(view);
     }
 

@@ -20,7 +20,7 @@ public class ActivityAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home);
+        setContentView(R.layout.admin_activity_home);
 
         empresasBoton = findViewById(R.id.empresasBoton);
         empresaRecyclerView = findViewById(R.id.empresaRecyclerView);

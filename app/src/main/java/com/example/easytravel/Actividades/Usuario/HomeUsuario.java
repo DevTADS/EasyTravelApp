@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.easytravel.fragmentos.Ayuda;
-import com.example.easytravel.fragmentos.Home;
-import com.example.easytravel.fragmentos.Perfil;
+import com.example.easytravel.Fragmentos.Ayuda;
+import com.example.easytravel.Fragmentos.Home;
+import com.example.easytravel.Fragmentos.Perfil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -24,7 +24,7 @@ public class HomeUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario); // Usar el layout de activity_usuario
+        setContentView(R.layout.usuario_activity_home); // Usar el layout de activity_usuario
 
         // Cargar el fragmento Home en el contenedor de fragmentos
         getSupportFragmentManager().beginTransaction()
