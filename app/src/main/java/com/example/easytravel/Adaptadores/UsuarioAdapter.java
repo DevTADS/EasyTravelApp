@@ -9,16 +9,9 @@ import com.example.easytravel.Model.Usuario;
 
 import java.util.List;
 
-public class UsuarioAdapter extends ArrayAdapter<Usuario> {
+public class UsuarioAdapter  {
 
-    private Context context;
-    private List<Usuario> usuarios;
 
-    public UsuarioAdapter(@NonNull Context context, int resource, @NonNull List<Usuario> objects) {
-        super(context, resource, objects);
-        this.context = context;
-        this.usuarios = objects;
-    }
 
 
 }

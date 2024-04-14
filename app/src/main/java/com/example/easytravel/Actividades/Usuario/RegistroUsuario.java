@@ -1,9 +1,8 @@
 package com.example.easytravel.Actividades.Usuario;
 
+import com.example.easytravel.R;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,76 +11,50 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easytravel.Model.Usuario;
-import com.example.easytravel.R;
-import com.example.easytravel.Utils.Apis;
-import com.example.easytravel.Utils.UsuarioService;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistroUsuario extends AppCompatActivity {
-    UsuarioService service;
+
+    EditText txtName;
+    EditText txtEmail;
+    EditText pass;
     Spinner spinnerPais;
     Spinner spinnerCiudad;
-    EditText txtNombres;
     EditText txtCedula;
     EditText txtTelefono;
     EditText txtDireccion;
-    EditText txtCorreo;
-    EditText txtContrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_usuario_registro);
-        txtNombres = findViewById(R.id.txtNombres);
-        txtCedula = findViewById(R.id.txtCedula);
-        txtTelefono = findViewById(R.id.txtTelefono);
+
+        txtName = findViewById(R.id.ednombre);
+        txtEmail = findViewById(R.id.etemail);
+        pass = findViewById(R.id.etcontraseña);
         spinnerPais = findViewById(R.id.spinnerPais);
         spinnerCiudad = findViewById(R.id.spinnerCiudad);
+        txtCedula = findViewById(R.id.txtCedula);
+        txtTelefono = findViewById(R.id.txtTelefono);
         txtDireccion = findViewById(R.id.txtDireccion);
-        txtCorreo = findViewById(R.id.txtCorreo);
-        txtContrasena = findViewById(R.id.txtContrasena);
-        Button btnSave = (Button) findViewById(R.id.btnSave);
 
-        // Adaptador para el Spinner de países
+        // Configuración del Spinner de Países
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);
         adapterPaises.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPais.setAdapter(adapterPaises);
-
-
-        Bundle bundle = getIntent().getExtras();
-        String id = "";
-        if (bundle != null) {
-            id = bundle.getString("ID", "");
-        }
-
-
-        // Configurar el botón para guardar el nuevo usuario
-        String finalId = id;
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Usuario u = new Usuario();
-
-                u.setNombre(txtNombres.getText().toString());
-                u.setCedula(txtCedula.getText().toString());
-                u.setTelefono(txtTelefono.getText().toString());
-                u.setPais(spinnerPais.getSelectedItem().toString());
-                u.setCiudad(spinnerCiudad.getSelectedItem().toString());
-                u.setDireccion(txtDireccion.getText().toString());
-                u.setCorreo(txtCorreo.getText().toString());
-                u.setContrasena(txtContrasena.getText().toString());
-
-
-                    addUsuario(u);
-
-            }
-        });
 
         spinnerPais.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -98,6 +71,69 @@ public class RegistroUsuario extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        Button btn_insert = findViewById(R.id.btn_register);
+
+        btn_insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrarUsuario();
+            }
+        });
+    }
+
+    private void registrarUsuario() {
+        final String nombre = txtName.getText().toString().trim();
+        final String email = txtEmail.getText().toString().trim();
+        final String password = pass.getText().toString().trim();
+        final String pais = spinnerPais.getSelectedItem().toString().trim();
+        final String ciudad = spinnerCiudad.getSelectedItem().toString().trim();
+        final String cedula = txtCedula.getText().toString().trim();
+        final String telefono = txtTelefono.getText().toString().trim();
+        final String direccion = txtDireccion.getText().toString().trim();
+
+        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Realizar solicitud HTTP para registrar el usuario
+        String url = "https://tejuqiaq.lucusvirtual.es/insertar.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Mostrar la respuesta del servidor para depuración
+                        Toast.makeText(RegistroUsuario.this, response, Toast.LENGTH_SHORT).show();
+
+                        if (response.equalsIgnoreCase("Datos insertados")) {
+                            Toast.makeText(RegistroUsuario.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                            // Puedes agregar aquí la lógica para navegar a la actividad de inicio de sesión
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(RegistroUsuario.this, "Error al registrar el usuario: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("nombre", nombre);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("pais", pais);
+                params.put("ciudad", ciudad);
+                params.put("cedula", cedula);
+                params.put("telefono", telefono);
+                params.put("direccion", direccion);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
     }
 
     private void DepartamentosUruguay() {
@@ -110,23 +146,5 @@ public class RegistroUsuario extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterEstados = ArrayAdapter.createFromResource(this, R.array.rio_grande_do_sul, android.R.layout.simple_spinner_item);
         adapterEstados.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCiudad.setAdapter(adapterEstados);
-    }
-
-    private void addUsuario(Usuario u) {
-        service = Apis.getUsuarioService();
-        Call<Usuario> call = service.addUsuario(u);
-        call.enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(RegistroUsuario.this, "Se agrego conéxito", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.e("Error:", t.getMessage());
-            }
-        });
     }
 }
