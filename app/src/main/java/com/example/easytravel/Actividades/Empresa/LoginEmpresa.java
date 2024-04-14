@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.easytravel.R;
 
 
-public class ActivityLoginEmpresa extends AppCompatActivity {
+public class LoginEmpresa extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;

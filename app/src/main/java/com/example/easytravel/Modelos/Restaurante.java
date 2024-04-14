@@ -1,4 +1,4 @@
 package com.example.easytravel.Modelos;
 
-public class Restaurant {
+public class Restaurante {
 }

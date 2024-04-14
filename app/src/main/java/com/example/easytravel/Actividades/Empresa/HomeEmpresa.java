@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.R;
 
-public class ActivityHomeEmpresa extends AppCompatActivity {
+public class HomeEmpresa extends AppCompatActivity {
 
 
     private Spinner spinnerTipoServicio, spinnerPais, spinnerCiudad;
