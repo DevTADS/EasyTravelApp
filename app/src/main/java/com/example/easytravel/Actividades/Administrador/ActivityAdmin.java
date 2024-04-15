@@ -89,7 +89,10 @@ public class ActivityAdmin extends AppCompatActivity {
                         Usuario usuario = new Usuario(id, nombre, email, password, pais, ciudad, cedula, telefono, direccion);
                         usuarios.add(usuario);
                     }
+                    // Establecer el adaptador y hacer visible el RecyclerView de usuarios
                     userRecyclerView.setAdapter(new UsuarioAdapter(usuarios));
+                    userRecyclerView.setVisibility(View.VISIBLE);
+                    empresaRecyclerView.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ActivityAdmin.this, "Error al cargar usuarios", Toast.LENGTH_SHORT).show();
@@ -135,6 +138,9 @@ public class ActivityAdmin extends AppCompatActivity {
 
                     // Actualizar el RecyclerView con la lista de empresas obtenidas
                     empresaRecyclerView.setAdapter(new EmpresaAdapter(empresas));
+                    // Hacer visible el RecyclerView de empresas y ocultar el de usuarios
+                    empresaRecyclerView.setVisibility(View.VISIBLE);
+                    userRecyclerView.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ActivityAdmin.this, "Error al cargar empresas", Toast.LENGTH_SHORT).show();
@@ -151,5 +157,6 @@ public class ActivityAdmin extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
 
 }
