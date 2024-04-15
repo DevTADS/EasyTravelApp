@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
+import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
 import com.example.easytravel.R;
 
 import java.util.HashMap;
@@ -44,7 +46,14 @@ public class LoginUsuario extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Login();
+                if (email.getText().toString().equals("admin") && contraseña.getText().toString().equals("admin")) {
+                    // Si el correo y la contraseña son "admin", abrir la actividad de administrador
+                    Intent intent = new Intent(LoginUsuario.this, ActivityAdmin.class);
+                    startActivity(intent);
+                } else {
+                    // Si no son "admin", ejecutar el método Login() para la lógica de inicio de sesión normal
+                    Login();
+                }
             }
         });
 
