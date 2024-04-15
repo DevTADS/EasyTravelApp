@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
 import com.example.easytravel.R;
 
 import java.util.HashMap;
@@ -77,14 +76,7 @@ public class LoginEmpresa extends AppCompatActivity {
                     if (response.equalsIgnoreCase("ingreso correctamente")) {
                         correo.setText("");
                         contraseña.setText("");
-                        // Verificar si las credenciales son las del usuario administrador
-                        if (str_email.equals("admin") && str_password.equals("admin")) {
-                            // Abrir la actividad del administrador
-                            startActivity(new Intent(getApplicationContext(), ActivityAdmin.class));
-                        } else {
-                            // Abrir la actividad principal de la empresa
-                            startActivity(new Intent(getApplicationContext(), HomeEmpresa.class));
-                        }
+                        startActivity(new Intent(getApplicationContext(), HomeEmpresa.class));
                         Toast.makeText(LoginEmpresa.this, response, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginEmpresa.this, response, Toast.LENGTH_SHORT).show();

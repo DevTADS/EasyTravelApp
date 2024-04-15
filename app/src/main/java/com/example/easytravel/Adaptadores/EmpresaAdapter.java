@@ -14,72 +14,48 @@ import com.example.easytravel.R;
 import java.util.List;
 
 public class EmpresaAdapter extends RecyclerView.Adapter<EmpresaAdapter.EmpresaViewHolder> {
+
     private List<Empresa> empresas;
 
-    private OnItemClickListener listener;
-
-    public interface OnItemClickListener {
-        void onItemClick(Empresa empresa);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    // Método para establecer la lista de empresas
-    public void setEmpresas(List<Empresa> empresas) {
+    // Constructor que recibe la lista de empresas
+    public EmpresaAdapter(List<Empresa> empresas) {
         this.empresas = empresas;
-        notifyDataSetChanged();
     }
 
+    // ViewHolder para cada elemento de la lista
+    public static class EmpresaViewHolder extends RecyclerView.ViewHolder {
+        public TextView nombreEmpresa;
+        public TextView correoEmpresa;
+        // Agregar más atributos según los datos que desees mostrar
+
+        public EmpresaViewHolder(View itemView) {
+            super(itemView);
+            nombreEmpresa = itemView.findViewById(R.id.nombre_empresa);
+            correoEmpresa = itemView.findViewById(R.id.correo_empresa);
+            // Inicializar más atributos según los IDs de tus vistas
+        }
+    }
+
+    // Método para crear un ViewHolder para cada elemento de la lista
     @NonNull
     @Override
     public EmpresaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empresa, parent, false);
-        return new EmpresaViewHolder(view, listener, empresas);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empresa, parent, false);
+        return new EmpresaViewHolder(v);
     }
 
-
+    // Método para asignar los datos a cada elemento de la lista
     @Override
     public void onBindViewHolder(@NonNull EmpresaViewHolder holder, int position) {
         Empresa empresa = empresas.get(position);
-        holder.bind(empresa);
+        holder.nombreEmpresa.setText(empresa.getNombre());
+        holder.correoEmpresa.setText(empresa.getCorreo());
+        // Asignar más datos según los atributos de la clase Empresa
     }
 
+    // Método para obtener la cantidad de elementos en la lista
     @Override
     public int getItemCount() {
         return empresas.size();
-    }
-
-    // Clase ViewHolder para representar cada elemento de empresa en el RecyclerView
-    public static class EmpresaViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView nombreTextView;
-        private TextView paisTextView;
-        private TextView telefonoTextView;
-
-        public EmpresaViewHolder(@NonNull View itemView, final OnItemClickListener listener, final List<Empresa> empresas) {
-            super(itemView);
-            nombreTextView = itemView.findViewById(R.id.nombreTextView);
-            paisTextView = itemView.findViewById(R.id.paisTextView);
-            telefonoTextView = itemView.findViewById(R.id.telefonoTextView);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onItemClick(empresas.get(position));
-                    }
-                }
-            });
-        }
-
-        public void bind(Empresa empresa) {
-            nombreTextView.setText(empresa.getNombre());
-            paisTextView.setText(empresa.getPais());
-            telefonoTextView.setText(empresa.getTelefono());
-        }
     }
 }

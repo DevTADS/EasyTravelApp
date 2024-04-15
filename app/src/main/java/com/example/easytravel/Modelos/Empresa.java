@@ -12,7 +12,8 @@ public class Empresa {
     public Empresa() {
 
     }
-       public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password, String id) {
+
+    public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password, String id) {
         this.nombre = nombre;
         this.correo = correo;
         this.pais = pais;
@@ -22,7 +23,7 @@ public class Empresa {
         this.id = id;
     }
 
-        public String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 

@@ -21,13 +21,13 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/usuariosBoton"
+            android:id="@+id/btn_usuarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Usuarios" />
 
         <Button
-            android:id="@+id/empresasBoton"
+            android:id="@+id/btn_empresas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Empresas" />
@@ -38,7 +38,7 @@
         android:id="@+id/empresaRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible" /> <!-- Cambiar la visibilidad a visible -->
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"
