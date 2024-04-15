@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class LoginEmpresa extends AppCompatActivity {
 
-    EditText email, contraseña;
+    EditText correo, contraseña;
     String str_email, str_password;
     String url = "https://tejuqiaq.lucusvirtual.es/loginempresa.php";
 
@@ -35,7 +35,7 @@ public class LoginEmpresa extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.usuario_activity_login);
 
-        email = findViewById(R.id.etemail);
+        correo = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
 
         Button btnLogin = findViewById(R.id.btn_login);
@@ -57,7 +57,7 @@ public class LoginEmpresa extends AppCompatActivity {
     }
 
     private void Login() {
-        if (email.getText().toString().isEmpty()) {
+        if (correo.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
         } else if (contraseña.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
@@ -66,7 +66,7 @@ public class LoginEmpresa extends AppCompatActivity {
             progressDialog.setMessage("Por favor espera...");
             progressDialog.show();
 
-            str_email = email.getText().toString().trim();
+            str_email = correo.getText().toString().trim();
             str_password = contraseña.getText().toString().trim();
 
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -74,7 +74,7 @@ public class LoginEmpresa extends AppCompatActivity {
                 public void onResponse(String response) {
                     progressDialog.dismiss();
                     if (response.equalsIgnoreCase("ingreso correctamente")) {
-                        email.setText("");
+                        correo.setText("");
                         contraseña.setText("");
                         startActivity(new Intent(getApplicationContext(), HomeEmpresa.class));
                         Toast.makeText(LoginEmpresa.this, response, Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class LoginEmpresa extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put("email", str_email);
+                    params.put("correo", str_email);
                     params.put("password", str_password);
                     return params;
                 }

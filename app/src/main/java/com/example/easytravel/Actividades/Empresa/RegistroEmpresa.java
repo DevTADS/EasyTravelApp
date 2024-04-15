@@ -66,13 +66,13 @@ public class RegistroEmpresa extends AppCompatActivity {
 
     private void registrarEmpresa() {
         final String nombre = txtName.getText().toString().trim();
-        final String email = txtEmail.getText().toString().trim();
+        final String correo = txtEmail.getText().toString().trim();
         final String password = pass.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
         final String telefono = txtTelefono.getText().toString().trim();
         final String direccion = txtDireccion.getText().toString().trim();
 
-        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (nombre.isEmpty() || correo.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -102,7 +102,7 @@ public class RegistroEmpresa extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("nombre", nombre);
-                params.put("email", email);
+                params.put("correo", correo);
                 params.put("password", password);
                 params.put("pais", pais);
                 params.put("telefono", telefono);
