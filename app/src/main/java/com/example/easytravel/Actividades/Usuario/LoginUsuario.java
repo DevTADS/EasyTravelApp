@@ -3,7 +3,6 @@ package com.example.easytravel.Actividades.Usuario;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
 import com.example.easytravel.R;
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class LoginUsuario extends AppCompatActivity {
 
@@ -71,37 +70,47 @@ public class LoginUsuario extends AppCompatActivity {
             str_email = email.getText().toString().trim();
             str_password = contraseña.getText().toString().trim();
 
-            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
-                    if (response.equalsIgnoreCase("ingreso correctamente")) {
-                        email.setText("");
-                        contraseña.setText("");
-                        startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
-                        Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
+            // Verificar si las credenciales son las del usuario administrador
+            if (str_email.equals("admin") && str_password.equals("admin")) {
+                // Abrir la actividad del administrador
+                startActivity(new Intent(getApplicationContext(), ActivityAdmin.class));
+                progressDialog.dismiss();
+                Toast.makeText(LoginUsuario.this, "Bienvenido, Administrador", Toast.LENGTH_SHORT).show();
+            } else {
+                // Si no son las credenciales del administrador, realizar la consulta en la base de datos
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        if (response.equalsIgnoreCase("ingreso correctamente")) {
+                            email.setText("");
+                            contraseña.setText("");
+                            // Abrir la actividad principal del usuario
+                            startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
+                            Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(LoginUsuario.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", str_email);
-                    params.put("password", str_password);
-                    return params;
-                }
-            };
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(LoginUsuario.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("email", str_email);
+                        params.put("password", str_password);
+                        return params;
+                    }
+                };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(LoginUsuario.this);
-            requestQueue.add(request);
+                RequestQueue requestQueue = Volley.newRequestQueue(LoginUsuario.this);
+                requestQueue.add(request);
+            }
         }
     }
 }
