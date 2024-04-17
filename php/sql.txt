@@ -1,0 +1,56 @@
+-- Tabla usuario
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100),
+    pais VARCHAR(100),
+    ciudad VARCHAR(100),
+    cedula VARCHAR(100),
+    telefono VARCHAR(100),
+    direccion TEXT
+);
+
+-- Tabla empresa
+CREATE TABLE empresa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100),
+    pais VARCHAR(100),
+    telefono VARCHAR(100),
+    direccion TEXT,
+    password VARCHAR(100)
+);
+
+-- Tabla hotel
+CREATE TABLE hotel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    pais VARCHAR(100),
+    ciudad VARCHAR(100),
+    telefono VARCHAR(100),
+    direccion TEXT,
+    id_empresa INT,
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+);
+
+-- Tabla restaurante
+CREATE TABLE restaurante (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    pais VARCHAR(100),
+    ciudad VARCHAR(100),
+    telefono VARCHAR(100),
+    direccion TEXT,
+    id_empresa INT,
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+);
+
+-- Tabla usuario_restaurante (relación muchos a muchos entre usuario y restaurante)
+CREATE TABLE usuario_restaurante (
+    id_usuario INT,
+    id_restaurante INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurante(id),
+    PRIMARY KEY (id_usuario, id_restaurante)
+);
