@@ -32,10 +32,10 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.fragmento_home, container, false);
         viewPager = rootView.findViewById(R.id.viewPager);
         images = new ArrayList<>();
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.dengue);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.agendabinacional);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.destinobinacional);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.portadaportal);
+        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner_dengue);
+        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner1);
+        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner2);
+        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner3);
         BannerAdapter adapter = new BannerAdapter(images);
         viewPager.setAdapter(adapter);
 

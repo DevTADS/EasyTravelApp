@@ -10,7 +10,7 @@
         android:id="@+id/topview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/bg_view" />
+        android:background="@drawable/fondo_bg_view" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -90,7 +90,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/informe" />
+                    android:src="@drawable/report" />
 
                 <TextView
                     android:layout_width="109dp"

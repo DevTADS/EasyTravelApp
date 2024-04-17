@@ -8,7 +8,7 @@
         android:id="@+id/topview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/bg_view" />
+        android:background="@drawable/fondo_bg_view" />
 
     <GridLayout
         android:id="@+id/banner"
