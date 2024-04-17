@@ -1,7 +1,10 @@
 package com.example.easytravel.Actividades.Usuario;
 
+import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
+import com.example.easytravel.Actividades.Empresa.RegistroEmpresa;
 import com.example.easytravel.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +53,7 @@ public class RegistroUsuario extends AppCompatActivity {
         txtCedula = findViewById(R.id.txtCedula);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtDireccion = findViewById(R.id.txtDireccion);
+        Button btnRegresar = findViewById(R.id.btn_regresar);
 
         // Configuración del Spinner de Países
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);
@@ -79,6 +83,17 @@ public class RegistroUsuario extends AppCompatActivity {
                 registrarUsuario();
             }
         });
+
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(RegistroUsuario.this, LoginUsuario.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void registrarUsuario() {
@@ -91,8 +106,28 @@ public class RegistroUsuario extends AppCompatActivity {
         final String telefono = txtTelefono.getText().toString().trim();
         final String direccion = txtDireccion.getText().toString().trim();
 
-        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty()) {
+            txtName.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (email.isEmpty()) {
+            txtEmail.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (password.isEmpty()) {
+            pass.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (cedula.isEmpty()) {
+            txtCedula.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (telefono.isEmpty()) {
+            txtTelefono.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (direccion.isEmpty()) {
+            txtDireccion.setError("Este campo no puede estar vacío");
             return;
         }
 
@@ -107,8 +142,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
                         if (response.equalsIgnoreCase("Datos insertados")) {
                             Toast.makeText(RegistroUsuario.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                            // Puedes agregar aquí la lógica para navegar a la actividad de inicio de sesión
-                        }
+                             }
                     }
                 },
                 new Response.ErrorListener() {

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_easy_travel1"
+    android:background="@drawable/fondo_easy_travel4"
     tools:context=".Main.MainActivity">
 
     <TextView
@@ -21,36 +20,34 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/etemail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iniciarsesion"
-        android:layout_margin="10dp"
-        android:layout_marginTop="293dp"
-        android:layout_marginBottom="100dp"
-        android:background="#30120F0F"
-        android:drawableRight="@drawable/icono_visto"
-        android:drawablePadding="20dp"
-        android:hint="Email"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <EditText
         android:id="@+id/etcontraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etemail"
         android:layout_margin="10dp"
         android:background="#30120F0F"
-
-        android:drawableRight="@drawable/icono_password"
+        android:drawableEnd="@drawable/icono_password"
         android:drawablePadding="20dp"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:padding="20dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black" />
+
+    <EditText
+        android:id="@+id/etemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iniciarsesion"
+        android:layout_margin="10dp"
+        android:background="#30120F0F"
+        
+        android:drawablePadding="20dp"
+        android:hint="Email"
+        android:padding="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
+
 
     <Button
         android:id="@+id/btn_login"

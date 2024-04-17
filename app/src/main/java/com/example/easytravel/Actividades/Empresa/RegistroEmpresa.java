@@ -1,5 +1,6 @@
 package com.example.easytravel.Actividades.Empresa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -47,6 +48,7 @@ public class RegistroEmpresa extends AppCompatActivity {
         spinnerPais = findViewById(R.id.spinnerPais);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtDireccion = findViewById(R.id.txtDireccion);
+        Button btnRegresar = findViewById(R.id.btn_regresar);
 
         // Configuración del Spinner de Países
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);
@@ -62,7 +64,18 @@ public class RegistroEmpresa extends AppCompatActivity {
                 registrarEmpresa();
             }
         });
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(RegistroEmpresa.this, LoginEmpresa.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
+
 
     private void registrarEmpresa() {
         final String nombre = txtName.getText().toString().trim();
@@ -72,8 +85,25 @@ public class RegistroEmpresa extends AppCompatActivity {
         final String telefono = txtTelefono.getText().toString().trim();
         final String direccion = txtDireccion.getText().toString().trim();
 
-        if (nombre.isEmpty() || correo.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty()) {
+            txtName.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (correo.isEmpty()) {
+            txtEmail.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (password.isEmpty()) {
+            pass.setError("Este campo no puede estar vacío");
+            return;
+        }
+
+        if (telefono.isEmpty()) {
+            txtTelefono.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (direccion.isEmpty()) {
+            txtDireccion.setError("Este campo no puede estar vacío");
             return;
         }
 

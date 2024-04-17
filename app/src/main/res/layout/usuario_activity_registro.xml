@@ -20,7 +20,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="629dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,16 +41,6 @@
                         android:textSize="28sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtsignup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="4dp"
-                        android:text="Login"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <EditText
@@ -58,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:hint="Nombre"
+                    android:hint="Nombre completo"
                     android:inputType="textPersonName"
                     android:padding="10dp"
                     android:textSize="16sp" />
@@ -84,6 +74,28 @@
                     android:padding="10dp"
                     android:textSize="16sp" />
 
+                <EditText
+                    android:id="@+id/txtCedula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:hint="Cédula de identidad"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/txtTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:hint="Teléfono"
+                    android:inputType="phone"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
                 <Spinner
                     android:id="@+id/spinnerPais"
                     android:layout_width="match_parent"
@@ -97,26 +109,6 @@
                     android:layout_marginTop="20dp" />
 
                 <EditText
-                    android:id="@+id/txtCedula"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Cédula"
-                    android:inputType="number"
-                    android:padding="10dp"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/txtTelefono"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Teléfono"
-                    android:inputType="phone"
-                    android:padding="10dp"
-                    android:textSize="16sp" />
-
-                <EditText
                     android:id="@+id/txtDireccion"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -126,12 +118,13 @@
                     android:padding="10dp"
                     android:textSize="16sp" />
 
+
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="32dp"
-                    android:text="Registrate"
+                    android:text="Registrase"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
@@ -144,5 +137,11 @@
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regresar" />
 
 </LinearLayout>

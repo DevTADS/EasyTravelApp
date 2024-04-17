@@ -3,9 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/fondo_easy_travel4"
     android:gravity="center"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Registro de Empresa"
+        android:textColor="@color/white"
+        android:textSize="26dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -80,7 +90,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp" />
 
-                               <EditText
+                <EditText
                     android:id="@+id/txtTelefono"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -118,5 +128,12 @@
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regresar" />
+
 
 </LinearLayout>
