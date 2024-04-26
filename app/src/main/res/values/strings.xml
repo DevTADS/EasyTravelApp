@@ -16,13 +16,9 @@
     <string name="iniciar_sesion">Iniciar Sesión</string>
 
     <string-array name="options_array">
-            <item>Bloquear empresa</item>
-            <item>Eliminar empresa</item>
-        </string-array>
-
-
-
-
+        <item>Bloquear empresa</item>
+        <item>Eliminar empresa</item>
+    </string-array>
 
 
     <string-array name="ciudades_uruguay">
