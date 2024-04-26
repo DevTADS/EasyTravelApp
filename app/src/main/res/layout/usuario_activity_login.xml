@@ -82,33 +82,33 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <TextView
+    <Button
         android:id="@+id/forgotpass"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_login"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="78dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="77dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
+        android:backgroundTint="#ffffff"
         android:text="¿Has olvidado tu contraseña?"
         android:textColor="@color/black" />
 
-
     <TextView
         android:id="@+id/others"
-        android:layout_width="185dp"
+        android:layout_width="116dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/socialicons"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="137dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginBottom="25dp"
         android:text="o inicia sesión con" />
 
     <LinearLayout

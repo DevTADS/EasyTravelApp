@@ -32,6 +32,7 @@ public class LoginUsuario extends AppCompatActivity {
     EditText email, contraseña;
     String str_email, str_password;
     String url = "https://tejuqiaq.lucusvirtual.es/login.php";
+    Button forgotpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginUsuario extends AppCompatActivity {
 
         email = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
+        forgotpass = findViewById(R.id.forgotpass);
 
         Button btnLogin = findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +64,14 @@ public class LoginUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginUsuario.this, RegistroUsuario.class);
+                startActivity(intent);
+            }
+        });
+
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginUsuario.this, OlvidoContrasena.class);
                 startActivity(intent);
             }
         });
@@ -113,4 +123,5 @@ public class LoginUsuario extends AppCompatActivity {
             requestQueue.add(request);
         }
     }
+
 }
