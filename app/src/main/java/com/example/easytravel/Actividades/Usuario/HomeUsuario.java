@@ -17,14 +17,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 import com.example.easytravel.R;
-;
+
 
 public class HomeUsuario extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.usuario_activity_home); // Usar el layout de activity_usuario
+        setContentView(R.layout.usuario_activity_home);
 
         // Cargar el fragmento Home en el contenedor de fragmentos
         getSupportFragmentManager().beginTransaction()

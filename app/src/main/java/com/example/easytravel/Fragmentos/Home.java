@@ -1,19 +1,23 @@
 package com.example.easytravel.Fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.easytravel.R;
 import com.example.easytravel.Adaptadores.BannerAdapter;
+import com.example.easytravel.Servicios.Configuracion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,16 @@ public class Home extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
+            }
+        });
+
+        // Agregar OnClickListener al CardView
+        CardView cardViewConfiguracion = rootView.findViewById(R.id.cardview_configuracion);
+        cardViewConfiguracion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Configuracion.class);
+                startActivity(intent);
             }
         });
 
