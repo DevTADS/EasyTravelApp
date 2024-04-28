@@ -28,14 +28,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- MainActivity -->
+        </activity>
+
+
         <activity
             android:name=".Main.MainActivity"
             android:exported="true"></activity>
 
 
 
-        <activity android:name=".Main.ActivityInicioSesion" />
+
         <activity android:name=".Actividades.Usuario.LoginUsuario" />
         <activity android:name=".Actividades.Empresa.LoginEmpresa" />
         <activity

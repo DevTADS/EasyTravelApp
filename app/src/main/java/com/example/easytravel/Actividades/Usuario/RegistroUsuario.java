@@ -1,7 +1,5 @@
 package com.example.easytravel.Actividades.Usuario;
 
-import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
-import com.example.easytravel.Actividades.Empresa.RegistroEmpresa;
 import com.example.easytravel.R;
 
 import android.content.Intent;
@@ -13,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistroUsuario extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
     EditText txtName;
     EditText txtEmail;
     EditText pass;
@@ -44,7 +44,7 @@ public class RegistroUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.usuario_activity_registro);
-
+        mAuth = FirebaseAuth.getInstance();
         txtName = findViewById(R.id.ednombre);
         txtEmail = findViewById(R.id.etemail);
         pass = findViewById(R.id.etcontraseña);
@@ -81,6 +81,7 @@ public class RegistroUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registrarUsuario();
+                registrarUsuarioFirebase();
             }
         });
 
@@ -95,7 +96,28 @@ public class RegistroUsuario extends AppCompatActivity {
             }
         });
     }
+    private void registrarUsuarioFirebase() {
+        final String email = txtEmail.getText().toString().trim();
+        final String password = pass.getText().toString().trim();
 
+        if (email.isEmpty() || password.isEmpty()) {
+            // Manejo de errores si los campos están vacíos
+            return;
+        }
+
+        // Crear usuario en Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Registro exitoso
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(RegistroUsuario.this, "Usuario registrado firebase", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Error en el registro
+                        Toast.makeText(RegistroUsuario.this, "Error firebase: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     private void registrarUsuario() {
         final String nombre = txtName.getText().toString().trim();
         final String email = txtEmail.getText().toString().trim();
