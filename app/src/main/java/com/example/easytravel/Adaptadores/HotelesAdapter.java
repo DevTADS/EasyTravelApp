@@ -54,7 +54,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombreHotelTextView = itemView.findViewById(R.id.nombreHotelTextView);
+
         }
 
         public void bind(Hotel hotel) {

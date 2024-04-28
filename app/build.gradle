@@ -52,6 +52,7 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     implementation libs.cardview
+
     implementation libs.volley
     implementation libs.viewpager2
     implementation libs.glide
@@ -59,5 +60,5 @@ dependencies {
 
     implementation libs.firebase.auth
     implementation libs.firebase.firestore
-
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

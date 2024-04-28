@@ -97,7 +97,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/servicio" />
+                        android:src="@drawable/restaurante2" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                         android:layout_gravity="center_horizontal"
 
                         android:layout_marginTop="5dp"
-                        android:text="Servicios"
+                        android:text="Restaurantes"
                         android:textColor="@color/azuloscuro"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -180,7 +180,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview_configuracion"
+                android:id="@+id/cardview_hotel"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_row="0"
@@ -199,14 +199,14 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/configuracion" />
+                        android:src="@drawable/hotel" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="Calendarios"
+                        android:text="Hoteles"
                         android:textColor="@color/azuloscuro"
                         android:textSize="18sp"
                         android:textStyle="bold" />

@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.easytravel.Fragmentos.Ayuda;
-import com.example.easytravel.Fragmentos.Home;
-import com.example.easytravel.Fragmentos.Perfil;
+import com.example.easytravel.FragmentosUsuario.AyudaUsuario;
+import com.example.easytravel.FragmentosUsuario.PerfilUsuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -28,7 +27,7 @@ public class HomeUsuario extends AppCompatActivity {
 
         // Cargar el fragmento Home en el contenedor de fragmentos
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new Home())
+                .replace(R.id.fragment_container, new com.example.easytravel.FragmentosUsuario.HomeUsuario())
                 .commit();
 
         // Configurar la barra de navegación inferior
@@ -40,11 +39,11 @@ public class HomeUsuario extends AppCompatActivity {
 
                 // Manejar la selección de cada opción del menú
                 if (item.getItemId() == R.id.navigation_perfil) {
-                    selectedFragment = new Perfil();
+                    selectedFragment = new PerfilUsuario();
                 } else if (item.getItemId() == R.id.navigation_home) {
-                    selectedFragment = new Home();
+                    selectedFragment = new com.example.easytravel.FragmentosUsuario.HomeUsuario();
                 } else if (item.getItemId() == R.id.navigation_ayuda) {
-                    selectedFragment = new Ayuda();
+                    selectedFragment = new AyudaUsuario();
                 }
 
                 // Reemplazar el fragmento actual con el fragmento seleccionado

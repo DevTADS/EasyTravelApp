@@ -39,6 +39,7 @@
 
 
         <activity android:name=".Actividades.Usuario.LoginUsuario" />
+        <activity android:name=".Actividades.Hotel.ActivityHotel" />
         <activity android:name=".Actividades.Empresa.LoginEmpresa" />
         <activity
             android:name=".Modelos.Usuario"

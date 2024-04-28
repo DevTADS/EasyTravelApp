@@ -1,5 +1,6 @@
-package com.example.easytravel.Fragmentos;
+package com.example.easytravel.FragmentosEmpresa;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +8,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +15,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.easytravel.R;
-import com.example.easytravel.Adaptadores.BannerAdapter;
-import com.example.easytravel.Servicios.Configuracion;
+import com.example.easytravel.Actividades.Hotel.ActivityHotel;
 
-import java.util.ArrayList;
+import com.example.easytravel.R;
+
 import java.util.List;
 
-public class Home extends Fragment {
+public class HomeEmpresa extends Fragment {
 
     private ViewPager2 viewPager;
     private List<String> images;
@@ -30,18 +29,12 @@ public class Home extends Fragment {
     private final long DELAY_MS = 3000;
     private final long PERIOD_MS = 5000;
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragmento_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragmento_home_empresa, container, false);
         viewPager = rootView.findViewById(R.id.viewPager);
-        images = new ArrayList<>();
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner_dengue);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner1);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner2);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.banner3);
-        BannerAdapter adapter = new BannerAdapter(images);
-        viewPager.setAdapter(adapter);
 
 
         final Handler handler = new Handler(Looper.getMainLooper());
@@ -65,11 +58,11 @@ public class Home extends Fragment {
         });
 
         // Agregar OnClickListener al CardView
-        CardView cardViewConfiguracion = rootView.findViewById(R.id.cardview_configuracion);
-        cardViewConfiguracion.setOnClickListener(new View.OnClickListener() {
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) CardView cardViewHotel = rootView.findViewById(R.id.cardview_hotel);
+        cardViewHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Configuracion.class);
+                Intent intent = new Intent(getActivity(), ActivityHotel.class);
                 startActivity(intent);
             }
         });
