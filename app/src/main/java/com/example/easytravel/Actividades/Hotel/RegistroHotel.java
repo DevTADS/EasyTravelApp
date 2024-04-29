@@ -1,5 +1,6 @@
-package com.example.easytravel.Actividades.Empresa;
+package com.example.easytravel.Actividades.Hotel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,10 +26,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.easytravel.Actividades.Empresa.HomeEmpresa;
 import com.example.easytravel.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -114,7 +112,9 @@ public class RegistroHotel extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }private void registrarHotel() {
+    }
+
+    private void registrarHotel() {
         final String nombre = nombreEditText.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
         final String ciudad = spinnerCiudad.getSelectedItem().toString().trim();
@@ -133,24 +133,38 @@ public class RegistroHotel extends AppCompatActivity {
             return;
         }
 
+        // Mostrar ProgressDialog
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Guardando hotel...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         // Realizar solicitud HTTP para registrar el hotel
         String url = "https://tejuqiaq.lucusvirtual.es/insertarhotel.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        // Ocultar ProgressDialog
+                        progressDialog.dismiss();
+
                         // Mostrar la respuesta del servidor para depuración
                         Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
 
                         if (response.equalsIgnoreCase("Datos insertados")) {
                             Toast.makeText(RegistroHotel.this, "Hotel registrado correctamente", Toast.LENGTH_SHORT).show();
-                            // Puedes agregar aquí la lógica para navegar a la actividad principal de la empresa
+                            // Regresar a la pestaña HomeEmpresa
+                            Intent intent = new Intent(RegistroHotel.this, HomeEmpresa.class);
+                            startActivity(intent);
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        // Ocultar ProgressDialog
+                        progressDialog.dismiss();
+
                         Toast.makeText(RegistroHotel.this, "Error al registrar hotel: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
@@ -163,7 +177,7 @@ public class RegistroHotel extends AppCompatActivity {
                 params.put("telefono", telefono);
                 params.put("direccion", direccion);
                 params.put("id_empresa", id_empresa);
-                params.put("foto", imageToString(bitmap)); // Cambiado de 'image' a 'foto'
+                params.put("foto", imageToString(bitmap));
                 return params;
             }
 
@@ -184,9 +198,8 @@ public class RegistroHotel extends AppCompatActivity {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT); // Cambiado de 'android.util.Base64' a 'Base64'
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
-
 
 
 }

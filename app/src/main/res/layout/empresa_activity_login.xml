@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_easy_travel4"
-    tools:context=".Main.MainActivity">
+        tools:context=".Main.MainActivity">
 
     <TextView
         android:id="@+id/iniciarsesion"
@@ -98,12 +97,12 @@
 
     <TextView
         android:id="@+id/others"
-        android:layout_width="185dp"
+        android:layout_width="238dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/socialicons"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="137dp"
+        android:layout_marginStart="85dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="23dp"
         android:text="o inicia sesión con" />

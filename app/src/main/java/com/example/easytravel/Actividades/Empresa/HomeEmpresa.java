@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easytravel.Actividades.Hotel.RegistroHotel;
 import com.example.easytravel.R;
 
 public class HomeEmpresa extends AppCompatActivity {

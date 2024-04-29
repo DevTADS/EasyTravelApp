@@ -54,12 +54,12 @@
         <activity android:name=".Actividades.Empresa.RegistroEmpresa" />
         <activity android:name=".Actividades.Empresa.HomeEmpresa" />
 
-        <activity android:name=".Actividades.Empresa.RegistroHotel" />
+        <activity android:name=".Actividades.Hotel.RegistroHotel" />
         <activity
             android:name=".Actividades.Usuario.HomeUsuario"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".Actividades.Empresa.RegistroHotel"
+            android:name=".Actividades.Hotel.RegistroHotel"
             tools:ignore="DuplicateActivity,Instantiatable" />
         <activity android:name=".Actividades.Administrador.ActivityAdmin" />
         <activity android:name=".Actividades.Usuario.RegistroUsuario" />
