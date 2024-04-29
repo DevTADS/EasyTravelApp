@@ -4,17 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
-
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
@@ -50,6 +46,9 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         // Cargar la imagen del hotel usando Glide
         Glide.with(context)
                 .load(hotel.getFoto())
+                .centerCrop()
+                .placeholder(R.drawable.autobus)
+                .error(R.drawable.autobus) // Aquí se usa la imagen del autobús como error placeholder
                 .into(holder.imageView);
 
         holder.textViewNombre.setText(hotel.getNombre());
