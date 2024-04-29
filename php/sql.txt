@@ -1,6 +1,6 @@
 -- Tabla usuario
 CREATE TABLE usuario (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     email VARCHAR(100),
     password VARCHAR(100),
@@ -13,7 +13,7 @@ CREATE TABLE usuario (
 
 -- Tabla empresa
 CREATE TABLE empresa (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_empresa INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     email VARCHAR(100),
     pais VARCHAR(100),
@@ -22,44 +22,52 @@ CREATE TABLE empresa (
     password VARCHAR(100)
 );
 
--- Tabla hotel
 CREATE TABLE hotel (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_hotel INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     pais VARCHAR(100),
     ciudad VARCHAR(100),
     telefono VARCHAR(100),
     direccion TEXT,
     id_empresa INT,
-    FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+    foto BLOB,
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
 -- Tabla restaurante
 CREATE TABLE restaurante (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_restaurante INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     pais VARCHAR(100),
     ciudad VARCHAR(100),
     telefono VARCHAR(100),
     direccion TEXT,
     id_empresa INT,
-    FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
--- Tabla usuario_restaurante (relación muchos a muchos entre usuario y restaurante)
 CREATE TABLE usuario_restaurante (
     id_usuario INT,
     id_restaurante INT,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
-    FOREIGN KEY (id_restaurante) REFERENCES restaurante(id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurante(id_restaurante),
     PRIMARY KEY (id_usuario, id_restaurante)
 );
 
+CREATE TABLE usuario_hotel (
+    id_usuario INT,
+    id_hotel INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel), 
+    PRIMARY KEY (id_usuario, id_hotel)
+);
+
+
 CREATE TABLE reporte (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_reporte  INT AUTO_INCREMENT PRIMARY KEY,
     descripcion TEXT,
     nombre_imagen VARCHAR(255),
     id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 

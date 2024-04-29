@@ -52,12 +52,15 @@
         <activity android:name=".Servicios.Tiempo" />
         <activity android:name=".Servicios.Configuracion" />
         <activity android:name=".Actividades.Empresa.RegistroEmpresa" />
+        <activity android:name=".Actividades.Empresa.HomeEmpresa" />
+
+        <activity android:name=".Actividades.Empresa.RegistroHotel" />
         <activity
             android:name=".Actividades.Usuario.HomeUsuario"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".Actividades.Empresa.HomeEmpresa"
-            tools:ignore="Instantiatable" />
+            android:name=".Actividades.Empresa.RegistroHotel"
+            tools:ignore="DuplicateActivity,Instantiatable" />
         <activity android:name=".Actividades.Administrador.ActivityAdmin" />
         <activity android:name=".Actividades.Usuario.RegistroUsuario" />
     </application>

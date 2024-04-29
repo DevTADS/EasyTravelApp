@@ -5,6 +5,29 @@
     android:orientation="vertical">
 
 
+    <!-- Add a SearchView for the search bar -->
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@android:drawable/edit_text"
+        android:queryHint="Buscar por nombre de hotel..." />
+
+    <!-- Add two Spinner elements for the filters -->
+
+    <Spinner
+        android:id="@+id/spinner_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
+
+    <Spinner
+        android:id="@+id/spinner_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,7 +35,7 @@
         <RelativeLayout
             android:layout_width="432dp"
             android:layout_height="183dp"
-          android:layout_marginTop="5dp"
+            android:layout_marginTop="5dp"
             android:padding="16dp">
 
             <ImageView
@@ -70,6 +93,7 @@
                     android:id="@+id/ib_telefono"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:backgroundTint="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/whatsapp2" />
 
@@ -78,6 +102,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/redsocial_facebook" />
 
@@ -85,14 +110,16 @@
                     android:id="@+id/ib_instagram"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:backgroundTint="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/instagram1" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/iv_addrestaurante"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/mapa2" />
 
@@ -101,6 +128,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/icono_favorito" />
             </LinearLayout>

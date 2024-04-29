@@ -1,12 +1,10 @@
 package com.example.easytravel.Actividades.Empresa;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,48 +12,33 @@ import com.example.easytravel.R;
 
 public class HomeEmpresa extends AppCompatActivity {
 
-
-    private Spinner spinnerTipoServicio, spinnerPais, spinnerCiudad;
-    private EditText nombreEditText, telefonoEditText, direccionEditText;
-
-    private String idEmpresa;
-
-    @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.empresa_activity_home);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.empresa_activity_home2);
+            String id_empresa = getIntent().getStringExtra("id_empresa");
+            Toast.makeText(this, "ID Empresa: " + id_empresa, Toast.LENGTH_SHORT).show();
 
 
-        spinnerTipoServicio = findViewById(R.id.spinnerTipoServicio);
-        spinnerPais = findViewById(R.id.spinnerPais);
-        spinnerCiudad = findViewById(R.id.spinnerCiudad);
-        nombreEditText = findViewById(R.id.etNombre);
-        telefonoEditText = findViewById(R.id.etTelefono);
-        direccionEditText = findViewById(R.id.etDireccion);
-
-        Button registroButton = findViewById(R.id.btn_registrarse);
-
-        // Configuración del Spinner Tipo de Servicio
-        String[] tiposServicio = {"Hotel", "Restaurante"};
-        ArrayAdapter<String> tipoServicioAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposServicio);
-        tipoServicioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTipoServicio.setAdapter(tipoServicioAdapter);
-
-        // Configuración del Spinner País
-        String[] paises = getResources().getStringArray(R.array.paises); // Obtener el array de strings desde los recursos
-        ArrayAdapter<String> paisAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paises);
-        paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPais.setAdapter(paisAdapter);
-
-        // Configuración del Spinner Ciudad
-        String[] ciudades = getResources().getStringArray(R.array.ciudades_uruguay); // Obtener el array de strings desde los recursos
-        ArrayAdapter<String> ciudadAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ciudades);
-        ciudadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCiudad.setAdapter(ciudadAdapter);
-
-        // Configuración del botón de registro
+            ImageButton iv_addhotel = findViewById(R.id.iv_addhotel);
+            iv_addhotel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeEmpresa.this, RegistroHotel.class);
+                    startActivity(intent);
+                }
+            });
+            ImageButton iv_addrestaurante = findViewById(R.id.iv_addrestaurante);
+            iv_addrestaurante.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeEmpresa.this, RegistroHotel.class);
+                    startActivity(intent);
+                }
+            });
 
 
-    }
+
+        }
+
 }

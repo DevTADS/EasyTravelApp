@@ -6,17 +6,21 @@ public class Hotel {
     private String ciudad;
     private String telefono;
     private String direccion;
+    private String id_empresa;
+    private String foto; // Nuevo atributo para la foto del hotel
 
     public Hotel() {
-        // Constructor vacío requerido por Firebase
+
     }
 
-    public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion) {
+    public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion, String id_empresa, String foto) {
         this.nombre = nombre;
         this.pais = pais;
         this.ciudad = ciudad;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.id_empresa = id_empresa;
+        this.foto = foto;
     }
 
     public String getNombre() {
@@ -57,6 +61,22 @@ public class Hotel {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(String id_empresa) {
+        this.id_empresa = id_empresa;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override
