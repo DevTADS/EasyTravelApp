@@ -113,13 +113,30 @@ public class RegistroHotel extends AppCompatActivity {
             }
         }
     }
-
     private void registrarHotel() {
         final String nombre = nombreEditText.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
         final String ciudad = spinnerCiudad.getSelectedItem().toString().trim();
         final String telefono = telefonoEditText.getText().toString().trim();
         final String direccion = direccionEditText.getText().toString().trim();
+
+        // Verificar si el nombre está vacío
+        if (nombre.isEmpty()) {
+            nombreEditText.setError("Este campo no puede estar vacío");
+            return;
+        }
+
+        // Verificar si el teléfono está vacío
+        if (telefono.isEmpty()) {
+            telefonoEditText.setError("Este campo no puede estar vacío");
+            return;
+        }
+
+        // Verificar si la dirección está vacía
+        if (direccion.isEmpty()) {
+            direccionEditText.setError("Este campo no puede estar vacío");
+            return;
+        }
 
         // Verificar si id_empresa no es nulo
         if (id_empresa == null) {

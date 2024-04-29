@@ -83,11 +83,13 @@ public class LoginEmpresa extends AppCompatActivity {
                         if (status.equals("success")) {
                             // El inicio de sesión fue exitoso
                             String id_empresa = jsonObject.getString("id_empresa");
+                            String nombre = jsonObject.getString("nombre");
                             // Guardar el id_empresa en las preferencias compartidas
                             guardarIdEmpresa(id_empresa);
                             // Redirigir a la actividad principal de la empresa
                             Intent intent = new Intent(LoginEmpresa.this, HomeEmpresa.class);
                             intent.putExtra("id_empresa", id_empresa); // Pasar el id_empresa a la actividad HomeEmpresa
+                            intent.putExtra("nombre", nombre); // Pasar el nombre de la empresa a la actividad HomeEmpresa
                             startActivity(intent);
                             Toast.makeText(LoginEmpresa.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                         } else {

@@ -54,7 +54,7 @@
         android:background="#30ffffff"
         android:drawableRight="@drawable/icono_visto"
         android:drawablePadding="20dp"
-        android:hint="Nombre"
+        android:hint="Nombre de Hotel"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -98,15 +98,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etTelefono" />
+
     <Button
         android:id="@+id/btn_select_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Seleccionar imagen"
-        app:layout_constraintTop_toBottomOf="@id/etDireccion"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDireccion" />
 
     <Button
         android:id="@+id/btn_registrarse"

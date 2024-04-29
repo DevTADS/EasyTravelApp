@@ -17,22 +17,23 @@ $correo = mysqli_real_escape_string($conexion, $correo);
 $password = mysqli_real_escape_string($conexion, $password);
 
 // Consulta SQL para verificar si la empresa existe en la base de datos
-$query = "SELECT id_empresa FROM empresa WHERE correo = '$correo' AND password = '$password'";
+$query = "SELECT id_empresa, nombre FROM empresa WHERE correo = '$correo' AND password = '$password'";
 
 // Ejecutar la consulta
 $resultado = mysqli_query($conexion, $query);
 
 // Verificar si se encontró algún resultado
 if (mysqli_num_rows($resultado) > 0) {
-    // Obtener el id_empresa
+    // Obtener el id_empresa y el nombre de la empresa
     $fila = mysqli_fetch_assoc($resultado);
     $id_empresa = $fila['id_empresa'];
+    $nombre = $fila['nombre'];
     
     // Empresa ingresó correctamente
-    echo json_encode(array("status" => "success", "id_empresa" => $id_empresa));
+    echo json_encode(array("status" => "success", "id_empresa" => $id_empresa, "nombre" => $nombre));
 } else {
     // La empresa no pudo ingresar
-    echo json_encode(array("status" => "error", "message" => "No pudo ingresar"));
+    echo json_encode(array("status" => "error", "message" => "Correo o contraseña incorrectos"));
 }
 
 // Cerrar la conexión
