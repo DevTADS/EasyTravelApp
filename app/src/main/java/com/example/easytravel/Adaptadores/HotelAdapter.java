@@ -48,7 +48,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
                 .load(hotel.getFoto())
                 .centerCrop()
                 .placeholder(R.drawable.autobus)
-                .error(R.drawable.autobus) // Aquí se usa la imagen del autobús como error placeholder
+                .error(R.drawable.autobus)
                 .into(holder.imageView);
 
         holder.textViewNombre.setText(hotel.getNombre());

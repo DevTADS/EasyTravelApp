@@ -55,6 +55,7 @@
         <activity android:name=".Actividades.Empresa.HomeEmpresa" />
 
         <activity android:name=".Actividades.Hotel.RegistroHotel" />
+
         <activity
             android:name=".Actividades.Usuario.HomeUsuario"
             tools:ignore="Instantiatable" />

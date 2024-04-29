@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class LoginUsuario extends AppCompatActivity {
 
     EditText email, contraseña;
     String str_email, str_password;
-    String url = "https://tejuqiaq.lucusvirtual.es/login.php";
+    String url = "https://qybdatye.lucusvirtual.es/login.php";
     Button forgotpass;
 
     @Override
@@ -107,8 +108,14 @@ public class LoginUsuario extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
-                    Toast.makeText(LoginUsuario.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginUsuario.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // Imprimir la respuesta de error completa
+                    if (error.networkResponse != null && error.networkResponse.data != null) {
+                        String errorResponse = new String(error.networkResponse.data);
+                        Log.e("Error Response", errorResponse);
+                    }
                 }
+
             }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {

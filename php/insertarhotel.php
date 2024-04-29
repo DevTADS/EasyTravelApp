@@ -1,6 +1,6 @@
 <?php
 
-$conexion = mysqli_connect("localhost", "vcrfsrrv_easytravel", "lOQuiiA)MR+u", "vcrfsrrv_easytravel");
+$conexion = mysqli_connect("localhost", "oeuopnyh_easy", "4)DxTFg+wjuI", "oeuopnyh_easy");
 
 if (!$conexion) {
     echo "Error de conexión";

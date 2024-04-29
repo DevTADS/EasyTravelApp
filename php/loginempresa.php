@@ -1,7 +1,6 @@
 <?php
 
-// Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "vcrfsrrv_easytravel", "lOQuiiA)MR+u", "vcrfsrrv_easytravel");
+$conexion = mysqli_connect("localhost", "oeuopnyh_easy", "4)DxTFg+wjuI", "oeuopnyh_easy");
 
 // Verificar la conexión
 if (!$conexion) {

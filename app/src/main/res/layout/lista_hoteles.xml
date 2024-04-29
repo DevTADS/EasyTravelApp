@@ -6,9 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <!-- Add a SearchView for the search bar -->
-
-    <!-- Add two Spinner elements for the filters -->
 
     <!-- CardView to display hotel details -->
     <androidx.cardview.widget.CardView

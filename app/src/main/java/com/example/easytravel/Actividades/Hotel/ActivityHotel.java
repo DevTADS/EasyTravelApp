@@ -53,7 +53,7 @@ public class ActivityHotel extends AppCompatActivity {
         hotelAdapter = new HotelAdapter(this, hotelList);
         recyclerView.setAdapter(hotelAdapter);
 
-        String url = "https://tejuqiaq.lucusvirtual.es/listarhotel.php";
+        String url = "https://qybdatye.lucusvirtual.es/listarhotel.php";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
