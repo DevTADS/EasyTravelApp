@@ -32,7 +32,7 @@ public class LoginUsuario extends AppCompatActivity {
 
     EditText email, contraseña;
     String str_email, str_password;
-    String url = "https://qybdatye.lucusvirtual.es/login.php";
+    String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/usuario/login.php";
     Button forgotpass;
 
     @Override

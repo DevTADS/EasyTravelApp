@@ -157,7 +157,7 @@ public class RegistroHotel extends AppCompatActivity {
         progressDialog.show();
 
         // Realizar solicitud HTTP para registrar el hotel
-        String url = "https://qybdatye.lucusvirtual.es/insertarhotel.php";
+        String url = "https://qybdatye.lucusvirtual.es/hotel/insertar.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

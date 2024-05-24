@@ -31,7 +31,7 @@ public class LoginEmpresa extends AppCompatActivity {
 
     EditText correo, contraseña;
     String str_email, str_password;
-    String url = "https://qybdatye.lucusvirtual.es/loginempresa.php";
+    String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/empresa/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

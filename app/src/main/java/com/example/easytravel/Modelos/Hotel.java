@@ -7,7 +7,7 @@ public class Hotel {
     private String telefono;
     private String direccion;
     private String id_empresa;
-    private String foto; // Nuevo atributo para la foto del hotel
+    private String foto;
 
     public Hotel() {
 

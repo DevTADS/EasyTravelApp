@@ -66,7 +66,7 @@ public class ActivityAdmin extends AppCompatActivity {
     }
 
     private void cargarUsuarios() {
-        String urlUsuarios = "https://tejuqiaq.lucusvirtual.es/listar.php";
+        String urlUsuarios = "https://tejuqiaq.lucusvirtual.es/sistema/appusuario/usuario/listar.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlUsuarios, new Response.Listener<String>() {
             @Override
@@ -112,7 +112,7 @@ public class ActivityAdmin extends AppCompatActivity {
 
 
     private void cargarEmpresas() {
-        String urlEmpresas = "https://tejuqiaq.lucusvirtual.es/listarempresa.php";
+        String urlEmpresas = "https://tejuqiaq.lucusvirtual.es/sistema/appusuario/usuario/listarempresa.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlEmpresas, new Response.Listener<String>() {
             @Override

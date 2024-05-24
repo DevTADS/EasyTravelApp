@@ -108,7 +108,7 @@ public class RegistroEmpresa extends AppCompatActivity {
         }
 
         // Realizar solicitud HTTP para registrar el usuario
-        String url = "https://qybdatye.lucusvirtual.es/insertarempresa.php";
+        String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/empresa/insertar.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

@@ -1,3 +1,4 @@
+
 -- Tabla usuario
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
