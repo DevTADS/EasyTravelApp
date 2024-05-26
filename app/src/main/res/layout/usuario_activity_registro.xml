@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/fondo_easy_travel1"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -14,6 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="35dp"
+        app:cardBackgroundColor="#80000000"
         android:elevation="4dp"
         app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true">
@@ -37,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Registrate"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="28sp"
                         android:textStyle="bold" />
 
@@ -51,6 +52,8 @@
                     android:hint="Nombre completo"
                     android:inputType="textPersonName"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
 
                 <EditText
@@ -61,6 +64,8 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
 
                 <EditText
@@ -72,6 +77,8 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
 
                 <EditText
@@ -83,6 +90,8 @@
                     android:hint="Cédula de identidad"
                     android:inputType="number"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
 
                 <EditText
@@ -94,19 +103,9 @@
                     android:hint="Teléfono"
                     android:inputType="phone"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerPais"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp" />
-
-                <Spinner
-                    android:id="@+id/spinnerCiudad"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp" />
 
                 <EditText
                     android:id="@+id/txtDireccion"
@@ -116,8 +115,25 @@
                     android:hint="Dirección"
                     android:inputType="textPostalAddress"
                     android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
                     android:textSize="16sp" />
 
+                <Spinner
+                    android:id="@+id/spinnerPais"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:popupBackground="@android:color/white"
+                    android:textColor="@android:color/white" />
+
+                <Spinner
+                    android:id="@+id/spinnerCiudad"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:popupBackground="@android:color/white"
+                    android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/btn_register"
@@ -126,7 +142,8 @@
                     android:layout_marginTop="32dp"
                     android:text="Registrase"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:backgroundTint="@android:color/holo_blue_dark" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -142,6 +159,8 @@
         android:id="@+id/btn_regresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Regresar" />
+        android:text="Regresar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_blue_dark" />
 
 </LinearLayout>

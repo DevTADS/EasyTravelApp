@@ -1,4 +1,3 @@
-
 -- Tabla usuario
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -9,7 +8,10 @@ CREATE TABLE usuario (
     ciudad VARCHAR(100),
     cedula VARCHAR(100),
     telefono VARCHAR(100),
-    direccion TEXT
+    direccion TEXT,
+    fotoperfil LONGBLOB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla empresa
@@ -20,9 +22,13 @@ CREATE TABLE empresa (
     pais VARCHAR(100),
     telefono VARCHAR(100),
     direccion TEXT,
-    password VARCHAR(100)
+    password VARCHAR(100),
+    fotoperfil LONGBLOB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Tabla hotel
 CREATE TABLE hotel (
     id_hotel INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
@@ -31,7 +37,9 @@ CREATE TABLE hotel (
     telefono VARCHAR(100),
     direccion TEXT,
     id_empresa INT,
-    foto BLOB,
+    foto LONGBLOB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
@@ -44,31 +52,37 @@ CREATE TABLE restaurante (
     telefono VARCHAR(100),
     direccion TEXT,
     id_empresa INT,
+    foto LONGBLOB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
-CREATE TABLE usuario_restaurante (
+-- Tabla favoritos de usuario para restaurantes
+CREATE TABLE usuario_favorito_restaurante (
     id_usuario INT,
     id_restaurante INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_restaurante) REFERENCES restaurante(id_restaurante),
     PRIMARY KEY (id_usuario, id_restaurante)
 );
 
-CREATE TABLE usuario_hotel (
+-- Tabla favoritos de usuario para hoteles
+CREATE TABLE usuario_favorito_hotel (
     id_usuario INT,
     id_hotel INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel), 
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
     PRIMARY KEY (id_usuario, id_hotel)
 );
 
-
-CREATE TABLE reporte (
-    id_reporte  INT AUTO_INCREMENT PRIMARY KEY,
-    descripcion TEXT,
-    nombre_imagen VARCHAR(255),
+-- Tabla historial de búsquedas de usuario
+CREATE TABLE usuario_historial_busqueda (
+    id_historial INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
+    busqueda VARCHAR(255),
+    fecha_busqueda TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
-

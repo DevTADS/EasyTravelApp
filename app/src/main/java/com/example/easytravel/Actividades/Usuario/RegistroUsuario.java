@@ -1,7 +1,9 @@
 package com.example.easytravel.Actividades.Usuario;
 
+import com.example.easytravel.Conexion.FirebaseConnection;
 import com.example.easytravel.R;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,30 +32,32 @@ import java.util.Map;
 
 public class RegistroUsuario extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    EditText txtName;
-    EditText txtEmail;
-    EditText pass;
+    EditText editTextNombre;
+    EditText editTextEmail;
+    EditText editTextPassword;
     Spinner spinnerPais;
     Spinner spinnerCiudad;
-    EditText txtCedula;
-    EditText txtTelefono;
-    EditText txtDireccion;
+    EditText editTextCedula;
+    EditText editTextTelefono;
+    EditText editTextDireccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.usuario_activity_registro);
+
         mAuth = FirebaseAuth.getInstance();
-        txtName = findViewById(R.id.ednombre);
-        txtEmail = findViewById(R.id.etemail);
-        pass = findViewById(R.id.etcontraseña);
+        editTextNombre = findViewById(R.id.ednombre);
+        editTextEmail = findViewById(R.id.etemail);
+        editTextPassword = findViewById(R.id.etcontraseña);
         spinnerPais = findViewById(R.id.spinnerPais);
         spinnerCiudad = findViewById(R.id.spinnerCiudad);
-        txtCedula = findViewById(R.id.txtCedula);
-        txtTelefono = findViewById(R.id.txtTelefono);
-        txtDireccion = findViewById(R.id.txtDireccion);
+        editTextCedula = findViewById(R.id.txtCedula);
+        editTextTelefono = findViewById(R.id.txtTelefono);
+        editTextDireccion = findViewById(R.id.txtDireccion);
         Button btnRegresar = findViewById(R.id.btn_regresar);
+        Button btnInsertar = findViewById(R.id.btn_register);
 
         // Configuración del Spinner de Países
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);
@@ -75,101 +79,93 @@ public class RegistroUsuario extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        Button btn_insert = findViewById(R.id.btn_register);
 
-        btn_insert.setOnClickListener(new View.OnClickListener() {
+        // Botón para insertar nuevo usuario
+        btnInsertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrarUsuario();
-                registrarUsuarioFirebase();
             }
         });
 
-
+        // Botón para regresar a la pantalla anterior
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(RegistroUsuario.this, LoginUsuario.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
-    private void registrarUsuarioFirebase() {
-        final String email = txtEmail.getText().toString().trim();
-        final String password = pass.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            // Manejo de errores si los campos están vacíos
-            return;
-        }
-
-        // Crear usuario en Firebase Authentication
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Registro exitoso
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(RegistroUsuario.this, "Usuario registrado firebase", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Error en el registro
-                        Toast.makeText(RegistroUsuario.this, "Error firebase: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
+    // Método para insertar nuevo usuario
     private void registrarUsuario() {
-        final String nombre = txtName.getText().toString().trim();
-        final String email = txtEmail.getText().toString().trim();
-        final String password = pass.getText().toString().trim();
+        final String nombre = editTextNombre.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
         final String ciudad = spinnerCiudad.getSelectedItem().toString().trim();
-        final String cedula = txtCedula.getText().toString().trim();
-        final String telefono = txtTelefono.getText().toString().trim();
-        final String direccion = txtDireccion.getText().toString().trim();
+        final String cedula = editTextCedula.getText().toString().trim();
+        final String telefono = editTextTelefono.getText().toString().trim();
+        final String direccion = editTextDireccion.getText().toString().trim();
 
         if (nombre.isEmpty()) {
-            txtName.setError("Este campo no puede estar vacío");
+            editTextNombre.setError("Este campo no puede estar vacío");
             return;
         }
         if (email.isEmpty()) {
-            txtEmail.setError("Este campo no puede estar vacío");
+            editTextEmail.setError("Este campo no puede estar vacío");
             return;
         }
         if (password.isEmpty()) {
-            pass.setError("Este campo no puede estar vacío");
+            editTextPassword.setError("Este campo no puede estar vacío");
+            return;
+        }
+        if (password.length() < 6) {
+            editTextPassword.setError("La contraseña debe tener mínimo 6 caracteres");
             return;
         }
         if (cedula.isEmpty()) {
-            txtCedula.setError("Este campo no puede estar vacío");
+            editTextCedula.setError("Este campo no puede estar vacío");
             return;
         }
         if (telefono.isEmpty()) {
-            txtTelefono.setError("Este campo no puede estar vacío");
+            editTextTelefono.setError("Este campo no puede estar vacío");
             return;
         }
         if (direccion.isEmpty()) {
-            txtDireccion.setError("Este campo no puede estar vacío");
+            editTextDireccion.setError("Este campo no puede estar vacío");
             return;
         }
 
+        // Mostrar el ProgressDialog mientras se procesa la solicitud
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Por favor espera...");
+        progressDialog.show();
+
         // Realizar solicitud HTTP para registrar el usuario
-        String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/usuario/insertar.php";
+        String url = "https://qybdatye.lucusvirtual.es/easytravel/usuario/insertar.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.dismiss(); // Ocultar el ProgressDialog
+
                         // Mostrar la respuesta del servidor para depuración
                         Toast.makeText(RegistroUsuario.this, response, Toast.LENGTH_SHORT).show();
 
                         if (response.equalsIgnoreCase("Datos insertados")) {
-                            Toast.makeText(RegistroUsuario.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                             }
+                            // Usuario registrado correctamente en el servidor
+                            FirebaseConnection firebaseConnection = new FirebaseConnection();
+                            firebaseConnection.registerUser(email, password, RegistroUsuario.this);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss(); // Ocultar el ProgressDialog en caso de error
                         Toast.makeText(RegistroUsuario.this, "Error al registrar el usuario: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
@@ -181,9 +177,10 @@ public class RegistroUsuario extends AppCompatActivity {
                 params.put("password", password);
                 params.put("pais", pais);
                 params.put("ciudad", ciudad);
+                params.put("direccion", direccion);
                 params.put("cedula", cedula);
                 params.put("telefono", telefono);
-                params.put("direccion", direccion);
+
                 return params;
             }
         };
@@ -192,12 +189,14 @@ public class RegistroUsuario extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    // Spinner de departamentos de Uruguay
     private void DepartamentosUruguay() {
         ArrayAdapter<CharSequence> adapterDepartamentos = ArrayAdapter.createFromResource(this, R.array.departamentos, android.R.layout.simple_spinner_item);
         adapterDepartamentos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCiudad.setAdapter(adapterDepartamentos);
     }
 
+    // Spinner de estados de Brasil
     private void EstadosBrasil() {
         ArrayAdapter<CharSequence> adapterEstados = ArrayAdapter.createFromResource(this, R.array.rio_grande_do_sul, android.R.layout.simple_spinner_item);
         adapterEstados.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

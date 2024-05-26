@@ -3,7 +3,6 @@ package com.example.easytravel.Actividades.Usuario;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,19 +20,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
-import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
 import com.example.easytravel.R;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class LoginUsuario extends AppCompatActivity {
 
     EditText email, contraseña;
     String str_email, str_password;
-    String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/usuario/login.php";
-    Button forgotpass;
+    String url = "https://qybdatye.lucusvirtual.es/easytravel/usuario/login.php";
+    Button olvideContrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +40,11 @@ public class LoginUsuario extends AppCompatActivity {
 
         email = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
-        forgotpass = findViewById(R.id.forgotpass);
-
+        olvideContrasena = findViewById(R.id.forgotpass);
         Button btnLogin = findViewById(R.id.btn_login);
+        Button btnRegister = findViewById(R.id.btn_register);
+
+        // Botón para iniciar sesión
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +59,7 @@ public class LoginUsuario extends AppCompatActivity {
             }
         });
 
-        Button btnRegister = findViewById(R.id.btn_register);
+        // Botón para ir a la actividad de registro
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +68,8 @@ public class LoginUsuario extends AppCompatActivity {
             }
         });
 
-        forgotpass.setOnClickListener(new View.OnClickListener() {
+        // Botón para ir a la actividad de olvido de contraseña
+        olvideContrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginUsuario.this, OlvidoContrasena.class);
@@ -78,6 +78,7 @@ public class LoginUsuario extends AppCompatActivity {
         });
     }
 
+    // Método para iniciar sesión
     private void Login() {
         if (email.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
@@ -95,7 +96,7 @@ public class LoginUsuario extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     progressDialog.dismiss();
-                    if (response.equalsIgnoreCase("ingreso correctamente")) {
+                    if (response.equalsIgnoreCase("Bienvenido! Nos alegra verte por aqui de nuevo...")) {
                         email.setText("");
                         contraseña.setText("");
                         startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
@@ -130,5 +131,4 @@ public class LoginUsuario extends AppCompatActivity {
             requestQueue.add(request);
         }
     }
-
 }
