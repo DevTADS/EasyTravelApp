@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +43,6 @@ public class HomeUsuario extends Fragment {
         BannerAdapter adapter = new BannerAdapter(images);
         viewPager.setAdapter(adapter);
 
-
         final Handler handler = new Handler(Looper.getMainLooper());
         final Runnable update = () -> {
             if (currentPage == images.size() - 1) {
@@ -52,7 +52,6 @@ public class HomeUsuario extends Fragment {
             }
             viewPager.setCurrentItem(currentPage, true);
         };
-
 
         handler.postDelayed(update, DELAY_MS);
 
@@ -70,6 +69,17 @@ public class HomeUsuario extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityHotel.class);
                 startActivity(intent);
+            }
+        });
+
+        // Agregar OnClickListener a la imagen de perfil
+        ImageView imageViewPerfil = rootView.findViewById(R.id.imageView);
+        imageViewPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new PerfilUsuario())
+                        .commit();
             }
         });
 

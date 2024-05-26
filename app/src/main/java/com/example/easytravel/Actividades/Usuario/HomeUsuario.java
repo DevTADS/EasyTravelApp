@@ -3,20 +3,17 @@ package com.example.easytravel.Actividades.Usuario;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-
 import com.example.easytravel.FragmentosUsuario.AyudaUsuario;
 import com.example.easytravel.FragmentosUsuario.PerfilUsuario;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
 import com.example.easytravel.R;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeUsuario extends AppCompatActivity {
 
@@ -54,5 +51,7 @@ public class HomeUsuario extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 }

@@ -328,16 +328,16 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignBottom="@+id/topview"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="306dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="94dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="90dp"
         app:srcCompat="@drawable/perfil" />
 
     <TextView
