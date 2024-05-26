@@ -16,8 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -38,8 +41,12 @@ public class PerfilUsuario extends Fragment {
     private static final int SELECCIONAR_IMAGEN = 100;
     private static final int TOMAR_FOTO = 101;
     private ImageView imageViewPerfil;
+    private ImageView imageViewEditar;
     private String urlSubirImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/update_profile_image.php";
-    private int idUsuario; // Obtener este valor de tu sesión o donde lo almacenes
+    private int idUsuario;
+
+    private ActivityResultLauncher<Intent> galleryLauncher;
+    private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Nullable
     @Override
@@ -47,9 +54,8 @@ public class PerfilUsuario extends Fragment {
         View rootView = inflater.inflate(R.layout.fragmento_perfil_usuario, container, false);
 
         imageViewPerfil = rootView.findViewById(R.id.imageViewPerfil);
-        ImageView imageViewEditar = rootView.findViewById(R.id.imageViewEditar);
+        imageViewEditar = rootView.findViewById(R.id.imageViewEditar);
 
-        // Asignar el ID del usuario aquí
         Bundle args = getArguments();
         if (args != null) {
             idUsuario = args.getInt("user_id", -1);
@@ -62,14 +68,44 @@ public class PerfilUsuario extends Fragment {
             return rootView;
         }
 
-        imageViewEditar.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Image clicked", Toast.LENGTH_SHORT).show();
                 mostrarDialogoImagen();
             }
-        });
+        };
+
+        imageViewPerfil.setOnClickListener(onClickListener);
+        imageViewEditar.setOnClickListener(onClickListener);
+
+        configurarLaunchers();
 
         return rootView;
+    }
+
+    private void configurarLaunchers() {
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imagenSeleccionadaUri = result.getData().getData();
+                        imageViewPerfil.setImageURI(imagenSeleccionadaUri);
+                        subirImagenAlServidor();
+                    }
+                }
+        );
+
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Bitmap foto = (Bitmap) result.getData().getExtras().get("data");
+                        imageViewPerfil.setImageBitmap(foto);
+                        subirImagenAlServidor();
+                    }
+                }
+        );
     }
 
     private void mostrarDialogoImagen() {
@@ -96,30 +132,13 @@ public class PerfilUsuario extends Fragment {
     }
 
     public void elegirFotoDeGaleria() {
-        Intent intentGaleria = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intentGaleria, SELECCIONAR_IMAGEN);
+        Intent intentGaleria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryLauncher.launch(intentGaleria);
     }
 
     private void tomarFotoDeCamara() {
         Intent intentCamara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intentCamara, TOMAR_FOTO);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECCIONAR_IMAGEN && data != null && data.getData() != null) {
-                Uri imagenSeleccionadaUri = data.getData();
-                imageViewPerfil.setImageURI(imagenSeleccionadaUri);
-                subirImagenAlServidor();
-            } else if (requestCode == TOMAR_FOTO && data != null && data.getExtras() != null) {
-                Bitmap foto = (Bitmap) data.getExtras().get("data");
-                imageViewPerfil.setImageBitmap(foto);
-                subirImagenAlServidor();
-            }
-        }
+        cameraLauncher.launch(intentCamara);
     }
 
     private void subirImagenAlServidor() {

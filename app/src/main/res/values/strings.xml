@@ -4,7 +4,11 @@
         <item>Restaurante</item>
         <item>Otros</item>
     </string-array>
-
+    <string-array name="opciones_imagen">
+        <item>Seleccionar acción</item>
+        <item>Seleccionar foto de galería</item>
+        <item>Capturar foto de cámara</item>
+    </string-array>
     <string-array name="paises">
         <item>Uruguay</item>
         <item>Brasil</item>
