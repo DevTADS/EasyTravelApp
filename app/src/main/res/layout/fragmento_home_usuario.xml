@@ -341,7 +341,7 @@
         app:srcCompat="@drawable/perfil" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvnombreusuario"
         android:layout_width="218dp"
         android:layout_height="33dp"
         android:layout_alignBottom="@+id/topview"
@@ -352,7 +352,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="170dp"
         android:layout_marginBottom="134dp"
-        android:text="Bienvenido"
+        android:text="aqui quiero mostrar"
         android:textColor="#FFFFFF"
         android:textSize="28sp" />
 

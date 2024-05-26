@@ -1,6 +1,7 @@
 package com.example.easytravel.FragmentosUsuario;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.easytravel.Actividades.Hotel.ActivityHotel;
-import com.example.easytravel.R;
 import com.example.easytravel.Adaptadores.BannerAdapter;
+import com.example.easytravel.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,14 @@ public class HomeUsuario extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragmento_home_usuario, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
+        String nombreUsuario = sharedPreferences.getString("nombre", "Usuario");
+
+        // Configurar el TextView con el nombre del usuario
+        TextView textViewNombre = rootView.findViewById(R.id.tvnombreusuario);
+        textViewNombre.setText("Hola " + nombreUsuario);
+
         viewPager = rootView.findViewById(R.id.viewPager);
         images = new ArrayList<>();
         images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner1);

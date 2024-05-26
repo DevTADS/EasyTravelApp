@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/usuario" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvnombreusuario"
         android:layout_width="218dp"
         android:layout_height="33dp"
         android:layout_alignBottom="@+id/topview"

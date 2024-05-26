@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Usuario {
 
-    private String id;
+    private String id_usuario;
 
     @SerializedName("nombre")
     @Expose
@@ -42,8 +42,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String id, String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String contrasena) {
-        this.id = id;
+    public Usuario(String id_usuario, String nombre, String cedula, String telefono, String pais, String ciudad, String direccion, String correo, String contrasena) {
+        this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.cedula = cedula;
         this.telefono = telefono;
@@ -54,12 +54,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public String getId() {
-        return id;
+    public String getId_usuario() {
+        return id_usuario;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNombre() {

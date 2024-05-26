@@ -38,7 +38,7 @@
                 android:text="HOTEL 1" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvnombreusuario"
                 android:layout_width="227dp"
                 android:layout_height="27dp"
                 android:layout_below="@id/textView1"
@@ -49,8 +49,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="229dp"
                 android:layout_height="27dp"
-                android:layout_below="@id/textView2"
-                android:layout_alignLeft="@id/textView2"
+                android:layout_below="@id/tvnombreusuario"
+                android:layout_alignLeft="@id/tvnombreusuario"
                 android:text="Text 3" />
 
             <LinearLayout

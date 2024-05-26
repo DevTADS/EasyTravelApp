@@ -2,6 +2,7 @@ package com.example.easytravel.Actividades.Usuario;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
 import com.example.easytravel.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +81,6 @@ public class LoginUsuario extends AppCompatActivity {
             }
         });
     }
-
     // Método para iniciar sesión
     private void Login() {
         if (email.getText().toString().isEmpty()) {
@@ -99,8 +102,43 @@ public class LoginUsuario extends AppCompatActivity {
                     if (response.equalsIgnoreCase("Bienvenido! Nos alegra verte por aqui de nuevo...")) {
                         email.setText("");
                         contraseña.setText("");
-                        startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
-                        Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
+
+                        // Obtener los datos del usuario
+                        Log.d("LoginUsuario", "Obteniendo datos del usuario para: " + str_email);
+                        Obtener_id.obtenerDatosUsuario(getApplicationContext(), str_email, new Obtener_id.UsuarioCallback() {
+                            @Override
+                            public void onSuccess(JSONObject usuario) {
+                                // Guardar los datos del usuario en SharedPreferences
+                                SharedPreferences sharedPreferences = getSharedPreferences("Usuario", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                try {
+                                    // Verificar la estructura del JSON antes de guardar
+                                    if (usuario.has("id_usuario") && usuario.has("nombre") && usuario.has("email") && usuario.has("contrasena")) {
+                                        editor.putString("id_usuario", usuario.getString("id_usuario"));
+                                        editor.putString("nombre", usuario.getString("nombre"));
+                                        editor.putString("email", usuario.getString("email"));
+                                        editor.putString("contrasena", usuario.getString("contrasena"));
+                                        // Añade aquí todos los datos que quieras guardar
+                                        editor.apply();
+
+                                        // Iniciar la actividad principal
+                                        startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
+                                        Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.e("LoginUsuario", "Respuesta JSON no contiene los campos esperados");
+                                        Toast.makeText(LoginUsuario.this, "Error en la estructura de los datos del usuario", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(LoginUsuario.this, "Error al guardar los datos del usuario", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String mensajeError) {
+                                Toast.makeText(LoginUsuario.this, mensajeError, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
                         Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
                     }

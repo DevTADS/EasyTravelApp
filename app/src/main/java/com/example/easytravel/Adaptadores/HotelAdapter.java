@@ -81,7 +81,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewNombre = itemView.findViewById(R.id.textView1);
-            textViewTelefono = itemView.findViewById(R.id.textView2);
+            textViewTelefono = itemView.findViewById(R.id.tvnombreusuario);
             textViewDireccion = itemView.findViewById(R.id.textView3);
         }
     }
