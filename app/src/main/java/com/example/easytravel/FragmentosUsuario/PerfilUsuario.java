@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,11 +14,10 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -30,23 +30,29 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.easytravel.Actividades.Usuario.Obtener_id;
 import com.example.easytravel.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PerfilUsuario extends Fragment {
 
-    private static final int SELECCIONAR_IMAGEN = 100;
-    private static final int TOMAR_FOTO = 101;
+    private static final int PICK_IMAGE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
+
     private ImageView imageViewPerfil;
     private ImageView imageViewEditar;
+    private Button buttonSeleccionarImagen;
     private String urlSubirImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/update_profile_image.php";
+    private String urlObtenerImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/obtener_profile_image.php";
     private int idUsuario;
-
-    private ActivityResultLauncher<Intent> galleryLauncher;
-    private ActivityResultLauncher<Intent> cameraLauncher;
+    private Bitmap selectedBitmap;
 
     @Nullable
     @Override
@@ -55,57 +61,57 @@ public class PerfilUsuario extends Fragment {
 
         imageViewPerfil = rootView.findViewById(R.id.imageViewPerfil);
         imageViewEditar = rootView.findViewById(R.id.imageViewEditar);
+        buttonSeleccionarImagen = rootView.findViewById(R.id.buttonSeleccionarImagen);
 
-        Bundle args = getArguments();
-        if (args != null) {
-            idUsuario = args.getInt("user_id", -1);
-        } else {
-            idUsuario = -1;
-        }
+        // Recuperar el ID de usuario de SharedPreferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
 
-        if (idUsuario == -1) {
-            Toast.makeText(getContext(), "Error: ID de usuario no encontrado", Toast.LENGTH_SHORT).show();
+        if (email.isEmpty()) {
+            Toast.makeText(getContext(), "Error: Email no encontrado", Toast.LENGTH_SHORT).show();
             return rootView;
         }
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        // Obtener el id_usuario usando la clase Obtener_id
+        Obtener_id.obtenerDatosUsuario(getContext(), email, new Obtener_id.UsuarioCallback() {
+            @Override
+            public void onSuccess(JSONObject usuario) {
+                try {
+                    idUsuario = usuario.getInt("id_usuario");
+                    obtenerImagenPerfil(); // Obtener la imagen de perfil después de obtener el id_usuario
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error al obtener el ID de usuario", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String mensajeError) {
+                Toast.makeText(getContext(), mensajeError, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Asignar listeners para los clics en las imágenes y el botón
+        imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Image clicked", Toast.LENGTH_SHORT).show();
                 mostrarDialogoImagen();
             }
-        };
-
-        imageViewPerfil.setOnClickListener(onClickListener);
-        imageViewEditar.setOnClickListener(onClickListener);
-
-        configurarLaunchers();
+        });
+        imageViewEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDialogoImagen();
+            }
+        });
+        buttonSeleccionarImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDialogoImagen();
+            }
+        });
 
         return rootView;
-    }
-
-    private void configurarLaunchers() {
-        galleryLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri imagenSeleccionadaUri = result.getData().getData();
-                        imageViewPerfil.setImageURI(imagenSeleccionadaUri);
-                        subirImagenAlServidor();
-                    }
-                }
-        );
-
-        cameraLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Bitmap foto = (Bitmap) result.getData().getExtras().get("data");
-                        imageViewPerfil.setImageBitmap(foto);
-                        subirImagenAlServidor();
-                    }
-                }
-        );
     }
 
     private void mostrarDialogoImagen() {
@@ -120,10 +126,10 @@ public class PerfilUsuario extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                elegirFotoDeGaleria();
+                                abrirGaleria();
                                 break;
                             case 1:
-                                tomarFotoDeCamara();
+                                capturarFoto();
                                 break;
                         }
                     }
@@ -131,43 +137,120 @@ public class PerfilUsuario extends Fragment {
         dialogoImagen.show();
     }
 
-    public void elegirFotoDeGaleria() {
+    private void abrirGaleria() {
         Intent intentGaleria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryLauncher.launch(intentGaleria);
+        startActivityForResult(intentGaleria, PICK_IMAGE);
     }
 
-    private void tomarFotoDeCamara() {
+    private void capturarFoto() {
         Intent intentCamara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraLauncher.launch(intentCamara);
+        startActivityForResult(intentCamara, REQUEST_IMAGE_CAPTURE);
     }
 
-    private void subirImagenAlServidor() {
-        imageViewPerfil.setDrawingCacheEnabled(true);
-        imageViewPerfil.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) imageViewPerfil.getDrawable()).getBitmap();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == PICK_IMAGE) {
+                Uri imagenSeleccionadaUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imagenSeleccionadaUri);
+                    imageViewPerfil.setImageBitmap(bitmap);
+                    selectedBitmap = bitmap;
+                    mostrarDialogoConfirmacion();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageViewPerfil.setImageBitmap(imageBitmap);
+                selectedBitmap = imageBitmap;
+                mostrarDialogoConfirmacion();
+            }
+        }
+    }
+
+    private void mostrarDialogoConfirmacion() {
+        AlertDialog.Builder dialogoConfirmacion = new AlertDialog.Builder(getContext());
+        dialogoConfirmacion.setTitle("Guardar Cambios");
+        dialogoConfirmacion.setMessage("¿Deseas guardar esta imagen como tu foto de perfil?");
+        dialogoConfirmacion.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (selectedBitmap != null) {
+                    subirImagenAlServidor(selectedBitmap);
+                }
+            }
+        });
+        dialogoConfirmacion.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Opcional: Resetear la imagen del perfil si se cancela
+                imageViewPerfil.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.perfil2));
+            }
+        });
+        dialogoConfirmacion.show();
+    }
+
+    private void subirImagenAlServidor(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytesImagen = baos.toByteArray();
         String imagenCodificada = Base64.encodeToString(bytesImagen, Base64.DEFAULT);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getContext(), "Imagen subida correctamente", Toast.LENGTH_SHORT).show();
+                // Opcional: manejar la respuesta del servidor después de subir la imagen
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error al subir la imagen: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_usuario", String.valueOf(idUsuario));
-                params.put("foto_perfil", imagenCodificada);
+                params.put("fotoperfil", imagenCodificada);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
+    private void obtenerImagenPerfil() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlObtenerImagen, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.has("fotoperfil")) {
+                        String imagenBase64 = jsonObject.getString("fotoperfil");
+                        byte[] bytesImagen = Base64.decode(imagenBase64, Base64.DEFAULT);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
+                        imageViewPerfil.setImageBitmap(bitmap);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error al obtener la imagen de perfil", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error al obtener la imagen de perfil: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_usuario", String.valueOf(idUsuario));
                 return params;
             }
         };
