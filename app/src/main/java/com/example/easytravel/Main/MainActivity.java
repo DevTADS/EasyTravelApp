@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
 import com.example.easytravel.Actividades.Usuario.HomeeUsuario;
 import com.example.easytravel.Actividades.Usuario.LoginUsuario;
+import com.example.easytravel.Extras.TerminosCondiciones;
 import com.example.easytravel.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginEmpresa.class);
+                startActivity(intent);
+            }
+        });
+
+        // Enlace a política de privacidad y términos de uso
+        TextView txt_privacidad = findViewById(R.id.txt_privacidad);
+        txt_privacidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TerminosCondiciones.class);
                 startActivity(intent);
             }
         });

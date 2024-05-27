@@ -1,19 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#060719">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Terminos y condiciones de uso"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Término de Consentimiento para el Tratamiento de Datos"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="De acuerdo con la Ley General de Protección de Datos (Ley nº 13.709/2018) LGPD de Brasil y la Ley de Protección de Datos Personales (Ley nº 18.331) LPDP de Uruguay, expreso mi consentimiento para el tratamiento de mis datos personales según se describe a continuación."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Como usuario, reconozco y acepto que el proveedor del sistema EasyTravel recopilará y tratará los siguientes datos personales proporcionados por mí: nombre, correo electrónico, número de teléfono, identificación, dirección y ubicación."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estos datos se utilizarán exclusivamente para [descripción]. Registro, identificación e introducción al sistema, referente a los usuarios de manera que proporcione una mejor experiencia así como recomendaciones referentes a las preferencias personales del usuario."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Los datos almacenados en nuestros sistemas no serán vendidos, distribuidos ni compartidos con terceros."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entiendo que proporcionar estos datos es voluntario y que tengo el derecho de acceder, corregir y solicitar la eliminación de mis datos personales en cualquier momento, poniéndome en contacto con [información de contacto de la empresa] Easy Travel."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registro de la fecha: [registrar] Ej: este documento fue"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Firma (casilla de verificación que diga 'he leído y acepto los términos' y otra casilla que diga 'no acepto los términos'):"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

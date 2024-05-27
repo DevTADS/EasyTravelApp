@@ -54,8 +54,8 @@
             android:name=".Modelos.Usuario"
             tools:ignore="Instantiatable" />
         <activity android:name=".Extras.Ayuda" />
-        <activity android:name=".Extras.PoliticaPrivacidad" />
         <activity android:name=".Extras.TerminosCondiciones" />
+
         <activity android:name=".Servicios.Noticias" />
         <activity android:name=".Servicios.Reportes" />
         <activity android:name=".Servicios.Tiempo" />
