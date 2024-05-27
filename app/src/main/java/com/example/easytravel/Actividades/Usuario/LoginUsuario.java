@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -32,6 +35,7 @@ import java.util.Map;
 public class LoginUsuario extends AppCompatActivity {
 
     EditText email, contraseña;
+    TextView togglePassword;
     String str_email, str_password;
     String url = "https://qybdatye.lucusvirtual.es/easytravel/usuario/login.php";
     Button olvideContrasena;
@@ -44,9 +48,28 @@ public class LoginUsuario extends AppCompatActivity {
 
         email = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
+        togglePassword = findViewById(R.id.tvTogglePassword);
         olvideContrasena = findViewById(R.id.forgotpass);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
+
+        // Manejar la visibilidad de la contraseña
+        togglePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (contraseña.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    // Mostrar contraseña
+                    contraseña.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    togglePassword.setText("Ocultar");
+                } else {
+                    // Ocultar contraseña
+                    contraseña.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    togglePassword.setText("Mostrar");
+                }
+                // Mover el cursor al final del texto
+                contraseña.setSelection(contraseña.getText().length());
+            }
+        });
 
         // Botón para iniciar sesión
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +104,7 @@ public class LoginUsuario extends AppCompatActivity {
             }
         });
     }
+
     // Método para iniciar sesión
     private void Login() {
         if (email.getText().toString().isEmpty()) {

@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_easy_travel1">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageViewPerfil"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:src="@drawable/perfil2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +21,6 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/editar"
@@ -30,26 +28,32 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewPerfil"
         app:layout_constraintTop_toTopOf="@+id/imageViewPerfil"
         app:layout_constraintVertical_bias="1.0" />
-    <Button
-        android:id="@+id/buttonSeleccionarImagen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seleccionar Imagen"
-        app:layout_constraintTop_toBottomOf="@id/imageViewEditar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPerfil"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPerfil"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPerfil"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPerfil"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
     <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="70dp"
         android:columnCount="2"
         android:rowCount="2"
-        app:layout_constraintTop_toBottomOf="@id/buttonSeleccionarImagen"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="center">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewEditar">
 
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"

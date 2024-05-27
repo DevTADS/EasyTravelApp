@@ -2,6 +2,7 @@ package com.example.easytravel.FragmentosUsuario;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +15,6 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,18 +38,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilUsuario extends Fragment {
 
     private static final int PICK_IMAGE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
+    private CircleImageView imageViewPerfil;
+    private LottieAnimationView animationView;
 
-    private ImageView imageViewPerfil;
     private ImageView imageViewEditar;
-    private Button buttonSeleccionarImagen;
     private String urlSubirImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/update_profile_image.php";
     private String urlObtenerImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/obtener_profile_image.php";
     private int idUsuario;
@@ -61,7 +66,7 @@ public class PerfilUsuario extends Fragment {
 
         imageViewPerfil = rootView.findViewById(R.id.imageViewPerfil);
         imageViewEditar = rootView.findViewById(R.id.imageViewEditar);
-        buttonSeleccionarImagen = rootView.findViewById(R.id.buttonSeleccionarImagen);
+        animationView = rootView.findViewById(R.id.animationView);
 
         // Recuperar el ID de usuario de SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
@@ -78,7 +83,7 @@ public class PerfilUsuario extends Fragment {
             public void onSuccess(JSONObject usuario) {
                 try {
                     idUsuario = usuario.getInt("id_usuario");
-                    obtenerImagenPerfil(); // Obtener la imagen de perfil después de obtener el id_usuario
+                    obtenerImagenPerfil();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Error al obtener el ID de usuario", Toast.LENGTH_SHORT).show();
@@ -91,7 +96,7 @@ public class PerfilUsuario extends Fragment {
             }
         });
 
-        // Asignar listeners para los clics en las imágenes y el botón
+        // Asignar listeners para los clics en las imágenes
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,13 +109,6 @@ public class PerfilUsuario extends Fragment {
                 mostrarDialogoImagen();
             }
         });
-        buttonSeleccionarImagen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDialogoImagen();
-            }
-        });
-
         return rootView;
     }
 
@@ -119,7 +117,7 @@ public class PerfilUsuario extends Fragment {
         dialogoImagen.setTitle("Seleccionar Acción");
         String[] opcionesDialogoImagen = {
                 "Seleccionar foto de galería",
-                "Capturar foto de cámara" };
+                "Capturar foto de cámara"};
         dialogoImagen.setItems(opcionesDialogoImagen,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -199,15 +197,29 @@ public class PerfilUsuario extends Fragment {
         byte[] bytesImagen = baos.toByteArray();
         String imagenCodificada = Base64.encodeToString(bytesImagen, Base64.DEFAULT);
 
+        // Inicia la animación de carga
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                // Para la animación de carga
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Imagen subida correctamente", Toast.LENGTH_SHORT).show();
+
+                // Guardar la imagen localmente
+                guardarImagenLocalmente(bitmap);
+
                 // Opcional: manejar la respuesta del servidor después de subir la imagen
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Para la animación de carga
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Error al subir la imagen: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -224,10 +236,35 @@ public class PerfilUsuario extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    private void guardarImagenLocalmente(Bitmap bitmap) {
+        try {
+            FileOutputStream fos = getContext().openFileOutput("perfil_image.jpg", Context.MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void obtenerImagenPerfil() {
+        // Intentar cargar la imagen localmente
+        Bitmap bitmap = cargarImagenLocalmente();
+        if (bitmap != null) {
+            imageViewPerfil.setImageBitmap(bitmap);
+            return; // Si la imagen local existe, no realizar la solicitud al servidor
+        }
+
+        // Inicia la animación de carga
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlObtenerImagen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                // Para la animación de carga
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.GONE);
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("fotoperfil")) {
@@ -235,6 +272,9 @@ public class PerfilUsuario extends Fragment {
                         byte[] bytesImagen = Base64.decode(imagenBase64, Base64.DEFAULT);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
                         imageViewPerfil.setImageBitmap(bitmap);
+
+                        // Guardar la imagen localmente
+                        guardarImagenLocalmente(bitmap);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -244,6 +284,9 @@ public class PerfilUsuario extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Para la animación de carga
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Error al obtener la imagen de perfil: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -258,4 +301,18 @@ public class PerfilUsuario extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
+
+    private Bitmap cargarImagenLocalmente() {
+        try {
+            FileInputStream fis = getContext().openFileInput("perfil_image.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(fis);
+            fis.close();
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

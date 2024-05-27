@@ -2,13 +2,14 @@ package com.example.easytravel.FragmentosUsuario;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,11 @@ import com.example.easytravel.Actividades.Hotel.ActivityHotel;
 import com.example.easytravel.Adaptadores.BannerAdapter;
 import com.example.easytravel.R;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeUsuario extends Fragment {
 
@@ -30,7 +34,7 @@ public class HomeUsuario extends Fragment {
     private List<String> images;
     private int currentPage = 0;
     private final long DELAY_MS = 3000;
-    private final long PERIOD_MS = 5000;
+    private CircleImageView imageViewPerfil;
 
     @Nullable
     @Override
@@ -49,18 +53,22 @@ public class HomeUsuario extends Fragment {
         images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner1);
         images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner2);
         images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner3);
-        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner4);
+        images.add("android.resource://" + getActivity().getPackageName() + "/" + R.drawable.baner2);
         BannerAdapter adapter = new BannerAdapter(images);
         viewPager.setAdapter(adapter);
 
+        // Configurar el cambio automático de páginas
         final Handler handler = new Handler(Looper.getMainLooper());
-        final Runnable update = () -> {
-            if (currentPage == images.size() - 1) {
-                currentPage = 0;
-            } else {
-                currentPage++;
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (currentPage == images.size() - 1) {
+                    currentPage = 0;
+                } else {
+                    currentPage++;
+                }
+                viewPager.setCurrentItem(currentPage, true);
+                handler.postDelayed(this, DELAY_MS);
             }
-            viewPager.setCurrentItem(currentPage, true);
         };
 
         handler.postDelayed(update, DELAY_MS);
@@ -72,7 +80,7 @@ public class HomeUsuario extends Fragment {
             }
         });
 
-        // Agregar OnClickListener al CardView
+        // Configurar OnClickListener al CardView
         CardView cardViewHotel = rootView.findViewById(R.id.cardview_hotel);
         cardViewHotel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +90,8 @@ public class HomeUsuario extends Fragment {
             }
         });
 
-        // Agregar OnClickListener a la imagen de perfil
-        ImageView imageViewPerfil = rootView.findViewById(R.id.imageView);
+        // Configurar OnClickListener a la imagen de perfil
+        imageViewPerfil = rootView.findViewById(R.id.imageView);
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +101,31 @@ public class HomeUsuario extends Fragment {
             }
         });
 
+        // Cargar la imagen de perfil
+        cargarImagenPerfil();
+
         return rootView;
+    }
+
+    private void cargarImagenPerfil() {
+        Bitmap bitmap = cargarImagenLocalmente();
+        if (bitmap != null) {
+            imageViewPerfil.setImageBitmap(bitmap);
+        } else {
+            // Si no hay imagen local, podrías cargar una imagen por defecto o manejar esto de otra manera
+            imageViewPerfil.setImageResource(R.drawable.perfil); // Imagen por defecto
+        }
+    }
+
+    private Bitmap cargarImagenLocalmente() {
+        try {
+            FileInputStream fis = getContext().openFileInput("perfil_image.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(fis);
+            fis.close();
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
