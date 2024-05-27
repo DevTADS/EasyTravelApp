@@ -66,7 +66,7 @@
         <activity android:name=".Actividades.Hotel.RegistroHotel" />
 
         <activity
-            android:name=".Actividades.Usuario.HomeUsuario"
+            android:name=".Actividades.Usuario.HomeeUsuario"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".Actividades.Hotel.RegistroHotel"

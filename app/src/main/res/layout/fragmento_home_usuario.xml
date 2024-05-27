@@ -300,14 +300,14 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/clima" />
+                        android:src="@drawable/cerrar_sesion" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="Tiempo"
+                        android:text="Cerrar Sesión"
                         android:textColor="@color/azuloscuro"
                         android:textSize="18sp"
                         android:textStyle="bold" />

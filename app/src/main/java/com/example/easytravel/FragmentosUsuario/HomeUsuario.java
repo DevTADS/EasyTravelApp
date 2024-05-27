@@ -1,5 +1,6 @@
 package com.example.easytravel.FragmentosUsuario;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.easytravel.Actividades.Hotel.ActivityHotel;
+import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Adaptadores.BannerAdapter;
 import com.example.easytravel.R;
 
@@ -80,7 +83,7 @@ public class HomeUsuario extends Fragment {
             }
         });
 
-        // Configurar OnClickListener al CardView
+        // Configurar OnClickListener al CardView para el hotel
         CardView cardViewHotel = rootView.findViewById(R.id.cardview_hotel);
         cardViewHotel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +107,41 @@ public class HomeUsuario extends Fragment {
         // Cargar la imagen de perfil
         cargarImagenPerfil();
 
+        // Configurar OnClickListener al CardView de cerrar sesión
+        CardView cardLogout = rootView.findViewById(R.id.cd_logout2);
+        cardLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarSesion();
+            }
+        });
+
         return rootView;
+    }
+
+    private void cerrarSesion() {
+        // Mostrar un diálogo de confirmación
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Cerrar Sesión")
+                .setMessage("¿Estás seguro de que quieres cerrar sesión?")
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Borrar los datos del usuario de SharedPreferences
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        // Redirigir a la pantalla de login
+                        Intent intent = new Intent(getActivity(), LoginUsuario.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void cargarImagenPerfil() {

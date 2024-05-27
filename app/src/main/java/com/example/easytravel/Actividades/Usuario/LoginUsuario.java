@@ -146,7 +146,7 @@ public class LoginUsuario extends AppCompatActivity {
                                         editor.apply();
 
                                         // Iniciar la actividad principal
-                                        startActivity(new Intent(getApplicationContext(), HomeUsuario.class));
+                                        startActivity(new Intent(getApplicationContext(), HomeeUsuario.class));
                                         Toast.makeText(LoginUsuario.this, response, Toast.LENGTH_SHORT).show();
                                     } else {
                                         Log.e("LoginUsuario", "Respuesta JSON no contiene los campos esperados");
