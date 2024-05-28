@@ -27,7 +27,7 @@
         android:rowCount="3">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cd_reportes"
+            android:id="@+id/cd_servicios"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:text="Hoteles"
+                    android:text="Mis Servicios"
                     android:textColor="@color/azuloscuro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -60,7 +60,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_servicios"
+            android:id="@+id/cv_otros"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
@@ -85,7 +85,7 @@
                     android:layout_gravity="center_horizontal"
 
                     android:layout_marginTop="5dp"
-                    android:text="Restaurantes"
+                    android:text="Otro"
                     android:textColor="@color/azuloscuro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -94,7 +94,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_expendiente"
+            android:id="@+id/cv_configuracion"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:text="Expediente"
+                    android:text="Configuracion"
                     android:textColor="@color/azuloscuro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -127,7 +127,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_calendario"
+            android:id="@+id/cv_cerrarsesion"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:text="Calendario"
+                    android:text="Cerrar Sesion"
                     android:textColor="@color/azuloscuro"
                     android:textSize="18sp"
                     android:textStyle="bold" />

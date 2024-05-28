@@ -3,7 +3,6 @@ package com.example.easytravel.Actividades.Hotel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.easytravel.Actividades.Empresa.EmpresaActivity;
+import com.example.easytravel.Actividades.Empresa.Servicios;
 import com.example.easytravel.R;
 
 import java.io.ByteArrayOutputStream;
@@ -227,7 +226,7 @@ public class RegistroHotel extends AppCompatActivity {
                         if (response.equalsIgnoreCase("Datos insertados")) {
                             Toast.makeText(RegistroHotel.this, "Hotel registrado correctamente", Toast.LENGTH_SHORT).show();
                             // Regresar a la pestaña HomeEmpresa
-                            Intent intent = new Intent(RegistroHotel.this, EmpresaActivity.class);
+                            Intent intent = new Intent(RegistroHotel.this, Servicios.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
