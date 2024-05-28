@@ -53,7 +53,7 @@ public class ActivityHotel extends AppCompatActivity {
         hotelAdapter = new HotelAdapter(this, hotelList);
         recyclerView.setAdapter(hotelAdapter);
 
-        String url = "https://qybdatye.lucusvirtual.es/hotel/listar.php";
+        String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/listarhotel.php";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -70,7 +70,7 @@ public class ActivityHotel extends AppCompatActivity {
                                 String telefono = jsonObject.getString("telefono");
                                 String direccion = jsonObject.getString("direccion_completa");
 
-                                Hotel hotel = new Hotel(nombre, "", "", telefono, direccion, "", foto);
+                                Hotel hotel = new Hotel(nombre, "", "", telefono, direccion, "", foto, "");
                                 hotelList.add(hotel);
                             }
                             hotelAdapter.notifyDataSetChanged();

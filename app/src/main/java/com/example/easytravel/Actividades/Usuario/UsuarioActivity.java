@@ -17,7 +17,7 @@ import com.example.easytravel.FragmentosUsuario.PerfilUsuario;
 import com.example.easytravel.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeeUsuario extends AppCompatActivity {
+public class UsuarioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class HomeeUsuario extends AppCompatActivity {
                         editor.apply();
 
                         // Redirigir a la pantalla de login
-                        Intent intent = new Intent(HomeeUsuario.this, LoginUsuario.class);
+                        Intent intent = new Intent(UsuarioActivity.this, LoginUsuario.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();

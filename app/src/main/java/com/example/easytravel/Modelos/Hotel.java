@@ -8,12 +8,13 @@ public class Hotel {
     private String direccion;
     private String id_empresa;
     private String foto;
+    private String id_hotel;
 
     public Hotel() {
 
     }
 
-    public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion, String id_empresa, String foto) {
+    public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion, String id_empresa, String foto, String id_hotel) {
         this.nombre = nombre;
         this.pais = pais;
         this.ciudad = ciudad;
@@ -21,6 +22,15 @@ public class Hotel {
         this.direccion = direccion;
         this.id_empresa = id_empresa;
         this.foto = foto;
+        this.id_hotel = id_hotel;
+    }
+
+    public String getId_hotel() {
+        return id_hotel;
+    }
+
+    public void setId_hotel(String id_hotel) {
+        this.id_hotel = id_hotel;
     }
 
     public String getNombre() {

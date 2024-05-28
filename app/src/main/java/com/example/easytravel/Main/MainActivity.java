@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
-import com.example.easytravel.Actividades.Usuario.HomeeUsuario;
+import com.example.easytravel.Actividades.Usuario.UsuarioActivity;
 import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Extras.TerminosCondiciones;
 import com.example.easytravel.R;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Usuario", MODE_PRIVATE);
         if (sharedPreferences.contains("id_usuario")) {
             // El usuario ya ha iniciado sesión, redirigir a HomeUsuario
-            Intent intent = new Intent(MainActivity.this, HomeeUsuario.class);
+            Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
             startActivity(intent);
             finish();
             return; // Salir del método onCreate para no cargar el layout de selección de tipo de usuario

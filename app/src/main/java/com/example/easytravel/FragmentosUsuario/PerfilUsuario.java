@@ -112,6 +112,7 @@ public class PerfilUsuario extends Fragment {
         return rootView;
     }
 
+    // Método para mostrar un diálogo con las opciones de selección de imagen
     private void mostrarDialogoImagen() {
         AlertDialog.Builder dialogoImagen = new AlertDialog.Builder(getContext());
         dialogoImagen.setTitle("Seleccionar Acción");
@@ -145,6 +146,8 @@ public class PerfilUsuario extends Fragment {
         startActivityForResult(intentCamara, REQUEST_IMAGE_CAPTURE);
     }
 
+
+    // Metodo para obtener la imagen seleccionada de la galería o la cámara
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

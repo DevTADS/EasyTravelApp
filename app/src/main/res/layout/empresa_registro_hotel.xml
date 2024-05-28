@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Spinner
         android:id="@+id/spinnerPais"
         android:layout_width="0dp"
@@ -99,6 +98,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etTelefono" />
 
+    <ImageView
+        android:id="@+id/imageViewPreview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Vista previa de la imagen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDireccion" />
+
     <Button
         android:id="@+id/btn_select_image"
         android:layout_width="wrap_content"
@@ -107,7 +116,7 @@
         android:text="Seleccionar imagen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDireccion" />
+        app:layout_constraintTop_toBottomOf="@id/imageViewPreview" />
 
     <Button
         android:id="@+id/btn_registrarse"
@@ -120,6 +129,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDireccion" />
+        app:layout_constraintTop_toBottomOf="@id/btn_select_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

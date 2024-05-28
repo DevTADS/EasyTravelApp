@@ -18,7 +18,7 @@ CREATE TABLE usuario (
 CREATE TABLE empresa (
     id_empresa INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
-    email VARCHAR(100),
+    correo VARCHAR(100),
     pais VARCHAR(100),
     telefono VARCHAR(100),
     direccion TEXT,

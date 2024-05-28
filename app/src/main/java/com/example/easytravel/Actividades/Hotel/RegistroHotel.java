@@ -1,6 +1,10 @@
 package com.example.easytravel.Actividades.Hotel;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,7 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.easytravel.Actividades.Empresa.HomeEmpresa;
+import com.example.easytravel.Actividades.Empresa.EmpresaActivity;
 import com.example.easytravel.R;
 
 import java.io.ByteArrayOutputStream;
@@ -41,7 +46,10 @@ public class RegistroHotel extends AppCompatActivity {
     private EditText nombreEditText, telefonoEditText, direccionEditText;
     private String id_empresa;
     private static final int PICK_IMAGE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
     private Bitmap bitmap;
+    private ImageView imageViewPreview;
+    private boolean isRequestInProgress = false;  // Variable para evitar duplicaciones
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +61,20 @@ public class RegistroHotel extends AppCompatActivity {
         nombreEditText = findViewById(R.id.etNombre);
         telefonoEditText = findViewById(R.id.etTelefono);
         direccionEditText = findViewById(R.id.etDireccion);
+        imageViewPreview = findViewById(R.id.imageViewPreview);
 
         Button registroButton = findViewById(R.id.btn_registrarse);
         Button selectImageButton = findViewById(R.id.btn_select_image);
+
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                mostrarDialogoImagen();
             }
         });
 
         // Recuperar id_empresa de las preferencias compartidas
-        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Empresa", MODE_PRIVATE);
         id_empresa = sharedPreferences.getString("id_empresa", null);
 
         // Verificar si el id_empresa no es nulo
@@ -89,30 +99,70 @@ public class RegistroHotel extends AppCompatActivity {
         registroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrarHotel();
+                if (!isRequestInProgress) {
+                    isRequestInProgress = true;
+                    registrarHotel();
+                }
             }
         });
     }
 
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
+    private void mostrarDialogoImagen() {
+        AlertDialog.Builder dialogoImagen = new AlertDialog.Builder(this);
+        dialogoImagen.setTitle("Seleccionar Acción");
+        String[] opcionesDialogoImagen = {
+                "Seleccionar foto de galería",
+                "Capturar foto de cámara"};
+        dialogoImagen.setItems(opcionesDialogoImagen,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                abrirGaleria();
+                                break;
+                            case 1:
+                                capturarFoto();
+                                break;
+                        }
+                    }
+                });
+        dialogoImagen.show();
     }
 
+    private void abrirGaleria() {
+        Intent intentGaleria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intentGaleria, PICK_IMAGE);
+    }
+
+    private void capturarFoto() {
+        Intent intentCamara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intentCamara, REQUEST_IMAGE_CAPTURE);
+    }
+
+    // Método para obtener la imagen seleccionada de la galería o la cámara
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            Uri imageUri = data.getData();
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(imageUri);
-                bitmap = BitmapFactory.decodeStream(inputStream);
-                // Aquí puedes mostrar la imagen seleccionada si lo necesitas
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == PICK_IMAGE) {
+                Uri imageUri = data.getData();
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageViewPreview.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                Bundle extras = data.getExtras();
+                bitmap = (Bitmap) extras.get("data");
+                imageViewPreview.setImageBitmap(bitmap);
             }
         }
     }
+
+    // Metodo para registrar un hotel
     private void registrarHotel() {
         final String nombre = nombreEditText.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
@@ -123,30 +173,35 @@ public class RegistroHotel extends AppCompatActivity {
         // Verificar si el nombre está vacío
         if (nombre.isEmpty()) {
             nombreEditText.setError("Este campo no puede estar vacío");
+            isRequestInProgress = false;
             return;
         }
 
         // Verificar si el teléfono está vacío
         if (telefono.isEmpty()) {
             telefonoEditText.setError("Este campo no puede estar vacío");
+            isRequestInProgress = false;
             return;
         }
 
         // Verificar si la dirección está vacía
         if (direccion.isEmpty()) {
             direccionEditText.setError("Este campo no puede estar vacío");
+            isRequestInProgress = false;
             return;
         }
 
         // Verificar si id_empresa no es nulo
         if (id_empresa == null) {
             Toast.makeText(this, "Error: id_empresa es nulo", Toast.LENGTH_SHORT).show();
+            isRequestInProgress = false;
             return;
         }
 
         // Verificar si bitmap no es nulo
         if (bitmap == null) {
             Toast.makeText(this, "Error: No se ha seleccionado ninguna imagen", Toast.LENGTH_SHORT).show();
+            isRequestInProgress = false;
             return;
         }
 
@@ -157,13 +212,14 @@ public class RegistroHotel extends AppCompatActivity {
         progressDialog.show();
 
         // Realizar solicitud HTTP para registrar el hotel
-        String url = "https://qybdatye.lucusvirtual.es/hotel/insertar.php";
+        String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/insertarhotel.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Ocultar ProgressDialog
                         progressDialog.dismiss();
+                        isRequestInProgress = false;
 
                         // Mostrar la respuesta del servidor para depuración
                         Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
@@ -171,8 +227,10 @@ public class RegistroHotel extends AppCompatActivity {
                         if (response.equalsIgnoreCase("Datos insertados")) {
                             Toast.makeText(RegistroHotel.this, "Hotel registrado correctamente", Toast.LENGTH_SHORT).show();
                             // Regresar a la pestaña HomeEmpresa
-                            Intent intent = new Intent(RegistroHotel.this, HomeEmpresa.class);
+                            Intent intent = new Intent(RegistroHotel.this, EmpresaActivity.class);
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -181,6 +239,7 @@ public class RegistroHotel extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         // Ocultar ProgressDialog
                         progressDialog.dismiss();
+                        isRequestInProgress = false;
 
                         Toast.makeText(RegistroHotel.this, "Error al registrar hotel: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -194,29 +253,19 @@ public class RegistroHotel extends AppCompatActivity {
                 params.put("telefono", telefono);
                 params.put("direccion", direccion);
                 params.put("id_empresa", id_empresa);
-                params.put("foto", imageToString(bitmap));
-                return params;
-            }
 
-            // Agregar el encabezado para indicar que se enviará un formulario codificado
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/x-www-form-urlencoded");
-                return headers;
+                // Convertir el bitmap a string en base64
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                String imagenBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                params.put("foto", imagenBase64);
+
+                return params;
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(RegistroHotel.this);
         requestQueue.add(request);
     }
-
-    private String imageToString(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
-    }
-
-
 }

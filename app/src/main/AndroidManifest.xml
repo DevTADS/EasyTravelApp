@@ -61,12 +61,12 @@
         <activity android:name=".Servicios.Tiempo" />
         <activity android:name=".Servicios.Configuracion" />
         <activity android:name=".Actividades.Empresa.RegistroEmpresa" />
-        <activity android:name=".Actividades.Empresa.HomeEmpresa" />
+        <activity android:name=".Actividades.Empresa.EmpresaActivity" />
 
         <activity android:name=".Actividades.Hotel.RegistroHotel" />
 
         <activity
-            android:name=".Actividades.Usuario.HomeeUsuario"
+            android:name=".Actividades.Usuario.UsuarioActivity"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".Actividades.Hotel.RegistroHotel"

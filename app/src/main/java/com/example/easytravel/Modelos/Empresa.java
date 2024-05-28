@@ -7,20 +7,20 @@ public class Empresa {
     private String telefono;
     private String direccion;
     private String password;
-    private String id;
+    private String id_empresa;
 
     public Empresa() {
 
     }
 
-    public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password, String id) {
+    public Empresa(String nombre, String correo, String pais, String telefono, String direccion, String password, String id_empresa) {
         this.nombre = nombre;
         this.correo = correo;
         this.pais = pais;
         this.telefono = telefono;
         this.direccion = direccion;
         this.password = password;
-        this.id = id;
+        this.id_empresa = id_empresa;
     }
 
     public String getNombre() {
@@ -31,12 +31,12 @@ public class Empresa {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getId_empresa() {
+        return id_empresa;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId_empresa(String id_empresa) {
+        this.id_empresa = id_empresa;
     }
 
     public String getCorreo() {

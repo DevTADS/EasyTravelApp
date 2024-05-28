@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +33,10 @@ import java.util.Map;
 public class LoginEmpresa extends AppCompatActivity {
 
     EditText correo, contraseña;
+    TextView mostrarPassword;
     String str_email, str_password;
-    String url = "https://qybdatye.lucusvirtual.es/sistema/appusuario/empresa/login.php";
+    String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/login.php";
+    Button olvideContrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,31 @@ public class LoginEmpresa extends AppCompatActivity {
 
         correo = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
+        mostrarPassword = findViewById(R.id.tvTogglePassword);
+        olvideContrasena = findViewById(R.id.forgotpass);
+        Button btn_Login = findViewById(R.id.btn_login);
+        Button btn_Registrar = findViewById(R.id.btn_register);
 
-        Button btnLogin = findViewById(R.id.btn_login);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        // Manejar la visibilidad de la contraseña
+        mostrarPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (contraseña.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    // Mostrar contraseña
+                    contraseña.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    mostrarPassword.setText("Ocultar");
+                } else {
+                    // Ocultar contraseña
+                    contraseña.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mostrarPassword.setText("Mostrar");
+                }
+                // Mover el cursor al final del texto
+                contraseña.setSelection(contraseña.getText().length());
+            }
+        });
+
+        // Botón para iniciar sesión
+        btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (correo.getText().toString().isEmpty() || contraseña.getText().toString().isEmpty()) {
@@ -53,8 +80,8 @@ public class LoginEmpresa extends AppCompatActivity {
             }
         });
 
-        Button btnRegister = findViewById(R.id.btn_register);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        // Botón para registrar empresa
+        btn_Registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginEmpresa.this, RegistroEmpresa.class);
@@ -63,6 +90,7 @@ public class LoginEmpresa extends AppCompatActivity {
         });
     }
 
+    // Metodo para Iniciar sesion
     private void Login() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
@@ -75,7 +103,7 @@ public class LoginEmpresa extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
-                Log.d("Response", response); // Imprimir la respuesta JSON en el Logcat
+                Log.d("Response", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("status")) {
@@ -84,14 +112,20 @@ public class LoginEmpresa extends AppCompatActivity {
                             // El inicio de sesión fue exitoso
                             String id_empresa = jsonObject.getString("id_empresa");
                             String nombre = jsonObject.getString("nombre");
-                            // Guardar el id_empresa en las preferencias compartidas
-                            guardarIdEmpresa(id_empresa);
+
+                            // Guardar los datos de la empresa en SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("Empresa", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("id_empresa", id_empresa);
+                            editor.putString("nombre", nombre);
+                            editor.apply();
+
                             // Redirigir a la actividad principal de la empresa
-                            Intent intent = new Intent(LoginEmpresa.this, HomeEmpresa.class);
+                            Intent intent = new Intent(LoginEmpresa.this, EmpresaActivity.class);
                             intent.putExtra("id_empresa", id_empresa); // Pasar el id_empresa a la actividad HomeEmpresa
                             intent.putExtra("nombre", nombre); // Pasar el nombre de la empresa a la actividad HomeEmpresa
                             startActivity(intent);
-                            Toast.makeText(LoginEmpresa.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginEmpresa.this, "Bienvenido - Inicio Correcto !!", Toast.LENGTH_SHORT).show();
                         } else {
                             // El inicio de sesión falló
                             Toast.makeText(LoginEmpresa.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -124,16 +158,5 @@ public class LoginEmpresa extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(LoginEmpresa.this);
         requestQueue.add(request);
-    }
-
-    private void guardarIdEmpresa(String id_empresa) {
-        // Obtener el objeto SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
-        // Crear un objeto SharedPreferences.Editor para editar el archivo SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        // Guardar el id_empresa en SharedPreferences
-        editor.putString("id_empresa", id_empresa);
-        // Aplicar los cambios
-        editor.apply();
     }
 }
