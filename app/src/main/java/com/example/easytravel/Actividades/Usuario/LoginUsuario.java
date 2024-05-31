@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Actividades.Administrador.ActivityAdmin;
+import com.example.easytravel.Main.MainActivity;
 import com.example.easytravel.R;
 
 import org.json.JSONException;
@@ -35,7 +37,7 @@ import java.util.Map;
 public class LoginUsuario extends AppCompatActivity {
 
     EditText email, contraseña;
-    TextView togglePassword;
+    TextView mostrarPassword;
     String str_email, str_password;
     String url = "https://qybdatye.lucusvirtual.es/easytravel/usuario/login.php";
     Button olvideContrasena;
@@ -48,23 +50,24 @@ public class LoginUsuario extends AppCompatActivity {
 
         email = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
-        togglePassword = findViewById(R.id.tvTogglePassword);
+        mostrarPassword = findViewById(R.id.tv_mostrar_password);
         olvideContrasena = findViewById(R.id.forgotpass);
         Button btnLogin = findViewById(R.id.btn_login);
-        Button btnRegister = findViewById(R.id.btn_register);
+        Button btn_Registrar = findViewById(R.id.btn_registrar);
+        ImageButton iv_regresar = findViewById(R.id.btn_volver);
 
         // Manejar la visibilidad de la contraseña
-        togglePassword.setOnClickListener(new View.OnClickListener() {
+        mostrarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (contraseña.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     // Mostrar contraseña
                     contraseña.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    togglePassword.setText("Ocultar");
+                    mostrarPassword.setText("Ocultar");
                 } else {
                     // Ocultar contraseña
                     contraseña.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    togglePassword.setText("Mostrar");
+                    mostrarPassword.setText("Mostrar");
                 }
                 // Mover el cursor al final del texto
                 contraseña.setSelection(contraseña.getText().length());
@@ -87,7 +90,7 @@ public class LoginUsuario extends AppCompatActivity {
         });
 
         // Botón para ir a la actividad de registro
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btn_Registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginUsuario.this, RegistroUsuario.class);
@@ -101,6 +104,15 @@ public class LoginUsuario extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginUsuario.this, OlvidoContrasena.class);
                 startActivity(intent);
+            }
+        });
+        // Botón para volver a la actividad principal
+        iv_regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginUsuario.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

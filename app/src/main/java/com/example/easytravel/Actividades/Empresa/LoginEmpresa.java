@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.easytravel.Actividades.Usuario.UsuarioActivity;
+import com.example.easytravel.Main.MainActivity;
 import com.example.easytravel.R;
 
 import org.json.JSONException;
@@ -42,29 +43,27 @@ public class LoginEmpresa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.usuario_activity_login);
+        setContentView(R.layout.empresa_activity_login);
 
         correo = findViewById(R.id.etemail);
         contraseña = findViewById(R.id.etcontraseña);
-        mostrarPassword = findViewById(R.id.tvTogglePassword);
+        mostrarPassword = findViewById(R.id.tv_mostrar_password);
         olvideContrasena = findViewById(R.id.forgotpass);
         Button btn_Login = findViewById(R.id.btn_login);
-        Button btn_Registrar = findViewById(R.id.btn_register);
+        Button btn_Registrar = findViewById(R.id.btn_registrar);
+        ImageButton btn_volver = findViewById(R.id.btn_volver);
 
         // Manejar la visibilidad de la contraseña
         mostrarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (contraseña.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
-                    // Mostrar contraseña
                     contraseña.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     mostrarPassword.setText("Ocultar");
                 } else {
-                    // Ocultar contraseña
                     contraseña.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     mostrarPassword.setText("Mostrar");
                 }
-                // Mover el cursor al final del texto
                 contraseña.setSelection(contraseña.getText().length());
             }
         });
@@ -89,9 +88,19 @@ public class LoginEmpresa extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+       // Botón para volver a la actividad principal
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginEmpresa.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
-    // Metodo para Iniciar sesion
+    // Método para iniciar sesión
     private void Login() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
@@ -135,7 +144,6 @@ public class LoginEmpresa extends AppCompatActivity {
                         // La respuesta del servidor no contiene el campo "status"
                         Toast.makeText(LoginEmpresa.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(LoginEmpresa.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();

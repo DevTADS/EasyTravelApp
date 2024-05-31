@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Actividades.Empresa.Servicios;
+import com.example.easytravel.FragmentosUsuario.HomeUsuario;
 import com.example.easytravel.R;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +66,19 @@ public class RegistroHotel extends AppCompatActivity {
 
         Button registroButton = findViewById(R.id.btn_registrarse);
         Button selectImageButton = findViewById(R.id.btn_select_image);
+
+        ImageButton btn_volver = findViewById(R.id.btn_volver);
+
+        // Botón para volver a la actividad principal
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistroHotel.this, Servicios.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override

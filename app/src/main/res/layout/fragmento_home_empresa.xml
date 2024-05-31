@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/fondo_easy_travel4"
     android:layout_height="match_parent">
 
     <View
         android:id="@+id/topview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#0D5A10" />
+        android:background="@android:color/transparent"
+        />
 
 
     <GridLayout
@@ -144,7 +146,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/calendario" />
+                    android:src="@drawable/cerrar_sesion" />
 
                 <TextView
                     android:layout_width="wrap_content"

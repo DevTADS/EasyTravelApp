@@ -1,30 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@android:drawable/edit_text"
-        android:queryHint="Buscar por nombre de hotel..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- CardView to display hotel details -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:ignore="MissingConstraints" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="227dp"
+                android:layout_height="21dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/imageView"
+                android:text="HOTEL 1" />
+
+            <TextView
+                android:id="@+id/tvnombreusuario"
+                android:layout_width="227dp"
+                android:layout_height="27dp"
+                android:layout_below="@id/textView1"
+                android:layout_alignLeft="@id/textView1"
+                android:text="Text 2" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="229dp"
+                android:layout_height="27dp"
+                android:layout_below="@id/tvnombreusuario"
+                android:layout_alignLeft="@id/tvnombreusuario"
+                android:text="Text 3" />
+
+            <LinearLayout
+                android:layout_width="262dp"
+                android:layout_height="48dp"
+                android:layout_below="@+id/textView3"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_toEndOf="@+id/imageView"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ib_telefono"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/whatsapp2" />
+
+                <ImageButton
+                    android:id="@+id/ib_facebook"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/redsocial_facebook" />
+
+                <ImageButton
+                    android:id="@+id/ib_instagram"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/instagram1" />
+
+                <ImageButton
+                    android:id="@+id/ib_map"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/mapa2" />
+
+                <ImageButton
+                    android:id="@+id/ib_favoritos"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="2dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/icono_favorito" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

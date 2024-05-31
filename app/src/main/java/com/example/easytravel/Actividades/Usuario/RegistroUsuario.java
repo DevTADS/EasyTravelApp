@@ -57,7 +57,7 @@ public class RegistroUsuario extends AppCompatActivity {
         editTextTelefono = findViewById(R.id.txtTelefono);
         editTextDireccion = findViewById(R.id.txtDireccion);
         Button btnRegresar = findViewById(R.id.btn_regresar);
-        Button btnInsertar = findViewById(R.id.btn_register);
+        Button btnInsertar = findViewById(R.id.btn_registrar);
 
         // Configuración del Spinner de Países
         ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(this, R.array.paises, android.R.layout.simple_spinner_item);

@@ -20,7 +20,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.easytravel.Actividades.Hotel.ActivityHotel;
+import com.example.easytravel.Actividades.Hotel.ListarHoteles;
 import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Adaptadores.BannerAdapter;
 import com.example.easytravel.R;
@@ -88,7 +88,7 @@ public class HomeUsuario extends Fragment {
         cardViewHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityHotel.class);
+                Intent intent = new Intent(getActivity(), ListarHoteles.class);
                 startActivity(intent);
             }
         });

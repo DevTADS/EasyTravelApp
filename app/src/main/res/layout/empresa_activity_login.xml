@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        tools:context=".Main.MainActivity">
+    android:background="@drawable/fondo_easy_travel4"
+    tools:context=".Main.MainActivity">
 
     <TextView
         android:id="@+id/iniciarsesion"
@@ -11,28 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="50dp"
-        android:layout_marginTop="98dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="200dp"
         android:gravity="center"
-        android:text="Iniciar Sesión"
-        android:textColor="@color/black"
+        android:text="Login Empresa"
+        android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/etcontraseña"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etemail"
-        android:layout_margin="10dp"
-        android:background="#30120F0F"
-        android:drawableEnd="@drawable/icono_password"
-        android:drawablePadding="20dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
 
     <EditText
         android:id="@+id/etemail"
@@ -40,102 +25,120 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iniciarsesion"
         android:layout_margin="10dp"
-        android:background="#30120F0F"
-        
-        android:drawablePadding="20dp"
+        android:background="#30A19999"
         android:hint="Email"
         android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#30A19999"
+        android:layout_below="@id/etemail"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/etcontraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/tv_mostrar_password"
+
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_mostrar_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+
+            android:text="Mostrar"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="191dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etcontraseña"
+        android:layout_below="@+id/relativeLayout"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toStartOf="@+id/btn_register"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="monospace"
         android:text="Iniciar Sesión"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="NotSibling" />
 
     <Button
-        android:id="@+id/btn_register"
-        android:layout_width="172dp"
+        android:id="@+id/btn_registrar"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etcontraseña"
+        android:layout_below="@+id/relativeLayout"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/btn_login"
         android:fontFamily="monospace"
         android:text="Regístrate"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="NotSibling" />
 
-    <TextView
+    <Button
         android:id="@+id/forgotpass"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
+        android:layout_width="282dp"
+        android:layout_height="43dp"
+
         android:layout_below="@id/btn_login"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="110dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="100dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="#ffffff"
         android:text="¿Has olvidado tu contraseña?"
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
-
-    <TextView
-        android:id="@+id/others"
-        android:layout_width="238dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/socialicons"
+    <ImageButton
+        android:id="@+id/btn_volver"
+        style="@android:style/Widget.ImageButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="85dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="23dp"
-        android:text="o inicia sesión con" />
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="341dp"
+        android:background="@android:color/transparent"
+        android:scaleType="center"
+        app:srcCompat="@drawable/volver2"
+        app:tint="#FFFFFF" />
 
-    <LinearLayout
-        android:id="@+id/socialicons"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp"
-        android:gravity="center">
-
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/redsocial_google" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/redsocial_facebook" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/redsocial_twitter" />
-
-    </LinearLayout>
-
+        android:layout_alignStart="@+id/etemail"
+        android:layout_alignTop="@+id/etemail"
+        android:layout_alignBottom="@+id/etemail"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="342dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="11dp"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </RelativeLayout>

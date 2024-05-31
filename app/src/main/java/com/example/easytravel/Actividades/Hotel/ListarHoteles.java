@@ -1,13 +1,11 @@
 package com.example.easytravel.Actividades.Hotel;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Adaptadores.HotelAdapter;
@@ -29,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityHotel extends AppCompatActivity {
+public class ListarHoteles extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private HotelAdapter hotelAdapter;
@@ -38,7 +35,7 @@ public class ActivityHotel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_hotel);
+        setContentView(R.layout.activity_listar_hoteles);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -65,10 +62,14 @@ public class ActivityHotel extends AppCompatActivity {
                             JSONArray hotelesArray = response.getJSONArray("hoteles");
                             for (int i = 0; i < hotelesArray.length(); i++) {
                                 JSONObject jsonObject = hotelesArray.getJSONObject(i);
-                                String foto = jsonObject.getString("foto");
                                 String nombre = jsonObject.getString("nombre");
                                 String telefono = jsonObject.getString("telefono");
                                 String direccion = jsonObject.getString("direccion_completa");
+                                String fotoBase64 = jsonObject.getString("foto");
+
+                                // Decodificar la imagen base64
+                                byte[] fotoBytes = Base64.decode(fotoBase64, Base64.DEFAULT);
+                                String foto = Base64.encodeToString(fotoBytes, Base64.DEFAULT);
 
                                 Hotel hotel = new Hotel(nombre, "", "", telefono, direccion, "", foto, "");
                                 hotelList.add(hotel);
@@ -76,14 +77,14 @@ public class ActivityHotel extends AppCompatActivity {
                             hotelAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(ActivityHotel.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListarHoteles.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ActivityHotel.this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListarHoteles.this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("Volley", "Error: " + error.toString());
                     }
                 }
@@ -92,6 +93,4 @@ public class ActivityHotel extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
-
-
 }

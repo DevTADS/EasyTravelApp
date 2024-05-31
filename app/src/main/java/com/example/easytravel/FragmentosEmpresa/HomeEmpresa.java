@@ -25,6 +25,7 @@ import com.example.easytravel.Actividades.Empresa.EmpresaActivity;
 
 import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
 
+import com.example.easytravel.Actividades.Empresa.Servicios;
 import com.example.easytravel.R;
 
 import java.io.FileInputStream;
@@ -50,11 +51,11 @@ public class HomeEmpresa extends Fragment {
         textViewNombre.setText("Hola " + nombreEmpresa);
 
         // Agregar OnClickListener al CardView
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) CardView cardViewHotel = rootView.findViewById(R.id.cd_servicios);
-        cardViewHotel.setOnClickListener(new View.OnClickListener() {
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) CardView cardViewMisServicios = rootView.findViewById(R.id.cd_servicios);
+        cardViewMisServicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EmpresaActivity.class);
+                Intent intent = new Intent(getActivity(), Servicios.class);
                 startActivity(intent);
             }
         });

@@ -56,7 +56,7 @@ public class RegistroEmpresa extends AppCompatActivity {
         spinnerPais.setAdapter(adapterPaises);
 
 
-        Button btn_insert = findViewById(R.id.btn_register);
+        Button btn_insert = findViewById(R.id.btn_registrar);
 
         btn_insert.setOnClickListener(new View.OnClickListener() {
             @Override

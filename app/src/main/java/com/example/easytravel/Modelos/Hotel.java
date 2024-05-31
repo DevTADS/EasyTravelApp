@@ -11,9 +11,9 @@ public class Hotel {
     private String id_hotel;
 
     public Hotel() {
-
     }
 
+    // Constructor completo
     public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion, String id_empresa, String foto, String id_hotel) {
         this.nombre = nombre;
         this.pais = pais;
@@ -24,6 +24,16 @@ public class Hotel {
         this.foto = foto;
         this.id_hotel = id_hotel;
     }
+
+    // Nuevo constructor simplificado
+    public Hotel(String nombre, String telefono, String direccion, String foto) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.foto = foto;
+    }
+
+    // Getters y Setters...
 
     public String getId_hotel() {
         return id_hotel;

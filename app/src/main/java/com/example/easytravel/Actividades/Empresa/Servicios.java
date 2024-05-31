@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Hotel.RegistroHotel;
+import com.example.easytravel.FragmentosUsuario.HomeUsuario;
+import com.example.easytravel.Main.MainActivity;
 import com.example.easytravel.R;
 
 public class Servicios extends AppCompatActivity {
@@ -20,7 +22,19 @@ public class Servicios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.empresa_activity_home2);
+        setContentView(R.layout.empresa_mis_servicios_activity);
+
+        ImageButton btn_volver = findViewById(R.id.btn_volver);
+
+        // Botón para volver a la actividad principal
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Servicios.this, HomeUsuario.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // Recibir el ID y el nombre de la empresa desde Intent o SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Empresa", MODE_PRIVATE);
@@ -69,5 +83,7 @@ public class Servicios extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
+
 }
