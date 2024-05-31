@@ -19,12 +19,12 @@ import java.util.Map;
 
 public class Obtener_id {
 
-    public interface UsuarioCallback {
+    public interface EmpresaCallback {
         void onSuccess(JSONObject usuario);
         void onError(String mensajeError);
     }
 
-    public static void obtenerDatosUsuario(Context context, final String email, final UsuarioCallback callback) {
+    public static void obtenerDatosEmpresa(Context context, final String email, final EmpresaCallback callback) {
         String url = "https://qybdatye.lucusvirtual.es/easytravel/usuario/obtener_id.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,

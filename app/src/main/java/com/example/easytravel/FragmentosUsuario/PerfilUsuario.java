@@ -78,7 +78,7 @@ public class PerfilUsuario extends Fragment {
         }
 
         // Obtener el id_usuario usando la clase Obtener_id
-        Obtener_id.obtenerDatosUsuario(getContext(), email, new Obtener_id.UsuarioCallback() {
+        Obtener_id.obtenerDatosEmpresa(getContext(), email, new Obtener_id.EmpresaCallback() {
             @Override
             public void onSuccess(JSONObject usuario) {
                 try {

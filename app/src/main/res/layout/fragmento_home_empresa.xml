@@ -127,7 +127,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_cerrarsesion"
+            android:id="@+id/cd_logout2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
@@ -170,20 +170,19 @@
         app:itemIconSize="28dp"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="58dp"
-        android:layout_height="54dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignBottom="@+id/topview"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="317dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="108dp"
-        android:background="#FFFFFF"
-        app:srcCompat="@drawable/usuario" />
+        android:layout_marginStart="306dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="90dp"
+        app:srcCompat="@drawable/perfil" />
 
     <TextView
         android:id="@+id/tvnombreusuario"
@@ -197,7 +196,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="170dp"
         android:layout_marginBottom="134dp"
-        android:text="Bienvenido"
+        android:text=""
         android:textColor="#FFFFFF"
         android:textSize="28sp" />
 

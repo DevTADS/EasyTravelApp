@@ -129,7 +129,7 @@ public class LoginUsuario extends AppCompatActivity {
 
                         // Obtener los datos del usuario
                         Log.d("LoginUsuario", "Obteniendo datos del usuario para: " + str_email);
-                        Obtener_id.obtenerDatosUsuario(getApplicationContext(), str_email, new Obtener_id.UsuarioCallback() {
+                        Obtener_id.obtenerDatosEmpresa(getApplicationContext(), str_email, new Obtener_id.EmpresaCallback() {
                             @Override
                             public void onSuccess(JSONObject usuario) {
                                 // Guardar los datos del usuario en SharedPreferences
