@@ -51,6 +51,8 @@ public class ListarHoteles extends AppCompatActivity {
         recyclerView.setAdapter(hotelAdapter);
 
         String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/listarhotel.php";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -59,38 +61,41 @@ public class ListarHoteles extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray hotelesArray = response.getJSONArray("hoteles");
-                            for (int i = 0; i < hotelesArray.length(); i++) {
-                                JSONObject jsonObject = hotelesArray.getJSONObject(i);
-                                String nombre = jsonObject.getString("nombre");
-                                String telefono = jsonObject.getString("telefono");
-                                String direccion = jsonObject.getString("direccion_completa");
-                                String fotoBase64 = jsonObject.getString("foto");
+                            // Imprimir la respuesta JSON para depuración
+                            Log.d("JSONResponse", response.toString());
 
-                                // Decodificar la imagen base64
-                                byte[] fotoBytes = Base64.decode(fotoBase64, Base64.DEFAULT);
-                                String foto = Base64.encodeToString(fotoBytes, Base64.DEFAULT);
+                            if (response.getString("status").equals("success")) {
+                                JSONArray hotelesArray = response.getJSONArray("hoteles");
+                                for (int i = 0; i < hotelesArray.length(); i++) {
+                                    JSONObject jsonObject = hotelesArray.getJSONObject(i);
+                                    String nombre = jsonObject.getString("nombre");
+                                    String telefono = jsonObject.getString("telefono");
+                                    String direccion = jsonObject.getString("direccion_completa");
+                                    String fotoBase64 = jsonObject.getString("foto");
 
-                                Hotel hotel = new Hotel(nombre, "", "", telefono, direccion, "", foto, "");
-                                hotelList.add(hotel);
+                                    Log.d("FotoBase64", fotoBase64);
+
+                                    Hotel hotel = new Hotel(nombre, telefono, direccion, fotoBase64);
+                                    hotelList.add(hotel);
+                                }
+                                hotelAdapter.notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(ListarHoteles.this, "Error: " + response.getString("message"), Toast.LENGTH_SHORT).show();
                             }
-                            hotelAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(ListarHoteles.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListarHoteles.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ListarHoteles.this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("Volley", "Error: " + error.toString());
+                        Toast.makeText(ListarHoteles.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
 }

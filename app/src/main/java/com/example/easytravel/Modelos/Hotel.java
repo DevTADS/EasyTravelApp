@@ -2,69 +2,24 @@ package com.example.easytravel.Modelos;
 
 public class Hotel {
     private String nombre;
-    private String pais;
-    private String ciudad;
     private String telefono;
     private String direccion;
-    private String id_empresa;
-    private String foto;
-    private String id_hotel;
+    private String fotoBase64;
 
-    public Hotel() {
-    }
-
-    // Constructor completo
-    public Hotel(String nombre, String pais, String ciudad, String telefono, String direccion, String id_empresa, String foto, String id_hotel) {
-        this.nombre = nombre;
-        this.pais = pais;
-        this.ciudad = ciudad;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.id_empresa = id_empresa;
-        this.foto = foto;
-        this.id_hotel = id_hotel;
-    }
-
-    // Nuevo constructor simplificado
-    public Hotel(String nombre, String telefono, String direccion, String foto) {
+    public Hotel(String nombre, String telefono, String direccion, String fotoBase64) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.foto = foto;
+        this.fotoBase64 = fotoBase64;
     }
 
-    // Getters y Setters...
-
-    public String getId_hotel() {
-        return id_hotel;
-    }
-
-    public void setId_hotel(String id_hotel) {
-        this.id_hotel = id_hotel;
-    }
-
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
     }
 
     public String getTelefono() {
@@ -83,24 +38,11 @@ public class Hotel {
         this.direccion = direccion;
     }
 
-    public String getId_empresa() {
-        return id_empresa;
+    public String getFotoBase64() {
+        return fotoBase64;
     }
 
-    public void setId_empresa(String id_empresa) {
-        this.id_empresa = id_empresa;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    @Override
-    public String toString() {
-        return "Nombre: " + nombre + "\nPaís: " + pais + "\nCiudad: " + ciudad + "\nTeléfono: " + telefono + "\nDirección: " + direccion;
+    public void setFotoBase64(String fotoBase64) {
+        this.fotoBase64 = fotoBase64;
     }
 }

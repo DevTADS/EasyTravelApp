@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,14 +15,17 @@
             android:layout_height="match_parent"
             android:padding="16dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:layout_marginStart="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:src="@drawable/autobus"/>
 
             <TextView
                 android:id="@+id/textView1"
@@ -51,8 +53,8 @@
                 android:text="Text 3" />
 
             <LinearLayout
-                android:layout_width="262dp"
-                android:layout_height="48dp"
+                android:layout_width="248dp"
+                android:layout_height="45dp"
                 android:layout_below="@+id/textView3"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="1dp"

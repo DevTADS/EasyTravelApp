@@ -4,16 +4,21 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
+
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
 
@@ -37,7 +42,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     @NonNull
     @Override
     public HotelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_listar_hoteles, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_hotel, parent, false);
         return new HotelViewHolder(view);
     }
 
@@ -45,10 +50,24 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         Hotel hotel = hotelList.get(position);
 
-        // Decodificar la imagen base64 y establecerla en el ImageView
-        byte[] decodedString = Base64.decode(hotel.getFoto(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        holder.imageView.setImageBitmap(decodedByte);
+        // Decodificar la imagen base64 y establecerla en el CircleImageView
+        String fotoBase64 = hotel.getFotoBase64();
+        Log.d("HotelAdapter", "Foto Base64: " + fotoBase64);
+
+        if (fotoBase64 != null && !fotoBase64.isEmpty()) {
+            try {
+                byte[] decodedString = Base64.decode(fotoBase64, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                holder.imageView.setImageBitmap(decodedByte);
+                Log.d("HotelAdapter", "Imagen decodificada y establecida para: " + hotel.getNombre());
+            } catch (IllegalArgumentException e) {
+                Log.e("HotelAdapter", "Error al decodificar la imagen: " + e.getMessage());
+                holder.imageView.setImageResource(R.drawable.baner4);
+            }
+        } else {
+            Log.d("HotelAdapter", "Imagen vacía o nula, estableciendo placeholder para: " + hotel.getNombre());
+            holder.imageView.setImageResource(R.drawable.baner4); // Imagen placeholder si no hay foto
+        }
 
         holder.textViewNombre.setText(hotel.getNombre());
         holder.textViewTelefono.setText(hotel.getTelefono());
@@ -73,7 +92,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     }
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        CircleImageView imageView;
         TextView textViewNombre, textViewTelefono, textViewDireccion;
 
         public HotelViewHolder(@NonNull View itemView) {
