@@ -67,21 +67,7 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Registro de la fecha: [registrar] Ej: este documento fue"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Firma (casilla de verificación que diga 'he leído y acepto los términos' y otra casilla que diga 'no acepto los términos'):"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+            
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
