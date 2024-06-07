@@ -1,16 +1,18 @@
 package com.example.easytravel.Modelos;
 
+import android.graphics.Bitmap;
+
 public class Hotel {
     private String nombre;
     private String telefono;
     private String direccion;
-    private String fotoBase64;
+    private Bitmap foto;
 
-    public Hotel(String nombre, String telefono, String direccion, String fotoBase64) {
+    public Hotel(String nombre, String telefono, String direccion, Bitmap foto) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.fotoBase64 = fotoBase64;
+        this.foto = foto;
     }
 
     // Getters y Setters
@@ -38,11 +40,11 @@ public class Hotel {
         this.direccion = direccion;
     }
 
-    public String getFotoBase64() {
-        return fotoBase64;
+    public Bitmap getFoto() {
+        return foto;
     }
 
-    public void setFotoBase64(String fotoBase64) {
-        this.fotoBase64 = fotoBase64;
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
     }
 }

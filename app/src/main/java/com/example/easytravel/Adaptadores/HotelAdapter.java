@@ -1,42 +1,27 @@
 package com.example.easytravel.Adaptadores;
-
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
 
     private Context context;
-    private List<Hotel> hotelList;
-    private OnItemClickListener mListener;
+    private List<Hotel> listaHoteles;
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
-    }
-
-    public HotelAdapter(Context context, List<Hotel> hotelList) {
+    public HotelAdapter(Context context, List<Hotel> listaHoteles) {
         this.context = context;
-        this.hotelList = hotelList;
+        this.listaHoteles = listaHoteles;
     }
 
     @NonNull
@@ -48,59 +33,31 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
-        Hotel hotel = hotelList.get(position);
-
-        // Decodificar la imagen base64 y establecerla en el CircleImageView
-        String fotoBase64 = hotel.getFotoBase64();
-        Log.d("HotelAdapter", "Foto Base64: " + fotoBase64);
-
-        if (fotoBase64 != null && !fotoBase64.isEmpty()) {
-            try {
-                byte[] decodedString = Base64.decode(fotoBase64, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                holder.imageView.setImageBitmap(decodedByte);
-                Log.d("HotelAdapter", "Imagen decodificada y establecida para: " + hotel.getNombre());
-            } catch (IllegalArgumentException e) {
-                Log.e("HotelAdapter", "Error al decodificar la imagen: " + e.getMessage());
-                holder.imageView.setImageResource(R.drawable.baner4);
-            }
-        } else {
-            Log.d("HotelAdapter", "Imagen vacía o nula, estableciendo placeholder para: " + hotel.getNombre());
-            holder.imageView.setImageResource(R.drawable.baner4); // Imagen placeholder si no hay foto
+        Hotel hotel = listaHoteles.get(position);
+        holder.tvNombre.setText(hotel.getNombre());
+        holder.tvTelefono.setText(hotel.getTelefono());
+        holder.tvDireccion.setText(hotel.getDireccion());
+        if (hotel.getFoto() != null) {
+            holder.imageView.setImageBitmap(hotel.getFoto());
         }
-
-        holder.textViewNombre.setText(hotel.getNombre());
-        holder.textViewTelefono.setText(hotel.getTelefono());
-        holder.textViewDireccion.setText(hotel.getDireccion());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    int position = holder.getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        mListener.onItemClick(position);
-                    }
-                }
-            }
-        });
     }
+
 
     @Override
     public int getItemCount() {
-        return hotelList.size();
+        return listaHoteles.size();
     }
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView imageView;
-        TextView textViewNombre, textViewTelefono, textViewDireccion;
+        ImageView imageView;
+        TextView tvNombre, tvTelefono, tvDireccion;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            textViewNombre = itemView.findViewById(R.id.textView1);
-            textViewTelefono = itemView.findViewById(R.id.tvnombreusuario);
-            textViewDireccion = itemView.findViewById(R.id.textView3);
+            tvNombre = itemView.findViewById(R.id.tvnombreusuario);
+            tvTelefono = itemView.findViewById(R.id.textView1);
+            tvDireccion = itemView.findViewById(R.id.textView3);
         }
     }
 }
