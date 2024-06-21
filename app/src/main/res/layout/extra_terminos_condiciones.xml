@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estos datos se utilizarán exclusivamente para [descripción]. Registro, identificación e introducción al sistema, referente a los usuarios de manera que proporcione una mejor experiencia así como recomendaciones referentes a las preferencias personales del usuario."
+                android:text="Estos datos se utilizarán exclusivamente de froma ilustrativa. Registro, identificación e introducción al sistema, referente a los usuarios de manera que proporcione una mejor experiencia así como recomendaciones referentes a las preferencias personales del usuario."
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entiendo que proporcionar estos datos es voluntario y que tengo el derecho de acceder, corregir y solicitar la eliminación de mis datos personales en cualquier momento, poniéndome en contacto con [información de contacto de la empresa] Easy Travel."
+                android:text="Entiendo que proporcionar estos datos es voluntario y que tengo el derecho de acceder, corregir y solicitar la eliminación de mis datos personales en cualquier momento, poniéndome en contacto con easytraveltads@gmail.com Easy Travel."
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
