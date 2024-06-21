@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Adaptadores.HotelAdapter;
@@ -67,8 +65,11 @@ public class ListarHoteles extends AppCompatActivity {
                                 String fotoBase64 = jsonObject.optString("foto", "");
 
                                 // Decode the base64 string to a Bitmap
-                                byte[] decodedString = Base64.decode(fotoBase64, Base64.DEFAULT);
-                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                Bitmap decodedByte = null;
+                                if (!fotoBase64.isEmpty()) {
+                                    byte[] decodedString = Base64.decode(fotoBase64, Base64.DEFAULT);
+                                    decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                }
 
                                 Hotel hotel = new Hotel(nombre, telefono, direccion, decodedByte);
                                 hotelList.add(hotel);

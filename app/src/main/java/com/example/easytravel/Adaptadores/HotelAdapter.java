@@ -1,17 +1,15 @@
 package com.example.easytravel.Adaptadores;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
-
+import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
@@ -39,9 +37,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         holder.tvDireccion.setText(hotel.getDireccion());
         if (hotel.getFoto() != null) {
             holder.imageView.setImageBitmap(hotel.getFoto());
+        } else {
+            holder.imageView.setImageResource(R.drawable.autobus); // Placeholder if no image
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -49,7 +48,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     }
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        CircleImageView imageView;
         TextView tvNombre, tvTelefono, tvDireccion;
 
         public HotelViewHolder(@NonNull View itemView) {
