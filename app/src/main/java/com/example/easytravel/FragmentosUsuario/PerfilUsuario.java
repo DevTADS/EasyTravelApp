@@ -200,10 +200,6 @@ public class PerfilUsuario extends Fragment {
         byte[] bytesImagen = baos.toByteArray();
         String imagenCodificada = Base64.encodeToString(bytesImagen, Base64.DEFAULT);
 
-        // Inicia la animación de carga
-        animationView.setVisibility(View.VISIBLE);
-        animationView.playAnimation();
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -212,10 +208,6 @@ public class PerfilUsuario extends Fragment {
                 animationView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Imagen subida correctamente", Toast.LENGTH_SHORT).show();
 
-                // Guardar la imagen localmente
-                guardarImagenLocalmente(bitmap);
-
-                // Opcional: manejar la respuesta del servidor después de subir la imagen
             }
         }, new Response.ErrorListener() {
             @Override
@@ -239,27 +231,7 @@ public class PerfilUsuario extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void guardarImagenLocalmente(Bitmap bitmap) {
-        try {
-            FileOutputStream fos = getContext().openFileOutput("perfil_image.jpg", Context.MODE_PRIVATE);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void obtenerImagenPerfil() {
-        // Intentar cargar la imagen localmente
-        Bitmap bitmap = cargarImagenLocalmente();
-        if (bitmap != null) {
-            imageViewPerfil.setImageBitmap(bitmap);
-            return; // Si la imagen local existe, no realizar la solicitud al servidor
-        }
-
-        // Inicia la animación de carga
-        animationView.setVisibility(View.VISIBLE);
-        animationView.playAnimation();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlObtenerImagen, new Response.Listener<String>() {
             @Override
@@ -276,9 +248,7 @@ public class PerfilUsuario extends Fragment {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
                         imageViewPerfil.setImageBitmap(bitmap);
 
-                        // Guardar la imagen localmente
-                        guardarImagenLocalmente(bitmap);
-                    }
+                                           }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Error al obtener la imagen de perfil", Toast.LENGTH_SHORT).show();
@@ -305,17 +275,7 @@ public class PerfilUsuario extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private Bitmap cargarImagenLocalmente() {
-        try {
-            FileInputStream fis = getContext().openFileInput("perfil_image.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(fis);
-            fis.close();
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 
 
 }

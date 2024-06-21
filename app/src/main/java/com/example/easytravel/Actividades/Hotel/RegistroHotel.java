@@ -99,13 +99,13 @@ public class RegistroHotel extends AppCompatActivity {
         }
 
         // Configuración del Spinner País
-        String[] paises = getResources().getStringArray(R.array.paises); // Obtener el array de strings desde los recursos
+        String[] paises = getResources().getStringArray(R.array.paises);
         ArrayAdapter<String> paisAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paises);
         paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPais.setAdapter(paisAdapter);
 
         // Configuración del Spinner Ciudad
-        String[] ciudades = getResources().getStringArray(R.array.ciudades_uruguay); // Obtener el array de strings desde los recursos
+        String[] ciudades = getResources().getStringArray(R.array.ciudades_uruguay);
         ArrayAdapter<String> ciudadAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ciudades);
         ciudadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCiudad.setAdapter(ciudadAdapter);
@@ -175,8 +175,6 @@ public class RegistroHotel extends AppCompatActivity {
             }
         }
     }
-
-    // Metodo para registrar un hotel
     private void registrarHotel() {
         final String nombre = nombreEditText.getText().toString().trim();
         final String pais = spinnerPais.getSelectedItem().toString().trim();
