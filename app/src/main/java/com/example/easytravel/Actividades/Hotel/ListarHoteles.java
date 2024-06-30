@@ -35,7 +35,7 @@ public class ListarHoteles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_hoteles);
 
-        recyclerView = findViewById(R.id.recycler_view_hoteles);
+        recyclerView = findViewById(R.id.recycler_view_restaurante);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
