@@ -26,6 +26,33 @@
                 android:layout_marginStart="170dp"
                 android:text="Nombre del Hotel"
                 android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/textview_direccion_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview_nombre_hotel"
+                android:layout_marginStart="170dp"
+                android:text="Dirección del Hotel"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/textview_pais_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview_direccion_hotel"
+                android:layout_marginStart="170dp"
+                android:text="País del Hotel"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/textview_ciudad_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview_pais_hotel"
+                android:layout_marginStart="170dp"
+                android:text="Ciudad del Hotel"
+                android:textSize="16sp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

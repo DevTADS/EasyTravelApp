@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 
@@ -39,6 +38,9 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         Hotel hotel = hotelList.get(position);
         holder.textViewNombre.setText(hotel.getNombre());
+        holder.textViewDireccion.setText(hotel.getDireccion());
+        holder.textViewPais.setText(hotel.getPais());
+        holder.textViewCiudad.setText(hotel.getCiudad());
 
         // Mostrar imagen del hotel
         try {
@@ -51,7 +53,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         }
     }
 
-
     @Override
     public int getItemCount() {
         return hotelList.size();
@@ -59,12 +60,18 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNombre;
+        TextView textViewDireccion;
+        TextView textViewPais;
+        TextView textViewCiudad;
         ImageView imageViewHotel;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textViewNombre = itemView.findViewById(R.id.textview_nombre_hotel);
+            textViewDireccion = itemView.findViewById(R.id.textview_direccion_hotel);
+            textViewPais = itemView.findViewById(R.id.textview_pais_hotel);
+            textViewCiudad = itemView.findViewById(R.id.textview_ciudad_hotel);
             imageViewHotel = itemView.findViewById(R.id.imageview_hotel);
         }
     }

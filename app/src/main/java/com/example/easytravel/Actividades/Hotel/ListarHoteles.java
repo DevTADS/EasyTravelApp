@@ -59,6 +59,9 @@ public class ListarHoteles extends AppCompatActivity {
                                 hotelList.add(new Hotel(
                                         hotel.getInt("id_hotel"),
                                         hotel.getString("nombre"),
+                                        hotel.getString("direccion"),
+                                        hotel.getString("pais"),
+                                        hotel.getString("ciudad"),
                                         hotel.getString("foto")
                                 ));
                             }
