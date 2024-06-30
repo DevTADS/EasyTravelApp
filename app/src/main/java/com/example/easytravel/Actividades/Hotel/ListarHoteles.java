@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ListarHoteles extends AppCompatActivity {
 
-    private static final String URL = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/obtener_foto_hotel.php";
+    private static final String URL = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/listar_hoteles.php";
     private RecyclerView recyclerView;
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
