@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Adaptadores.BannerAdapter;
 import com.example.easytravel.R;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class HomeUsuario extends Fragment {
         });
 
         // Configurar OnClickListener a la imagen de perfil
-        imageViewPerfil = rootView.findViewById(R.id.imageView);
+        imageViewPerfil = rootView.findViewById(R.id.imageview_hotel);
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +104,7 @@ public class HomeUsuario extends Fragment {
             }
         });
 
-        // Cargar la imagen de perfil
+        // Cargar la imagen de perfil desde SharedPreferences
         cargarImagenPerfil();
 
         // Configurar OnClickListener al CardView de cerrar sesión
@@ -145,24 +145,15 @@ public class HomeUsuario extends Fragment {
     }
 
     private void cargarImagenPerfil() {
-        Bitmap bitmap = cargarImagenLocalmente();
-        if (bitmap != null) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
+        String imagenBase64 = sharedPreferences.getString("fotoperfil", null);
+
+        if (imagenBase64 != null) {
+            byte[] bytesImagen = Base64.decode(imagenBase64, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
             imageViewPerfil.setImageBitmap(bitmap);
         } else {
-            // Si no hay imagen local, podrías cargar una imagen por defecto o manejar esto de otra manera
-            imageViewPerfil.setImageResource(R.drawable.perfil); // Imagen por defecto
-        }
-    }
-
-    private Bitmap cargarImagenLocalmente() {
-        try {
-            FileInputStream fis = getContext().openFileInput("perfil_image.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(fis);
-            fis.close();
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            imageViewPerfil.setImageResource(R.drawable.perfil);
         }
     }
 }

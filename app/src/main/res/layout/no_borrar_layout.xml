@@ -40,7 +40,7 @@
                         app:srcCompat="@drawable/notificacion" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView_direccion"
                         android:layout_width="306dp"
                         android:layout_height="27dp"
                         android:fontFamily="serif"
@@ -114,7 +114,7 @@
                         android:background="@drawable/settings_fondo">
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/imageview_hotel"
                             android:layout_width="38dp"
                             android:layout_height="35dp"
                             app:layout_constraintBottom_toBottomOf="parent"

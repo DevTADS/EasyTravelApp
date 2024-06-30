@@ -51,6 +51,9 @@ public class RegistroHotel extends AppCompatActivity {
     private ImageView imageViewPreview;
     private boolean isRequestInProgress = false;
 
+    private String urlRegistrarHotel = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/registrar_hotel.php";
+    private String urlSubirImagen = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/subir_foto_hotel.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,75 +167,33 @@ public class RegistroHotel extends AppCompatActivity {
     }
 
     private void registrarHotel() {
-        final String nombre = nombreEditText.getText().toString().trim();
-        final String pais = spinnerPais.getSelectedItem().toString().trim();
-        final String ciudad = spinnerCiudad.getSelectedItem().toString().trim();
-        final String telefono = telefonoEditText.getText().toString().trim();
-        final String direccion = direccionEditText.getText().toString().trim();
-
-        if (nombre.isEmpty()) {
-            nombreEditText.setError("Este campo no puede estar vacío");
-            isRequestInProgress = false;
-            return;
-        }
-
-        if (telefono.isEmpty()) {
-            telefonoEditText.setError("Este campo no puede estar vacío");
-            isRequestInProgress = false;
-            return;
-        }
-
-        if (direccion.isEmpty()) {
-            direccionEditText.setError("Este campo no puede estar vacío");
-            isRequestInProgress = false;
-            return;
-        }
-
-        if (id_empresa == null) {
-            Toast.makeText(this, "Error: id_empresa es nulo", Toast.LENGTH_SHORT).show();
-            isRequestInProgress = false;
-            return;
-        }
-
-        if (bitmap == null) {
-            Toast.makeText(this, "Error: No se ha seleccionado ninguna imagen", Toast.LENGTH_SHORT).show();
-            isRequestInProgress = false;
-            return;
-        }
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Guardando hotel...");
-        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Registrando hotel...");
         progressDialog.show();
 
-        String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/insertarhotel.php";
-        StringRequest request = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        isRequestInProgress = false;
+        String nombre = nombreEditText.getText().toString().trim();
+        String pais = spinnerPais.getSelectedItem().toString();
+        String ciudad = spinnerCiudad.getSelectedItem().toString();
+        String telefono = telefonoEditText.getText().toString().trim();
+        String direccion = direccionEditText.getText().toString().trim();
 
-                        Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
-
-                        if (response.equalsIgnoreCase("Datos insertados")) {
-                            Toast.makeText(RegistroHotel.this, "Hotel registrado correctamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegistroHotel.this, Servicios.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(RegistroHotel.this, response, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        isRequestInProgress = false;
-
-                        Toast.makeText(RegistroHotel.this, "Error al registrar hotel: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlRegistrarHotel, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistroHotel.this, "Hotel registrado correctamente", Toast.LENGTH_SHORT).show();
+                if (bitmap != null) {
+                    subirImagenAlServidor(bitmap);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistroHotel.this, "Error al registrar el hotel: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                isRequestInProgress = false;
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -242,18 +203,49 @@ public class RegistroHotel extends AppCompatActivity {
                 params.put("telefono", telefono);
                 params.put("direccion", direccion);
                 params.put("id_empresa", id_empresa);
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                String imagenBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                params.put("foto", imagenBase64);
-
                 return params;
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(RegistroHotel.this);
-        requestQueue.add(request);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void subirImagenAlServidor(Bitmap bitmap) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Subiendo imagen...");
+        progressDialog.show();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytesImagen = baos.toByteArray();
+        String imagenCodificada = Base64.encodeToString(bytesImagen, Base64.DEFAULT);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistroHotel.this, "Imagen subida correctamente", Toast.LENGTH_SHORT).show();
+                isRequestInProgress = false;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistroHotel.this, "Error al subir la imagen: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                isRequestInProgress = false;
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_empresa", id_empresa);
+                params.put("foto", imagenCodificada);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }

@@ -2,6 +2,7 @@ package com.example.easytravel.FragmentosUsuario;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,8 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,8 +49,6 @@ public class PerfilUsuario extends Fragment {
     private static final int PICK_IMAGE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private CircleImageView imageViewPerfil;
-    private LottieAnimationView animationView;
-
     private ImageView imageViewEditar;
     private String urlSubirImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/update_profile_image.php";
     private String urlObtenerImagen = "https://qybdatye.lucusvirtual.es/easytravel/usuario/obtener_profile_image.php";
@@ -66,7 +62,6 @@ public class PerfilUsuario extends Fragment {
 
         imageViewPerfil = rootView.findViewById(R.id.imageViewPerfil);
         imageViewEditar = rootView.findViewById(R.id.imageViewEditar);
-        animationView = rootView.findViewById(R.id.animationView);
 
         // Recuperar el ID de usuario de SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", getActivity().MODE_PRIVATE);
@@ -83,6 +78,7 @@ public class PerfilUsuario extends Fragment {
             public void onSuccess(JSONObject usuario) {
                 try {
                     idUsuario = usuario.getInt("id_usuario");
+                    cargarImagenPerfil();
                     obtenerImagenPerfil();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -146,7 +142,6 @@ public class PerfilUsuario extends Fragment {
         startActivityForResult(intentCamara, REQUEST_IMAGE_CAPTURE);
     }
 
-
     // Metodo para obtener la imagen seleccionada de la galería o la cámara
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -180,7 +175,10 @@ public class PerfilUsuario extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (selectedBitmap != null) {
-                    subirImagenAlServidor(selectedBitmap);
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setMessage("Por favor espera...");
+                    progressDialog.show();
+                    subirImagenAlServidor(selectedBitmap, progressDialog);
                 }
             }
         });
@@ -188,13 +186,13 @@ public class PerfilUsuario extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Opcional: Resetear la imagen del perfil si se cancela
-                imageViewPerfil.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.perfil2));
+                cargarImagenPerfil();
             }
         });
         dialogoConfirmacion.show();
     }
 
-    private void subirImagenAlServidor(Bitmap bitmap) {
+    private void subirImagenAlServidor(Bitmap bitmap, final ProgressDialog progressDialog) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytesImagen = baos.toByteArray();
@@ -203,18 +201,16 @@ public class PerfilUsuario extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSubirImagen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Para la animación de carga
-                animationView.cancelAnimation();
-                animationView.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "Imagen subida correctamente", Toast.LENGTH_SHORT).show();
 
+                // Guardar la imagen localmente
+                guardarImagenLocal(imagenCodificada);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Para la animación de carga
-                animationView.cancelAnimation();
-                animationView.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "Error al subir la imagen: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -230,16 +226,10 @@ public class PerfilUsuario extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
-
     private void obtenerImagenPerfil() {
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlObtenerImagen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Para la animación de carga
-                animationView.cancelAnimation();
-                animationView.setVisibility(View.GONE);
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("fotoperfil")) {
@@ -248,7 +238,9 @@ public class PerfilUsuario extends Fragment {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
                         imageViewPerfil.setImageBitmap(bitmap);
 
-                                           }
+                        // Guardar la imagen en SharedPreferences
+                        guardarImagenLocal(imagenBase64);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Error al obtener la imagen de perfil", Toast.LENGTH_SHORT).show();
@@ -257,10 +249,7 @@ public class PerfilUsuario extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Para la animación de carga
-                animationView.cancelAnimation();
-                animationView.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Error al obtener la imagen de perfil: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error al obtener la imagen: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -275,7 +264,26 @@ public class PerfilUsuario extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    // Método para cargar la imagen de perfil desde SharedPreferences
+    private void cargarImagenPerfil() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+        String imagenBase64 = sharedPreferences.getString("fotoperfil", "");
 
+        if (!imagenBase64.isEmpty()) {
+            byte[] bytesImagen = Base64.decode(imagenBase64, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytesImagen, 0, bytesImagen.length);
+            imageViewPerfil.setImageBitmap(bitmap);
+        } else {
+            // Si no hay imagen guardada, mostrar una imagen predeterminada
+            imageViewPerfil.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.usuario));
+        }
+    }
 
-
+    // Método para guardar la imagen de perfil localmente en SharedPreferences
+    private void guardarImagenLocal(String imagenBase64) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("fotoperfil", imagenBase64);
+        editor.apply();
+    }
 }

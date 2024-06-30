@@ -173,7 +173,7 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageview_hotel"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/topview"
@@ -203,7 +203,7 @@
         android:textSize="28sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_direccion"
         android:layout_width="270dp"
         android:layout_height="29dp"
         android:layout_alignBottom="@+id/topview"

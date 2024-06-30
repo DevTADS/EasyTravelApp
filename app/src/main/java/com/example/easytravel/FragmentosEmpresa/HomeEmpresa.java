@@ -20,9 +20,6 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.easytravel.Actividades.Empresa.EmpresaActivity;
-
-
 import com.example.easytravel.Actividades.Empresa.LoginEmpresa;
 
 import com.example.easytravel.Actividades.Empresa.Servicios;
@@ -61,7 +58,7 @@ public class HomeEmpresa extends Fragment {
         });
 
         // Configurar OnClickListener a la imagen de perfil
-        imageViewPerfil = rootView.findViewById(R.id.imageView);
+        imageViewPerfil = rootView.findViewById(R.id.imageview_hotel);
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

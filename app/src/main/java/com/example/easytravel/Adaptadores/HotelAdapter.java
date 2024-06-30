@@ -1,25 +1,31 @@
 package com.example.easytravel.Adaptadores;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
-import de.hdodenhof.circleimageview.CircleImageView;
+
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
-
     private Context context;
-    private List<Hotel> listaHoteles;
+    private List<Hotel> hotelList;
 
-    public HotelAdapter(Context context, List<Hotel> listaHoteles) {
+    public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
-        this.listaHoteles = listaHoteles;
+        this.hotelList = hotelList;
     }
 
     @NonNull
@@ -31,32 +37,35 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
-        Hotel hotel = listaHoteles.get(position);
-        holder.tvNombre.setText(hotel.getNombre());
-        holder.tvTelefono.setText(hotel.getTelefono());
-        holder.tvDireccion.setText(hotel.getDireccion());
-        if (hotel.getFoto() != null) {
-            holder.imageView.setImageBitmap(hotel.getFoto());
-        } else {
-            holder.imageView.setImageResource(R.drawable.autobus); // Placeholder if no image
+        Hotel hotel = hotelList.get(position);
+        holder.textViewNombre.setText(hotel.getNombre());
+
+        // Mostrar imagen del hotel
+        try {
+            byte[] decodedString = Base64.decode(hotel.getFotoUrl(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imageViewHotel.setImageBitmap(decodedByte);
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.imageViewHotel.setImageResource(R.drawable.autobus);
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return listaHoteles.size();
+        return hotelList.size();
     }
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView imageView;
-        TextView tvNombre, tvTelefono, tvDireccion;
+        TextView textViewNombre;
+        ImageView imageViewHotel;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
-            tvNombre = itemView.findViewById(R.id.tvnombreusuario);
-            tvTelefono = itemView.findViewById(R.id.textView1);
-            tvDireccion = itemView.findViewById(R.id.textView3);
+
+            textViewNombre = itemView.findViewById(R.id.textview_nombre_hotel);
+            imageViewHotel = itemView.findViewById(R.id.imageview_hotel);
         }
     }
 }

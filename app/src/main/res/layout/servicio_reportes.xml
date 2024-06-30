@@ -13,7 +13,7 @@
         android:background="@drawable/fondo_bg_view" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageview_hotel"
         android:layout_width="58dp"
         android:layout_height="54dp"
         android:layout_alignBottom="@+id/topview"
@@ -44,7 +44,7 @@
         android:textSize="28sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_direccion"
         android:layout_width="270dp"
         android:layout_height="29dp"
         android:layout_alignBottom="@+id/topview"

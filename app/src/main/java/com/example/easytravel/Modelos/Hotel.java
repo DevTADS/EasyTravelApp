@@ -1,50 +1,25 @@
 package com.example.easytravel.Modelos;
 
-import android.graphics.Bitmap;
-
 public class Hotel {
+    private int idHotel;
     private String nombre;
-    private String telefono;
-    private String direccion;
-    private Bitmap foto;
+    private String fotoUrl;
 
-    public Hotel(String nombre, String telefono, String direccion, Bitmap foto) {
+    public Hotel(int idHotel, String nombre, String fotoUrl) {
+        this.idHotel = idHotel;
         this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.foto = foto;
+        this.fotoUrl = fotoUrl;
     }
 
-    // Getters y Setters
+    public int getIdHotel() {
+        return idHotel;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
+    public String getFotoUrl() {
+        return fotoUrl;
     }
 }
