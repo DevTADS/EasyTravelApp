@@ -39,8 +39,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         Hotel hotel = hotelList.get(position);
         holder.textViewNombre.setText(hotel.getNombre());
         holder.textViewDireccion.setText(hotel.getDireccion());
-        holder.textViewPais.setText(hotel.getPais());
-        holder.textViewCiudad.setText(hotel.getCiudad());
+        holder.textViewCiudadPais.setText(hotel.getCiudad() + ", " + hotel.getPais());
+        holder.textViewTelefono.setText(hotel.getTelefono());
 
         // Mostrar imagen del hotel
         try {
@@ -53,6 +53,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         }
     }
 
+
     @Override
     public int getItemCount() {
         return hotelList.size();
@@ -61,8 +62,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNombre;
         TextView textViewDireccion;
-        TextView textViewPais;
-        TextView textViewCiudad;
+        TextView textViewCiudadPais;
+        TextView textViewTelefono;
         ImageView imageViewHotel;
 
         public HotelViewHolder(@NonNull View itemView) {
@@ -70,9 +71,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
             textViewNombre = itemView.findViewById(R.id.textview_nombre_hotel);
             textViewDireccion = itemView.findViewById(R.id.textview_direccion_hotel);
-            textViewPais = itemView.findViewById(R.id.textview_pais_hotel);
-            textViewCiudad = itemView.findViewById(R.id.textview_ciudad_hotel);
+            textViewCiudadPais = itemView.findViewById(R.id.textview_ciudad_pais_hotel);
+            textViewTelefono = itemView.findViewById(R.id.textview_telefono_hotel);
             imageViewHotel = itemView.findViewById(R.id.imageview_hotel);
         }
     }
+
 }

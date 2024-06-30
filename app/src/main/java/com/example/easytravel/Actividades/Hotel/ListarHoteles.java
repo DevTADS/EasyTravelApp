@@ -62,6 +62,7 @@ public class ListarHoteles extends AppCompatActivity {
                                         hotel.getString("direccion"),
                                         hotel.getString("pais"),
                                         hotel.getString("ciudad"),
+                                        hotel.getString("telefono"),
                                         hotel.getString("foto")
                                 ));
                             }

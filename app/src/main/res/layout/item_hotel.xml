@@ -37,22 +37,52 @@
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/textview_pais_hotel"
+                android:id="@+id/textview_ciudad_pais_hotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textview_direccion_hotel"
                 android:layout_marginStart="170dp"
-                android:text="País del Hotel"
+                android:text="Ciudad, País"
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/textview_ciudad_hotel"
+                android:id="@+id/textview_telefono_hotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textview_pais_hotel"
+                android:layout_below="@id/textview_ciudad_pais_hotel"
                 android:layout_marginStart="170dp"
-                android:text="Ciudad del Hotel"
+                android:text="Teléfono del Hotel"
                 android:textSize="16sp"/>
+
+            <!-- LinearLayout para los iconos -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview_telefono_hotel"
+                android:layout_marginStart="170dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icono_whatsapp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/whatsapp1" />
+
+                <ImageView
+                    android:id="@+id/icono_mapa"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/mapa2" />
+
+                <ImageView
+                    android:id="@+id/icono_favoritos"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/favorito2" />
+            </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
