@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easytravel.Actividades.Hotel.RegistroHotel;
+import com.example.easytravel.Actividades.Restaurante.RegistroRestaurante;
 import com.example.easytravel.FragmentosUsuario.HomeUsuario;
 import com.example.easytravel.Main.MainActivity;
 import com.example.easytravel.R;
@@ -79,7 +80,7 @@ public class Servicios extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Aquí deberías cambiar RegistroHotel.class por la actividad correspondiente para registrar un restaurante
-                Intent intent = new Intent(Servicios.this, RegistroHotel.class);
+                Intent intent = new Intent(Servicios.this, RegistroRestaurante.class);
                 startActivity(intent);
             }
         });

@@ -169,7 +169,7 @@ public class RegistroRestaurante extends AppCompatActivity {
 
     private void registrarHotel() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Registrando hotel...");
+        progressDialog.setMessage("Registrando restaurante...");
         progressDialog.show();
 
         String nombre = nombreEditText.getText().toString().trim();
