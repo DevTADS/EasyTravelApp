@@ -58,7 +58,7 @@ public class HomeEmpresa extends Fragment {
         });
 
         // Configurar OnClickListener a la imagen de perfil
-        imageViewPerfil = rootView.findViewById(R.id.imageview_hotel);
+        imageViewPerfil = rootView.findViewById(R.id.imageViewRestaurante);
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

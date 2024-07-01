@@ -82,7 +82,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview_servicios"
+                android:id="@+id/cardview_restaurante"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
@@ -217,7 +217,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cd_logout3"
+                android:id="@+id/cardview_tiempo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
@@ -250,7 +250,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cd_logout"
+                android:id="@+id/cardview_otros"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
@@ -267,7 +267,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/clima" />
+                        android:src="@drawable/configuracion" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -327,7 +327,7 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageview_hotel"
+        android:id="@+id/imageViewRestaurante"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/topview"

@@ -1,5 +1,6 @@
 package com.example.easytravel.Actividades.Hotel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -30,12 +31,13 @@ public class ListarHoteles extends AppCompatActivity {
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_hoteles);
 
-        recyclerView = findViewById(R.id.recycler_view_restaurante);
+        recyclerView = findViewById(R.id.recycler_view_hotel);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

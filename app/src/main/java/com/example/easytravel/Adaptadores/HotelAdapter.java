@@ -73,7 +73,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             textViewDireccion = itemView.findViewById(R.id.textview_direccion_hotel);
             textViewCiudadPais = itemView.findViewById(R.id.textview_ciudad_pais_hotel);
             textViewTelefono = itemView.findViewById(R.id.textview_telefono_hotel);
-            imageViewHotel = itemView.findViewById(R.id.imageview_hotel);
+            imageViewHotel = itemView.findViewById(R.id.imageViewHotel);
         }
     }
 

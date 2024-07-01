@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.easytravel.Actividades.Hotel.ListarHoteles;
+import com.example.easytravel.Actividades.Restaurante.ListarRestaurantes;
 import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Adaptadores.BannerAdapter;
 import com.example.easytravel.R;
@@ -93,8 +94,18 @@ public class HomeUsuario extends Fragment {
             }
         });
 
+        // Configurar OnClickListener al CardView para restaurantes
+        CardView cardViewRestaurante = rootView.findViewById(R.id.cardview_restaurante);
+        cardViewRestaurante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ListarRestaurantes.class);
+                startActivity(intent);
+            }
+        });
+
         // Configurar OnClickListener a la imagen de perfil
-        imageViewPerfil = rootView.findViewById(R.id.imageview_hotel);
+        imageViewPerfil = rootView.findViewById(R.id.imageViewRestaurante);
         imageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

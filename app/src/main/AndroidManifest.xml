@@ -11,9 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
@@ -45,10 +45,7 @@
             android:exported="true"></activity>
 
 
-
-
         <activity android:name=".Actividades.Usuario.LoginUsuario" />
-        <activity android:name=".Actividades.Hotel.ListarHoteles" />
         <activity android:name=".Actividades.Empresa.LoginEmpresa" />
         <activity android:name=".Actividades.Empresa.EmpresaActivity" />
         <activity
@@ -56,22 +53,21 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".Extras.Ayuda" />
         <activity android:name=".Extras.TerminosCondiciones" />
-
         <activity android:name=".Servicios.Noticias" />
-        <activity android:name=".Servicios.Reportes" />
         <activity android:name=".Servicios.Tiempo" />
         <activity android:name=".Servicios.Configuracion" />
         <activity android:name=".Actividades.Empresa.RegistroEmpresa" />
         <activity android:name=".Actividades.Empresa.Servicios" />
-
-        <activity android:name=".Actividades.Hotel.RegistroHotel" />
-
+        <activity android:name=".Actividades.Restaurante.RegistroRestaurante" />
+        <activity android:name=".Actividades.Restaurante.ListarRestaurantes"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".Actividades.Usuario.UsuarioActivity"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".Actividades.Hotel.RegistroHotel"
             tools:ignore="DuplicateActivity,Instantiatable" />
+        <activity android:name=".Actividades.Hotel.ListarHoteles" />
         <activity android:name=".Actividades.Administrador.ActivityAdmin" />
         <activity android:name=".Actividades.Usuario.RegistroUsuario" />
     </application>

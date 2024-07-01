@@ -173,7 +173,7 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageview_hotel"
+        android:id="@+id/imageViewRestaurante"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/topview"

@@ -114,7 +114,7 @@
                         android:background="@drawable/settings_fondo">
 
                         <ImageView
-                            android:id="@+id/imageview_hotel"
+                            android:id="@+id/imageViewRestaurante"
                             android:layout_width="38dp"
                             android:layout_height="35dp"
                             app:layout_constraintBottom_toBottomOf="parent"
