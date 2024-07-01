@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,11 +22,22 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.easytravel.Actividades.Hotel.ListarHoteles;
 import com.example.easytravel.Actividades.Restaurante.ListarRestaurantes;
 import com.example.easytravel.Actividades.Usuario.LoginUsuario;
 import com.example.easytravel.Adaptadores.BannerAdapter;
+import com.example.easytravel.Modelos.Hotel;
+import com.example.easytravel.Modelos.Restaurante;
 import com.example.easytravel.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +139,9 @@ public class HomeUsuario extends Fragment {
             }
         });
 
+        // Precargar datos de hoteles y restaurantes en segundo plano
+        precargarDatos();
+
         return rootView;
     }
 
@@ -167,4 +182,127 @@ public class HomeUsuario extends Fragment {
             imageViewPerfil.setImageResource(R.drawable.perfil);
         }
     }
+
+    // Método para iniciar la precarga de datos de hoteles y restaurantes
+    private void precargarDatos() {
+        new PrecargarHotelesTask().execute();
+        new PrecargarRestaurantesTask().execute();
+    }
+
+    private class PrecargarHotelesTask extends AsyncTask<Void, Void, List<Hotel>> {
+
+        @Override
+        protected List<Hotel> doInBackground(Void... voids) {
+            List<Hotel> hotelList = new ArrayList<>();
+
+
+            String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/hotel/listar_hoteles.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    Hotel hotel = new Hotel(
+                                            jsonObject.getInt("id_hotel"),
+                                            jsonObject.getString("nombre"),
+                                            jsonObject.getString("direccion"),
+                                            jsonObject.getString("pais"),
+                                            jsonObject.getString("ciudad"),
+                                            jsonObject.getString("telefono"),
+                                            jsonObject.getString("foto")
+                                    );
+                                    hotelList.add(hotel);
+                                }
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
+
+            // Añadir la solicitud a la cola de Volley
+            Volley.newRequestQueue(getContext()).add(stringRequest);
+
+            return hotelList;
+        }
+
+        @Override
+        protected void onPostExecute(List<Hotel> hotelList) {
+            super.onPostExecute(hotelList);
+
+
+        }
+    }
+
+
+    // AsyncTask para precargar restaurantes en segundo plano
+    private class PrecargarRestaurantesTask extends AsyncTask<Void, Void, List<Restaurante>> {
+
+        @Override
+        protected List<Restaurante> doInBackground(Void... voids) {
+            List<Restaurante> restauranteList = new ArrayList<>();
+
+
+            String url = "https://qybdatye.lucusvirtual.es/easytravel/empresa/restaurante/listar_restaurantes.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+
+                                // Procesar JSON y construir lista de restaurantes
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    Restaurante restaurante = new Restaurante(
+                                            jsonObject.getInt("id_restaurante"),
+                                            jsonObject.getString("nombre"),
+                                            jsonObject.getString("direccion"),
+                                            jsonObject.getString("pais"),
+                                            jsonObject.getString("ciudad"),
+                                            jsonObject.getString("telefono"),
+                                            jsonObject.getString("foto")
+                                    );
+                                    restauranteList.add(restaurante);
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
+
+            // Añadir la solicitud a la cola de Volley
+            Volley.newRequestQueue(getContext()).add(stringRequest);
+
+            return restauranteList;
+        }
+
+        @Override
+        protected void onPostExecute(List<Restaurante> restauranteList) {
+            super.onPostExecute(restauranteList);
+
+
+        }
+    }
+
 }

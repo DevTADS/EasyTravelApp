@@ -1,6 +1,6 @@
 package com.example.easytravel.Actividades.Hotel;
 
-import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,7 +31,6 @@ public class ListarHoteles extends AppCompatActivity {
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,44 +44,82 @@ public class ListarHoteles extends AppCompatActivity {
         hotelAdapter = new HotelAdapter(this, hotelList);
         recyclerView.setAdapter(hotelAdapter);
 
+        // Cargar hoteles desde caché o red
         cargarHoteles();
     }
+
     private void cargarHoteles() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray array = new JSONArray(response);
+        // Comprobar si hay hoteles en caché
+        SharedPreferences sharedPreferences = getSharedPreferences("EasyTravelCache", MODE_PRIVATE);
+        String cachedHotels = sharedPreferences.getString("cachedHotels", null);
 
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject hotel = array.getJSONObject(i);
+        if (cachedHotels != null) {
+            // Si hay datos en caché, cargar desde caché
+            cargarDesdeCache(cachedHotels);
+        } else {
+            // Si no hay datos en caché, hacer solicitud HTTP
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONArray array = new JSONArray(response);
 
-                                hotelList.add(new Hotel(
-                                        hotel.getInt("id_hotel"),
-                                        hotel.getString("nombre"),
-                                        hotel.getString("direccion"),
-                                        hotel.getString("pais"),
-                                        hotel.getString("ciudad"),
-                                        hotel.getString("telefono"),
-                                        hotel.getString("foto")
-                                ));
+                                // Guardar en caché
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("cachedHotels", response);
+                                editor.apply();
+
+                                // Procesar y mostrar datos
+                                procesarYMostrarHoteles(array);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(ListarHoteles.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            hotelAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(ListarHoteles.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ListarHoteles.this, "Error de red: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(ListarHoteles.this, "Error de red: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-        Volley.newRequestQueue(this).add(stringRequest);
+            Volley.newRequestQueue(this).add(stringRequest);
+        }
     }
 
+    private void procesarYMostrarHoteles(JSONArray array) {
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject hotel = array.getJSONObject(i);
+
+                hotelList.add(new Hotel(
+                        hotel.getInt("id_hotel"),
+                        hotel.getString("nombre"),
+                        hotel.getString("direccion"),
+                        hotel.getString("pais"),
+                        hotel.getString("ciudad"),
+                        hotel.getString("telefono"),
+                        hotel.getString("foto")
+                ));
+            }
+
+            // Notificar al adaptador después de actualizar la lista
+            hotelAdapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(ListarHoteles.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cargarDesdeCache(String cachedData) {
+        try {
+            JSONArray array = new JSONArray(cachedData);
+            procesarYMostrarHoteles(array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(ListarHoteles.this, "Error al leer datos de caché: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 }

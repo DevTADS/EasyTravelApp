@@ -1,6 +1,6 @@
 package com.example.easytravel.Actividades.Restaurante;
 
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,9 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import com.example.easytravel.Adaptadores.RestauranteAdapter;
-
 import com.example.easytravel.Modelos.Restaurante;
 import com.example.easytravel.R;
 
@@ -46,45 +44,82 @@ public class ListarRestaurantes extends AppCompatActivity {
         restauranteAdapter = new RestauranteAdapter(this, restauranteList);
         recyclerView.setAdapter(restauranteAdapter);
 
+        // Cargar restaurantes desde caché o red
         cargarRestaurantes();
     }
+
     private void cargarRestaurantes() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray array = new JSONArray(response);
+        // Comprobar si hay restaurantes en caché
+        SharedPreferences sharedPreferences = getSharedPreferences("EasyTravelCache", MODE_PRIVATE);
+        String cachedRestaurants = sharedPreferences.getString("cachedRestaurants", null);
 
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject restaurante = array.getJSONObject(i);
+        if (cachedRestaurants != null) {
+            // Si hay datos en caché, cargar desde caché
+            cargarDesdeCache(cachedRestaurants);
+        } else {
+            // Si no hay datos en caché, hacer solicitud HTTP
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONArray array = new JSONArray(response);
 
-                                restauranteList.add(new Restaurante(
-                                        restaurante.getInt("id_restaurante"),
-                                        restaurante.getString("nombre"),
-                                        restaurante.getString("direccion"),
-                                        restaurante.getString("pais"),
-                                        restaurante.getString("ciudad"),
-                                        restaurante.getString("telefono"),
-                                        restaurante.getString("foto")
-                                ));
+                                // Guardar en caché
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("cachedRestaurants", response);
+                                editor.apply();
+
+                                // Procesar y mostrar datos
+                                procesarYMostrarRestaurantes(array);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(ListarRestaurantes.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            restauranteAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(com.example.easytravel.Actividades.Restaurante.ListarRestaurantes.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(com.example.easytravel.Actividades.Restaurante.ListarRestaurantes.this, "Error de red: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(ListarRestaurantes.this, "Error de red: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-        Volley.newRequestQueue(this).add(stringRequest);
+            Volley.newRequestQueue(this).add(stringRequest);
+        }
     }
 
-}
+    private void procesarYMostrarRestaurantes(JSONArray array) {
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject restaurante = array.getJSONObject(i);
 
+                restauranteList.add(new Restaurante(
+                        restaurante.getInt("id_restaurante"),
+                        restaurante.getString("nombre"),
+                        restaurante.getString("direccion"),
+                        restaurante.getString("pais"),
+                        restaurante.getString("ciudad"),
+                        restaurante.getString("telefono"),
+                        restaurante.getString("foto")
+                ));
+            }
+
+            // Notificar al adaptador después de actualizar la lista
+            restauranteAdapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(ListarRestaurantes.this, "Error al analizar JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cargarDesdeCache(String cachedData) {
+        try {
+            JSONArray array = new JSONArray(cachedData);
+            procesarYMostrarRestaurantes(array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(ListarRestaurantes.this, "Error al leer datos de caché: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+}
