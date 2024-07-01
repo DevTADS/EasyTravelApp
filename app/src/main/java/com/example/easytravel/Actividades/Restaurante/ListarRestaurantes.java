@@ -2,6 +2,8 @@ package com.example.easytravel.Actividades.Restaurante;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,11 +41,16 @@ public class ListarRestaurantes extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_restaurante);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        ImageButton btnRegresar = findViewById(R.id.btn_regresar);
         restauranteList = new ArrayList<>();
         restauranteAdapter = new RestauranteAdapter(this, restauranteList);
         recyclerView.setAdapter(restauranteAdapter);
-
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         // Cargar restaurantes desde caché o red
         cargarRestaurantes();
     }

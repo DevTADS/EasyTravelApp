@@ -16,15 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easytravel.Modelos.Hotel;
 import com.example.easytravel.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
     private Context context;
     private List<Hotel> hotelList;
+    private List<Hotel> hotelListFull;
 
     public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
         this.hotelList = hotelList;
+        this.hotelListFull = new ArrayList<>(hotelList);
     }
 
     @NonNull
@@ -49,15 +52,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             holder.imageViewHotel.setImageBitmap(decodedByte);
         } catch (Exception e) {
             e.printStackTrace();
-            holder.imageViewHotel.setImageResource(R.drawable.autobus);
+            holder.imageViewHotel.setImageResource(R.drawable.autobus); // Imagen por defecto
         }
     }
-
 
     @Override
     public int getItemCount() {
         return hotelList.size();
     }
+
+
+
 
     public static class HotelViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNombre;
@@ -76,5 +81,4 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             imageViewHotel = itemView.findViewById(R.id.imageViewHotel);
         }
     }
-
 }

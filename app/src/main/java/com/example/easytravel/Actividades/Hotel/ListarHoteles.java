@@ -2,8 +2,9 @@ package com.example.easytravel.Actividades.Hotel;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,9 +41,18 @@ public class ListarHoteles extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        ImageButton btnRegresar = findViewById(R.id.btn_regresar);
+
         hotelList = new ArrayList<>();
         hotelAdapter = new HotelAdapter(this, hotelList);
         recyclerView.setAdapter(hotelAdapter);
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Cargar hoteles desde caché o red
         cargarHoteles();
@@ -91,6 +101,7 @@ public class ListarHoteles extends AppCompatActivity {
 
     private void procesarYMostrarHoteles(JSONArray array) {
         try {
+            hotelList.clear(); // Limpiar la lista antes de añadir nuevos elementos
             for (int i = 0; i < array.length(); i++) {
                 JSONObject hotel = array.getJSONObject(i);
 
